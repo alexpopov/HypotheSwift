@@ -17,8 +17,8 @@
 		B09BDF412073F1D9000F6922 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
 		B09BDF432073F1DC000F6922 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
 		B09BDF452073F1E0000F6922 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
-		B09BDF512073FD4C000F6922 /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* ConstraintMaker.swift */; };
-		B09BDF522073FD4C000F6922 /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* ConstraintMaker.swift */; };
+		B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* PropertyTest.swift */; };
+		B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* PropertyTest.swift */; };
 		B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF532073FE46000F6922 /* FunctionType.swift */; };
 		B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF532073FE46000F6922 /* FunctionType.swift */; };
 /* End PBXBuildFile section */
@@ -55,7 +55,7 @@
 		B09BDF492073F7AA000F6922 /* Focus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Focus.framework; path = Carthage/Build/iOS/Focus.framework; sourceTree = "<group>"; };
 		B09BDF4A2073F7AA000F6922 /* Prelude.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Prelude.framework; path = Carthage/Build/iOS/Prelude.framework; sourceTree = "<group>"; };
 		B09BDF4B2073F7AA000F6922 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
-		B09BDF502073FD4C000F6922 /* ConstraintMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintMaker.swift; sourceTree = "<group>"; };
+		B09BDF502073FD4C000F6922 /* PropertyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTest.swift; sourceTree = "<group>"; };
 		B09BDF532073FE46000F6922 /* FunctionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,7 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				8C4520A71F08E159002F0E38 /* HypotheSwift.swift */,
-				B09BDF502073FD4C000F6922 /* ConstraintMaker.swift */,
+				B09BDF502073FD4C000F6922 /* PropertyTest.swift */,
 				B09BDF532073FE46000F6922 /* FunctionType.swift */,
 				8C0968A91ED8D80300CC19F2 /* Info-iOS.plist */,
 				8C0968AA1ED8D80300CC19F2 /* Info-macOS.plist */,
@@ -302,7 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B09BDF512073FD4C000F6922 /* ConstraintMaker.swift in Sources */,
+				B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */,
 				B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */,
 				8C4520A81F08E159002F0E38 /* HypotheSwift.swift in Sources */,
 			);
@@ -312,7 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B09BDF522073FD4C000F6922 /* ConstraintMaker.swift in Sources */,
+				B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */,
 				B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */,
 				8C4520AB1F08E159002F0E38 /* HypotheSwift.swift in Sources */,
 			);

@@ -6,79 +6,79 @@
 //
 
 import Foundation
+import Prelude
 
-protocol FunctionType {
-  associatedtype Signature: FunctionSignature
-  var function: (Signature.Arguments) -> Signature.Return { get }
+protocol ArgumentType: Equatable {
+  static var gen: Gen<Self> { get }
 }
 
-protocol FunctionSignature {
-  associatedtype Arguments: FunctionArguments
+extension Int: ArgumentType {
+  static var gen: Gen<Int> {
+    let range = (Int.min...Int.max)
+    return Gen<Int>.from(range)
+  }
+}
+
+struct Gen<Value> {
+
+  let generator: () -> Value
+
+  static func just<T>(_ value: T) -> Gen<T> {
+    return Gen<T>(generator: { return value })
+  }
+
+  static func from<T>(_ array: Array<T>) -> Gen<T> {
+    return Gen<T>(generator: {
+      let index = (arc4random() |> Int.init(_:)) % array.count
+      return array[index]
+    })
+  }
+
+  static func from<T>(_ range: CountableClosedRange<T>) -> Gen<T> {
+    return Gen<T>.from(Array(range))
+  }
+
+  func getAnother() -> Value {
+    return generator()
+  }
+}
+
+protocol Function {
+  associatedtype Arguments: ArgumentEnumerable
   associatedtype Return
 }
 
-protocol FunctionArguments {
-  associatedtype ArgumentPosition
+protocol ArgumentEnumerable: SupportsOneArgument { }
 
-  static func constraint<Fun: FunctionType, T>(for position: ArgumentPosition)
-    -> SimpleConstraint<Fun, T>
-    where Fun.Signature.Arguments == Self
+protocol SupportsOneArgument {
+  associatedtype FirstArgument: ArgumentType
 }
 
-struct OneArgument<T>: FunctionArguments where T: ArbitrarilyGeneratable {
-  typealias ArgumentPosition = Position
-  var arg: T.Type { return T.self }
-
-  enum Position {
-    case first
-  }
-
-  static func constraint<Fun, T>(for position: OneArgument<T>.Position, in parent: ConstraintMaker<Fun>)
-    -> SimpleConstraint<Fun, T>
-    where OneArgument<T> == Fun.Signature.Arguments, Fun: FunctionType {
-    return SimpleConstraint<Fun, T>(parent: parent)
-  }
+enum OneArgument<T>: SupportsOneArgument where T: ArgumentType {
+  typealias FirstArgument = T
+  case first
 }
 
-// currently unused
-struct Return<T> {
-
+protocol SupportsSecondArgument: SupportsOneArgument {
+  associatedtype SecondArgument: ArgumentType
 }
 
-protocol ArbitrarilyGeneratable {
-  static var arbitrary: ArbitraryGenerator<Self> { get }
+enum TwoArgument<T, U>: SupportsSecondArgument where T: ArgumentType, U: ArgumentType {
+  typealias FirstArgument = T
+  typealias SecondArgument = U
+  case first
+  case second
 }
 
-struct ArbitraryGenerator<T> {
-  typealias Argument = T
-
-  private let generate: () -> T
-
-  static func just<T>(returning value: T) -> ArbitraryGenerator<T> {
-    return ArbitraryGenerator<T>(generate: { return value })
-  }
-
-  func next() -> T {
-    return generate()
-  }
-}
-
-struct UnaryFunctionSignature<T, R>: FunctionSignature where T: ArbitrarilyGeneratable {
+struct UnaryFunction<T, R>: Function where T: ArgumentType {
   typealias Arguments = OneArgument<T>
   typealias Return = R
-}
+  typealias FirstArgument = T
 
-struct UnaryFunction<T, R>: FunctionType where T: ArbitrarilyGeneratable {
-  typealias Signature = UnaryFunctionSignature<T, R>
-  var function: (OneArgument<T>) -> R
+  let function: (T) -> R
 
   init(_ function: @escaping (T) -> R) {
-    self.function = { (arg: OneArgument<T>) in return function(arg.arg.arbitrary.next()) }
+    self.function = function
   }
 }
 
-extension Int: ArbitrarilyGeneratable {
-  static var arbitrary: ArbitraryGenerator<Int> {
-    return ArbitraryGenerator<Int>.just(returning: 1)
-  }
-}

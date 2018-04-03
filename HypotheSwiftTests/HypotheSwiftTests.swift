@@ -28,7 +28,10 @@ class HypotheSwiftTests: XCTestCase {
   }
 
   func testUnaryFunctionReturningTwo() {
-    Maker.make(for: helper.unaryFunctionAddingOne)
+    testThat(helper.unaryFunctionAddingOne, will: """
+      will always be positive for non-negative inputs
+    """)
+      .assumingFirst(not: 0)
   }
 
   func testPerformanceExample() {
@@ -41,10 +44,6 @@ class HypotheSwiftTests: XCTestCase {
 }
 
 class TestsHelper {
-  func nullaryFunctionReturningZero() -> Int {
-    return 0
-  }
-
   func unaryFunctionAddingOne(_ addTo: Int) -> Int {
     return addTo + 1
   }
