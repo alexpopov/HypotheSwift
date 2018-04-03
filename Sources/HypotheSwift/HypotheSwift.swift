@@ -9,6 +9,6 @@
 
 import Foundation
 
-public class HypotheSwift {
+class HypotheSwift {
 
 }

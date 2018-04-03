@@ -8,16 +8,16 @@
 import Foundation
 import Prelude
 
-public struct Maker {
+struct Maker {
   static func make<T, R>(for function: @escaping (T) -> R)
     -> ConstraintMaker<UnaryFunction<T, R>>
-    where T: ArbitrarilyCreatable {
+    where T: ArbitrarilyGeneratable {
       let unaryFunction = UnaryFunction(function)
       return ConstraintMaker<UnaryFunction<T, R>>(function: unaryFunction)
   }
 }
 
-public struct ConstraintMaker<Fun: FunctionType> {
+struct ConstraintMaker<Fun: FunctionType> {
 
   let function: Fun
 
@@ -25,7 +25,17 @@ public struct ConstraintMaker<Fun: FunctionType> {
     self.function = function
   }
 
-  func constraintArgument(
+  func constrain<T>(_ argument: Fun.Signature.Arguments.ArgumentPosition, as: T) -> SimpleConstraint<Fun, T> {
+    return Fun.Signature.Arguments.constraint
+  }
 
 }
 
+struct SimpleConstraint<Fun: FunctionType, T> {
+
+  let parent: ConstraintMaker<Fun>
+
+  init(parent: ConstraintMaker<Fun>) {
+    self.parent = parent
+  }
+}
