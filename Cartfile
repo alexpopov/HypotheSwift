@@ -1,0 +1,5 @@
+# Functional Stuff
+github "ReactiveCocoa/ReactiveSwift" ~> 3.0
+github "antitypical/Result"
+github "typelift/Focus"
+github "robrix/Prelude"
