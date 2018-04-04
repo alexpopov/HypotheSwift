@@ -29,9 +29,15 @@ class HypotheSwiftTests: XCTestCase {
 
   func testUnaryFunctionReturningTwo() {
     testThat(helper.unaryFunctionAddingOne, will: """
-      will always be positive for non-negative inputs
+      always be positive for non-negative inputs
     """)
-      .assumingFirst(not: 0)
+      .createConstraints {
+        $0.first.not(-1)
+        $0.first.not(-2)
+      }
+      .shouldTest(count: 10)
+      .runTests()
+
   }
 
   func testPerformanceExample() {

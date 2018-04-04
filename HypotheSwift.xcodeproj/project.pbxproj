@@ -11,6 +11,10 @@
 		8C4520AB1F08E159002F0E38 /* HypotheSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4520A71F08E159002F0E38 /* HypotheSwift.swift */; };
 		8C5A76761ED95A50004F87A2 /* HypotheSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C5A76751ED95A50004F87A2 /* HypotheSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C5A76791ED95B67004F87A2 /* HypotheSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C5A76751ED95A50004F87A2 /* HypotheSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B065FB4920753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
+		B065FB4A20753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
+		B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4B20753BF000572691 /* ArrayExtensions.swift */; };
+		B065FB4D20753BF000572691 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4B20753BF000572691 /* ArrayExtensions.swift */; };
 		B094E4A320740B87005D559E /* HypotheSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094E4A220740B87005D559E /* HypotheSwiftTests.swift */; };
 		B094E4A520740B87005D559E /* HypotheSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0968A01ED8CE5500CC19F2 /* HypotheSwift.framework */; };
 		B09BDF3F2073F1D7000F6922 /* Focus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF3E2073F1D7000F6922 /* Focus.framework */; };
@@ -44,6 +48,8 @@
 		8C5A76751ED95A50004F87A2 /* HypotheSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HypotheSwift.h; sourceTree = "<group>"; };
 		8C5A76811ED963E1004F87A2 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		8C800AF41F3B56FF00880A95 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		B065FB4820753A6B00572691 /* Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Focus.swift; path = Sources/HypotheSwift/Focus.swift; sourceTree = "<group>"; };
+		B065FB4B20753BF000572691 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArrayExtensions.swift; path = Sources/HypotheSwift/ArrayExtensions.swift; sourceTree = "<group>"; };
 		B094E4A020740B87005D559E /* HypotheSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HypotheSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B094E4A220740B87005D559E /* HypotheSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HypotheSwiftTests.swift; sourceTree = "<group>"; };
 		B094E4A420740B87005D559E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -92,6 +98,8 @@
 		8C09686C1ED8C3A200CC19F2 = {
 			isa = PBXGroup;
 			children = (
+				B065FB4B20753BF000572691 /* ArrayExtensions.swift */,
+				B065FB4820753A6B00572691 /* Focus.swift */,
 				8C5A76811ED963E1004F87A2 /* Package.swift */,
 				8C0968A81ED8D24F00CC19F2 /* Sources */,
 				B094E4A120740B87005D559E /* HypotheSwiftTests */,
@@ -303,7 +311,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */,
+				B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */,
 				B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */,
+				B065FB4920753A6B00572691 /* Focus.swift in Sources */,
 				8C4520A81F08E159002F0E38 /* HypotheSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -313,7 +323,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */,
+				B065FB4D20753BF000572691 /* ArrayExtensions.swift in Sources */,
 				B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */,
+				B065FB4A20753A6B00572691 /* Focus.swift in Sources */,
 				8C4520AB1F08E159002F0E38 /* HypotheSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

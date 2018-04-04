@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B094E49F20740B87005D559E"
+               BuildableName = "HypotheSwiftTests.xctest"
+               BlueprintName = "HypotheSwiftTests"
+               ReferencedContainer = "container:HypotheSwift.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "8C09689F1ED8CE5500CC19F2"
+            BuildableName = "HypotheSwift.framework"
+            BlueprintName = "HypotheSwift macOS"
+            ReferencedContainer = "container:HypotheSwift.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
