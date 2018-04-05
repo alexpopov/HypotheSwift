@@ -11,6 +11,10 @@
 		8C4520AB1F08E159002F0E38 /* HypotheSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C4520A71F08E159002F0E38 /* HypotheSwift.swift */; };
 		8C5A76761ED95A50004F87A2 /* HypotheSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C5A76751ED95A50004F87A2 /* HypotheSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8C5A76791ED95B67004F87A2 /* HypotheSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 8C5A76751ED95A50004F87A2 /* HypotheSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0099B132075AD9C0080AB72 /* Focus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF3E2073F1D7000F6922 /* Focus.framework */; };
+		B0099B142075AD9C0080AB72 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
+		B0099B152075AD9C0080AB72 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
+		B0099B162075AD9C0080AB72 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
 		B065FB4920753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
 		B065FB4A20753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
 		B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4B20753BF000572691 /* ArrayExtensions.swift */; };
@@ -25,6 +29,8 @@
 		B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* PropertyTest.swift */; };
 		B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF532073FE46000F6922 /* FunctionType.swift */; };
 		B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF532073FE46000F6922 /* FunctionType.swift */; };
+		B0A573F82075BB7A004C5FDA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A573F72075BB7A004C5FDA /* Constraint.swift */; };
+		B0A573F92075BB7A004C5FDA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A573F72075BB7A004C5FDA /* Constraint.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +54,8 @@
 		8C5A76751ED95A50004F87A2 /* HypotheSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HypotheSwift.h; sourceTree = "<group>"; };
 		8C5A76811ED963E1004F87A2 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		8C800AF41F3B56FF00880A95 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		B065FB4820753A6B00572691 /* Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Focus.swift; path = Sources/HypotheSwift/Focus.swift; sourceTree = "<group>"; };
-		B065FB4B20753BF000572691 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ArrayExtensions.swift; path = Sources/HypotheSwift/ArrayExtensions.swift; sourceTree = "<group>"; };
+		B065FB4820753A6B00572691 /* Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Focus.swift; sourceTree = "<group>"; };
+		B065FB4B20753BF000572691 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		B094E4A020740B87005D559E /* HypotheSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HypotheSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B094E4A220740B87005D559E /* HypotheSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HypotheSwiftTests.swift; sourceTree = "<group>"; };
 		B094E4A420740B87005D559E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,6 +69,7 @@
 		B09BDF4B2073F7AA000F6922 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		B09BDF502073FD4C000F6922 /* PropertyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTest.swift; sourceTree = "<group>"; };
 		B09BDF532073FE46000F6922 /* FunctionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionType.swift; sourceTree = "<group>"; };
+		B0A573F72075BB7A004C5FDA /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constraint.swift; path = Sources/HypotheSwift/Constraint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +77,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0099B132075AD9C0080AB72 /* Focus.framework in Frameworks */,
+				B0099B142075AD9C0080AB72 /* Prelude.framework in Frameworks */,
+				B0099B152075AD9C0080AB72 /* ReactiveSwift.framework in Frameworks */,
+				B0099B162075AD9C0080AB72 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,9 +109,7 @@
 		8C09686C1ED8C3A200CC19F2 = {
 			isa = PBXGroup;
 			children = (
-				B065FB4B20753BF000572691 /* ArrayExtensions.swift */,
-				B065FB4820753A6B00572691 /* Focus.swift */,
-				8C5A76811ED963E1004F87A2 /* Package.swift */,
+				B0A573F72075BB7A004C5FDA /* Constraint.swift */,
 				8C0968A81ED8D24F00CC19F2 /* Sources */,
 				B094E4A120740B87005D559E /* HypotheSwiftTests */,
 				8C0968791ED8C64500CC19F2 /* Products */,
@@ -124,6 +133,9 @@
 				8C4520A71F08E159002F0E38 /* HypotheSwift.swift */,
 				B09BDF502073FD4C000F6922 /* PropertyTest.swift */,
 				B09BDF532073FE46000F6922 /* FunctionType.swift */,
+				B065FB4B20753BF000572691 /* ArrayExtensions.swift */,
+				B065FB4820753A6B00572691 /* Focus.swift */,
+				8C5A76811ED963E1004F87A2 /* Package.swift */,
 				8C0968A91ED8D80300CC19F2 /* Info-iOS.plist */,
 				8C0968AA1ED8D80300CC19F2 /* Info-macOS.plist */,
 				8C0968AB1ED8D80300CC19F2 /* Info-tvOS.plist */,
@@ -246,18 +258,19 @@
 				TargetAttributes = {
 					8C0968771ED8C64500CC19F2 = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = VAMN295L7W;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					8C09689F1ED8CE5500CC19F2 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = C588P97NU4;
+						DevelopmentTeam = VAMN295L7W;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					B094E49F20740B87005D559E = {
 						CreatedOnToolsVersion = 9.3;
-						DevelopmentTeam = C588P97NU4;
+						DevelopmentTeam = VAMN295L7W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -310,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A573F82075BB7A004C5FDA /* Constraint.swift in Sources */,
 				B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */,
 				B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */,
 				B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */,
@@ -322,6 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0A573F92075BB7A004C5FDA /* Constraint.swift in Sources */,
 				B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */,
 				B065FB4D20753BF000572691 /* ArrayExtensions.swift in Sources */,
 				B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */,
@@ -445,11 +460,16 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = VAMN295L7W;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -510,11 +530,16 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = VAMN295L7W;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -568,7 +593,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = C588P97NU4;
+				DEVELOPMENT_TEAM = VAMN295L7W;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -638,7 +663,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = C588P97NU4;
+				DEVELOPMENT_TEAM = VAMN295L7W;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -692,7 +717,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = C588P97NU4;
+				DEVELOPMENT_TEAM = VAMN295L7W;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -703,7 +732,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HypotheSwiftTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.alexpopov.HypotheSwiftTests;
@@ -735,13 +764,17 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = C588P97NU4;
+				DEVELOPMENT_TEAM = VAMN295L7W;
 				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HypotheSwiftTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = ca.alexpopov.HypotheSwiftTests;

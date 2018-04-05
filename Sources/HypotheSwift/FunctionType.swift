@@ -7,6 +7,7 @@
 
 import Foundation
 import Prelude
+import Darwin
 
 protocol ArgumentType: Equatable {
   static var gen: Gen<Self> { get }
@@ -16,6 +17,17 @@ extension Int: ArgumentType {
   static var gen: Gen<Int> {
     let range = (Int.min...Int.max)
     return Gen<Int>.from(range)
+  }
+}
+
+extension Float: ArgumentType {
+  static var gen: Gen<Float> {
+    return Gen<Float>(generator: {
+      let floatMemoryLayout = MemoryLayout<Float>.self
+      let buffer = UnsafeMutableRawPointer.allocate(bytes: floatMemoryLayout.size, alignedTo: 0)
+      arc4random_buf(buffer, floatMemoryLayout.size)
+      return buffer.assumingMemoryBound(to: Float.self).pointee
+    })
   }
 }
 
@@ -69,6 +81,10 @@ func flattenTuple<T, U, V>(_ tuple: ((T, U), V)) -> (T, U, V) {
   return (tuple.0.0, tuple.0.1, tuple.1)
 }
 
+func flattenTuple<T>(_ tuple: T) -> T {
+  return unit(tuple)
+}
+
 protocol Function {
   associatedtype Arguments: ArgumentEnumerable
   associatedtype Return
@@ -114,6 +130,10 @@ struct OneArgument<T>: SupportsOneArgument where T: ArgumentType {
   static var gen: Gen<OneArgument<T>> {
     return T.gen.map(OneArgument<T>.init(firstArgument:))
   }
+  
+  static func == (lhs: OneArgument<T>, rhs: OneArgument<T>) -> Bool {
+    return lhs.firstArgument == rhs.firstArgument
+  }
 }
 
 protocol SupportsTwoArguments: SupportsOneArgument {
@@ -141,6 +161,10 @@ struct TwoArgument<T, U>: SupportsTwoArguments where T: ArgumentType, U: Argumen
     return T.gen
       .combine(U.gen)
       .map(TwoArgument<T, U>.init(firstArgument:secondArgument:))
+  }
+  
+  static func == (lhs: TwoArgument<T, U>, rhs: TwoArgument<T, U>) -> Bool {
+    return lhs.asTuple == rhs.asTuple
   }
 }
 
@@ -187,8 +211,8 @@ extension SupportsTwoArguments {
   }
 }
 
-extension Collection {
-  func typeErase() -> AnyCollection<Element> {
-    return AnyCollection(self)
+extension Collection where Self: Collection, Self.Indices: Collection, Self.SubSequence: Collection, Self.SubSequence.Indices: Collection{
+  func typeErase() -> AnyCollection<Self.Iterator.Element> {
+    return AnyCollection<Self.Iterator.Element>.init(self)
   }
 }

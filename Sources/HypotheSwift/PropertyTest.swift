@@ -16,30 +16,20 @@ func testThat<T, R>(_ function: @escaping (T) -> R, will invariant: String)
     return PropertyTest(test: unaryTest, invariant: invariant)
 }
 
-protocol Constrainable {
-  associatedtype Arguments: ArgumentEnumerable
+func testThat<T, U, R>(_ function: @escaping (T, U) -> R, will invariant: String)
+  -> PropertyTest<BinaryFunction<T, U, R>> {
+    let binaryTest = BinaryFunction(function)
+    return PropertyTest(test: binaryTest, invariant: invariant)
 }
 
-extension Constrainable where Arguments: SupportsOneArgument {
-  func assumingFirst(not value: Arguments.FirstArgument) -> Self {
-    print("First argument will never be \(value)")
-    return self
-  }
-}
-
-extension Constrainable where Arguments: SupportsTwoArguments {
-  func assumingSecond(not value: Arguments.SecondArgument) -> Self {
-    print("Second argument will never be \(value)")
-    return self
-  }
-}
-
-struct PropertyTest<Test: Function>: Constrainable {
+struct PropertyTest<Test: Function> {
 
   typealias Arguments = Test.Arguments
 
   let invariantDeclaration: String
   let test: Test
+  
+  let constraints = ConstraintMaker<Test.Arguments>()
 
   fileprivate var numberOfArguments = 0
 
@@ -60,8 +50,8 @@ struct PropertyTest<Test: Function>: Constrainable {
     return SimpleLens(keyPath: \PropertyTest.numberOfArguments)
   }
 
-  func createConstraints(_ method: @escaping (ConstraintMaker<Test.Arguments>) -> ()) -> PropertyTest<Test> {
-    // TODO: update
+  func createConstraints(_ constraintCreator: (ConstraintMaker<Test.Arguments>) -> ()) -> PropertyTest<Test> {
+    constraintCreator(constraints)
     return self
   }
 
@@ -75,64 +65,4 @@ class ConstraintMaker<Arguments: ArgumentEnumerable> {
   var constraints: [ConstraintProtocol] = []
 }
 
-class SingleArgumentConstraint<T>: ConstraintProtocol {
 
-  var constraint: SingleValueConstraint<T> = .incomplete
-
-  func not(_ some: T) {
-    self.constraint = .not(some)
-  }
-}
-
-class MultiArgumentConstraint<Arguments: ArgumentEnumerable>: ConstraintProtocol {
-  var constraint: MultiValueConstraint<Arguments> = .incomplete
-
-  func not(_ combination: Arguments.TupleRepresentation) {
-    self.constraint = .not(combination)
-  }
-}
-
-extension ConstraintMaker where Arguments: SupportsOneArgument {
-  func constrainFirst(as: SingleValueConstraint<Arguments.FirstArgument>) -> ConstraintMaker<Arguments> {
-    return self
-  }
-
-  var first: SingleArgumentConstraint<Arguments.FirstArgument> {
-    let constraint = SingleArgumentConstraint<Arguments.FirstArgument>()
-    constraints.append(constraint)
-    return constraint
-  }
-}
-
-extension ConstraintMaker where Arguments: SupportsTwoArguments {
-
-  var second: SingleArgumentConstraint<Arguments.SecondArgument> {
-    let constraint = SingleArgumentConstraint<Arguments.SecondArgument>()
-    constraints.append(constraint)
-    return constraint
-  }
-
-  var all: MultiArgumentConstraint<Arguments> {
-    let constraint = MultiArgumentConstraint<Arguments>()
-    constraints.append(constraint)
-    return constraint
-  }
-
-}
-
-protocol ConstraintProtocol {
-
-}
-
-enum SingleValueConstraint<T>: ConstraintProtocol {
-  case incomplete
-  case not(T)
-  case noneMatching((T) -> Bool)
-}
-
-enum MultiValueConstraint<Arguments: ArgumentEnumerable>: ConstraintProtocol {
-  case incomplete
-  case not(Arguments.TupleRepresentation)
-  case noneMatching((Arguments.TupleRepresentation) -> Bool)
-  case enforce((Arguments.TupleRepresentation) -> Bool)
-}

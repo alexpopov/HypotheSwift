@@ -33,11 +33,22 @@ class HypotheSwiftTests: XCTestCase {
     """)
       .createConstraints {
         $0.first.not(-1)
-        $0.first.not(-2)
       }
       .shouldTest(count: 10)
       .runTests()
 
+  }
+  
+  func testBinaryFunctionReturns() {
+    testThat(helper.binaryFunctionAdd, will: """
+        Make the result bigger than the original two arguments
+      """)
+      .createConstraints {
+        $0.first.not { $0 < 0 }
+        $0.second.not { $0 < 0 }
+      }
+      .shouldTest(count: 10)
+      .runTests()
   }
 
   func testPerformanceExample() {
@@ -52,5 +63,9 @@ class HypotheSwiftTests: XCTestCase {
 class TestsHelper {
   func unaryFunctionAddingOne(_ addTo: Int) -> Int {
     return addTo + 1
+  }
+  
+  func binaryFunctionAdd(_ left: Int, right: Float) -> Int {
+    return left + Int(right)
   }
 }
