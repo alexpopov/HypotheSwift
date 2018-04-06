@@ -18,6 +18,10 @@ extension Int: ArgumentType {
     let range = (Int.min...Int.max)
     return Gen<Int>.from(range)
   }
+
+  static func fromRandomInt(_ int: Int) -> Int {
+    return int
+  }
 }
 
 extension Float: ArgumentType {
@@ -31,45 +35,6 @@ extension Float: ArgumentType {
   }
 }
 
-struct Gen<Value> {
-
-  let generator: () -> Value
-
-  static func just<T>(_ value: T) -> Gen<T> {
-    return Gen<T>(generator: { return value })
-  }
-
-  static func from<T>(_ array: Array<T>) -> Gen<T> {
-    precondition(array.isEmpty == false)
-    return Gen<T>(generator: {
-      let index = (arc4random() |> Int.init(_:)) % array.count
-      return array[index]
-    })
-  }
-
-  static func from<T>(_ range: CountableClosedRange<T>) -> Gen<T> {
-    precondition(range.isEmpty == false)
-    return Gen<T>.from(Array(range))
-  }
-
-  func getAnother() -> Value {
-    return generator()
-  }
-
-  func generate(count: Int) -> [Value] {
-    return (0..<count).map { _ in () }
-      .map(getAnother)
-  }
-
-  func map<T>(_ mapping: @escaping (Value) -> T) -> Gen<T> {
-    return Gen<T>(generator: generator >>> mapping)
-  }
-
-  func combine<T>(_ other: Gen<T>) -> Gen<(Value, T)> {
-    return Gen<(Value, T)>(generator: { (self.getAnother(), other.getAnother()) })
-      .map(flattenTuple)
-  }
-}
 
 func unit<T>(_ object: T) -> T { return object }
 
@@ -83,6 +48,10 @@ func flattenTuple<T, U, V>(_ tuple: ((T, U), V)) -> (T, U, V) {
 
 func flattenTuple<T>(_ tuple: T) -> T {
   return unit(tuple)
+}
+
+func always<T, U>(_ just: U) -> (T) -> U {
+  return { _ in just }
 }
 
 protocol Function {

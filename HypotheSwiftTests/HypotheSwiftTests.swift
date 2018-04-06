@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import HypotheSwift
+import RandomKit
 
 class HypotheSwiftTests: XCTestCase {
 
@@ -31,14 +32,12 @@ class HypotheSwiftTests: XCTestCase {
     testThat(helper.unaryFunctionAddingOne, will: """
       always be positive for non-negative inputs
     """)
-      .createConstraints {
-        [
-          $0.first.not { $0 < 0 }
-        ]
+      .withConstraint {
+        $0.first.must(beIn: (0...Int.max))
       }
       .proving(that: { $0 > 0 })
       .log()
-      .minimumNumberOfTests(count: 100)
+      .minimumNumberOfTests(count: 10)
       .run()
   }
   
@@ -46,10 +45,10 @@ class HypotheSwiftTests: XCTestCase {
     testThat(helper.binaryFunctionAdd, will: """
         Make the result bigger than the original two arguments
       """)
-      .createConstraints {
+      .withConstraints {
         [
-          $0.first.not { $0 < 0 },
-          $0.second.not { $0 < 0 }
+          $0.first.must(beIn: (0...100)),
+          $0.second.must(beIn: (0...100))
         ]
       }
       .proving { arguments, result in
@@ -57,6 +56,7 @@ class HypotheSwiftTests: XCTestCase {
         let secondIsSmaller = Int(arguments.1) < result
         return firstIsSmaller && secondIsSmaller
       }
+      .minimumNumberOfTests(count: 10)
       .log()
       .run()
   }

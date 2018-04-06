@@ -15,6 +15,11 @@
 		B0099B142075AD9C0080AB72 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
 		B0099B152075AD9C0080AB72 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
 		B0099B162075AD9C0080AB72 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
+		B0105E212077C6D6004D5F79 /* Gen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0105E202077C6D6004D5F79 /* Gen.swift */; };
+		B0105E222077C9DB004D5F79 /* Gen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0105E202077C6D6004D5F79 /* Gen.swift */; };
+		B0105E372077D3B7004D5F79 /* ShiftOperations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E342077D3B7004D5F79 /* ShiftOperations.framework */; };
+		B0105E382077D3B7004D5F79 /* Threadly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E352077D3B7004D5F79 /* Threadly.framework */; };
+		B0105E392077D3B7004D5F79 /* RandomKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E362077D3B7004D5F79 /* RandomKit.framework */; };
 		B0265F5E2077233100B6BABE /* IxMultiStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F512077233100B6BABE /* IxMultiStore.swift */; };
 		B0265F5F2077233100B6BABE /* IxMultiStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F512077233100B6BABE /* IxMultiStore.swift */; };
 		B0265F602077233100B6BABE /* IxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F522077233100B6BABE /* IxStore.swift */; };
@@ -41,6 +46,13 @@
 		B0265F752077233100B6BABE /* Focus.h in Headers */ = {isa = PBXBuildFile; fileRef = B0265F5C2077233100B6BABE /* Focus.h */; };
 		B0265F762077233100B6BABE /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5D2077233100B6BABE /* Lens.swift */; };
 		B0265F772077233100B6BABE /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5D2077233100B6BABE /* Lens.swift */; };
+		B056CBBE2077E8CE000CF005 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
+		B056CBBF2077E8CE000CF005 /* RandomKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E362077D3B7004D5F79 /* RandomKit.framework */; };
+		B056CBC02077E8CE000CF005 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
+		B056CBC12077E8CE000CF005 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
+		B056CBC22077E8CE000CF005 /* ShiftOperations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E342077D3B7004D5F79 /* ShiftOperations.framework */; };
+		B056CBC32077E8CE000CF005 /* Threadly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E352077D3B7004D5F79 /* Threadly.framework */; };
+		B056CBC52077E8CE000CF005 /* HypotheSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B056CBC42077E8CE000CF005 /* HypotheSwift.framework */; };
 		B065FB4920753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
 		B065FB4A20753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
 		B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4B20753BF000572691 /* ArrayExtensions.swift */; };
@@ -79,6 +91,10 @@
 		8C5A76751ED95A50004F87A2 /* HypotheSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HypotheSwift.h; sourceTree = "<group>"; };
 		8C5A76811ED963E1004F87A2 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		8C800AF41F3B56FF00880A95 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		B0105E202077C6D6004D5F79 /* Gen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen.swift; sourceTree = "<group>"; };
+		B0105E342077D3B7004D5F79 /* ShiftOperations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShiftOperations.framework; path = Carthage/Build/Mac/ShiftOperations.framework; sourceTree = "<group>"; };
+		B0105E352077D3B7004D5F79 /* Threadly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Threadly.framework; path = Carthage/Build/Mac/Threadly.framework; sourceTree = "<group>"; };
+		B0105E362077D3B7004D5F79 /* RandomKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RandomKit.framework; path = Carthage/Build/Mac/RandomKit.framework; sourceTree = "<group>"; };
 		B0265F512077233100B6BABE /* IxMultiStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IxMultiStore.swift; sourceTree = "<group>"; };
 		B0265F522077233100B6BABE /* IxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IxStore.swift; sourceTree = "<group>"; };
 		B0265F532077233100B6BABE /* Iso.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Iso.swift; sourceTree = "<group>"; };
@@ -92,6 +108,7 @@
 		B0265F5B2077233100B6BABE /* IxCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IxCont.swift; sourceTree = "<group>"; };
 		B0265F5C2077233100B6BABE /* Focus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Focus.h; sourceTree = "<group>"; };
 		B0265F5D2077233100B6BABE /* Lens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
+		B056CBC42077E8CE000CF005 /* HypotheSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HypotheSwift.framework; path = Carthage/Build/Mac/HypotheSwift.framework; sourceTree = "<group>"; };
 		B065FB4820753A6B00572691 /* Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Focus.swift; sourceTree = "<group>"; };
 		B065FB4B20753BF000572691 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		B094E4A020740B87005D559E /* HypotheSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HypotheSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -128,6 +145,9 @@
 			files = (
 				B09BDF412073F1D9000F6922 /* Prelude.framework in Frameworks */,
 				B09BDF432073F1DC000F6922 /* ReactiveSwift.framework in Frameworks */,
+				B0105E372077D3B7004D5F79 /* ShiftOperations.framework in Frameworks */,
+				B0105E382077D3B7004D5F79 /* Threadly.framework in Frameworks */,
+				B0105E392077D3B7004D5F79 /* RandomKit.framework in Frameworks */,
 				B09BDF452073F1E0000F6922 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +157,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B094E4A520740B87005D559E /* HypotheSwift.framework in Frameworks */,
+				B056CBC52077E8CE000CF005 /* HypotheSwift.framework in Frameworks */,
+				B056CBBE2077E8CE000CF005 /* Prelude.framework in Frameworks */,
+				B056CBBF2077E8CE000CF005 /* RandomKit.framework in Frameworks */,
+				B056CBC02077E8CE000CF005 /* ReactiveSwift.framework in Frameworks */,
+				B056CBC12077E8CE000CF005 /* Result.framework in Frameworks */,
+				B056CBC22077E8CE000CF005 /* ShiftOperations.framework in Frameworks */,
+				B056CBC32077E8CE000CF005 /* Threadly.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,6 +193,7 @@
 		8C0968A81ED8D24F00CC19F2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B0105E202077C6D6004D5F79 /* Gen.swift */,
 				8C4520A71F08E159002F0E38 /* HypotheSwift.swift */,
 				B09BDF502073FD4C000F6922 /* PropertyTest.swift */,
 				B09BDF532073FE46000F6922 /* FunctionType.swift */,
@@ -225,6 +253,10 @@
 		B09BDF3D2073F1D7000F6922 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B056CBC42077E8CE000CF005 /* HypotheSwift.framework */,
+				B0105E362077D3B7004D5F79 /* RandomKit.framework */,
+				B0105E342077D3B7004D5F79 /* ShiftOperations.framework */,
+				B0105E352077D3B7004D5F79 /* Threadly.framework */,
 				B09BDF492073F7AA000F6922 /* Focus.framework */,
 				B09BDF4A2073F7AA000F6922 /* Prelude.framework */,
 				B09BDF4B2073F7AA000F6922 /* ReactiveSwift.framework */,
@@ -397,19 +429,23 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/Mac/Result.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/ReactiveSwift.framework",
-				"$(SRCROOT)/Carthage/Build/Mac/Focus.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/Prelude.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RandomKit.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Threadly.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/ShiftOperations.framework",
 			);
 			name = "Carthage Copy";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Result.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ReactiveSwift.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Focus.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Prelude.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RandomKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Threadly.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ShiftOperations.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 		B0265F262077211900B6BABE /* Carthage Copy */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -420,12 +456,18 @@
 				"$(SRCROOT)/Carthage/Build/Mac/Result.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/Prelude.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/ReactiveSwift.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Threadly.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/ShiftOperations.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RandomKit.framework",
 			);
 			name = "Carthage Copy";
 			outputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Result.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Prelude.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ReactiveSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Threadly.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ShiftOperations.framework",
+				"$(DERIVED_FILE_DIR)/$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RandomKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -444,6 +486,7 @@
 				B0265F6A2077233100B6BABE /* IxState.swift in Sources */,
 				B0265F642077233100B6BABE /* Setter.swift in Sources */,
 				B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */,
+				B0105E212077C6D6004D5F79 /* Gen.swift in Sources */,
 				B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */,
 				B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */,
 				B0265F662077233100B6BABE /* Operators.swift in Sources */,
@@ -469,6 +512,7 @@
 				B0265F6B2077233100B6BABE /* IxState.swift in Sources */,
 				B0265F652077233100B6BABE /* Setter.swift in Sources */,
 				B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */,
+				B0105E222077C9DB004D5F79 /* Gen.swift in Sources */,
 				B065FB4D20753BF000572691 /* ArrayExtensions.swift in Sources */,
 				B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */,
 				B0265F672077233100B6BABE /* Operators.swift in Sources */,

@@ -2,3 +2,4 @@
 github "ReactiveCocoa/ReactiveSwift" ~> 3.0
 github "antitypical/Result"
 github "robrix/Prelude"
+github "nvzqz/RandomKit" "master"

@@ -15,4 +15,10 @@ extension Array {
     return copy
   }
 
+  func appending(_ value: Iterator.Element) -> Array<Iterator.Element> {
+    var copy = self
+    copy.append(value)
+    return copy
+  }
+
 }

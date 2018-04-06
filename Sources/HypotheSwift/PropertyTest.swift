@@ -39,10 +39,17 @@ struct PropertyTest<Test: Function> {
     self.invariantDeclaration = invariant
   }
 
-  func createConstraints(_ constraintCreator: (ConstraintMaker<Test.Arguments>) -> ([ArgumentConstraint<Test.Arguments>]))
+  func withConstraints(_ constraintMaker: (ConstraintMaker<Test.Arguments>) -> ([ArgumentConstraint<Test.Arguments>]))
     -> PropertyTest<Test> {
-      let constraints = ConstraintMaker<Test.Arguments>() |> constraintCreator
+      let constraints = ConstraintMaker<Test.Arguments>() |> constraintMaker
       return PropertyTest.constraintsLens.set(self, constraints)
+  }
+
+  func withConstraint(that constraintMaker: (ConstraintMaker<Test.Arguments>) -> ArgumentConstraint<Test.Arguments>)
+    -> PropertyTest<Test> {
+      let newConstraint = ConstraintMaker<Test.Arguments>() |> constraintMaker
+      return PropertyTest.constraintsLens.over { $0.appending(newConstraint) }
+        <| self
   }
   
   func proving(that predicate: @escaping (Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
@@ -94,14 +101,29 @@ struct FinalizedPropertyTest<Test: Function> {
   
   func run() {
     // two orders of magnitude, until we get smarter generation capabilities
-    let maximumTests = numberOfTests * 100
+    let maximumTests = numberOfTests
+    let generator = constrainingGenerator(Test.Arguments.gen, with: constraints)
     for currentTest in (0..<maximumTests) {
+      log("Running test #\(currentTest)")
       // create args
-      let args = Test.Arguments.gen.getAnother()
+      let args = generator.getAnother()
+      log("Generated args: \(args)")
       // see if args pass constraints
       
       // `continue` if not; actually continue if they do
     }
+  }
+
+  func constrainingGenerator(_ gen: Gen<Test.Arguments>, with constraints: [ArgumentConstraint<Test.Arguments>])
+    -> Gen<Test.Arguments> {
+      return constraints
+        .map { $0.generatorConstraint }
+        .reduce(gen, { $1 |> $0.map })
+  }
+
+  private func log(_ event: String) {
+    guard shouldLog else { return }
+    print(event)
   }
   
   enum ProvableInvariant {
