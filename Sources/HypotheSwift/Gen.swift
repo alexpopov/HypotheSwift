@@ -49,7 +49,18 @@ struct Gen<Value> {
 
   func combine<T>(_ other: Gen<T>) -> Gen<(Value, T)> {
     return Gen<(Value, T)>(generator: { (self.getAnother(), other.getAnother()) })
-      .map(flattenTuple)
+  }
+
+  func combine<T, U, V>(_ other: Gen<V>) -> Gen<(T, U, V)> where Value == (T, U) {
+    return Gen<(T, U, V)>(generator: {
+      return (self.getAnother(), other.getAnother()) |> flattenTuple
+    })
+  }
+
+  func combine<T, U, V, W>(_ other: Gen<W>) -> Gen<(T, U, V, W)> where Value == (T, U, V) {
+    return Gen<(T, U, V, W)>(generator: {
+      return (self.getAnother(), other.getAnother()) |> flattenTuple
+    })
   }
 
   static func from<T>(_ range: CountableClosedRange<T>) -> Gen<T> where T: RandomInClosedRange {

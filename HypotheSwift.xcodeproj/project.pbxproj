@@ -66,8 +66,14 @@
 		B09BDF452073F1E0000F6922 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
 		B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* PropertyTest.swift */; };
 		B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* PropertyTest.swift */; };
-		B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF532073FE46000F6922 /* FunctionType.swift */; };
-		B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF532073FE46000F6922 /* FunctionType.swift */; };
+		B09BDF542073FE46000F6922 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF532073FE46000F6922 /* Function.swift */; };
+		B09BDF552073FE46000F6922 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF532073FE46000F6922 /* Function.swift */; };
+		B09D57A22077F79100CCF149 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D57A12077F79100CCF149 /* UtilityFunctions.swift */; };
+		B09D57A32077F79100CCF149 /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D57A12077F79100CCF149 /* UtilityFunctions.swift */; };
+		B09D57A52077F80500CCF149 /* Arguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D57A42077F80500CCF149 /* Arguments.swift */; };
+		B09D57A62077F80500CCF149 /* Arguments.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D57A42077F80500CCF149 /* Arguments.swift */; };
+		B09D57A82077F8D600CCF149 /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D57A72077F8D600CCF149 /* ArgumentType.swift */; };
+		B09D57A92077F8D600CCF149 /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D57A72077F8D600CCF149 /* ArgumentType.swift */; };
 		B0A573F82075BB7A004C5FDA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A573F72075BB7A004C5FDA /* Constraint.swift */; };
 		B0A573F92075BB7A004C5FDA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A573F72075BB7A004C5FDA /* Constraint.swift */; };
 /* End PBXBuildFile section */
@@ -126,7 +132,10 @@
 		B09BDF4A2073F7AA000F6922 /* Prelude.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Prelude.framework; path = Carthage/Build/iOS/Prelude.framework; sourceTree = "<group>"; };
 		B09BDF4B2073F7AA000F6922 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		B09BDF502073FD4C000F6922 /* PropertyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTest.swift; sourceTree = "<group>"; };
-		B09BDF532073FE46000F6922 /* FunctionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionType.swift; sourceTree = "<group>"; };
+		B09BDF532073FE46000F6922 /* Function.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Function.swift; sourceTree = "<group>"; };
+		B09D57A12077F79100CCF149 /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
+		B09D57A42077F80500CCF149 /* Arguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arguments.swift; sourceTree = "<group>"; };
+		B09D57A72077F8D600CCF149 /* ArgumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentType.swift; sourceTree = "<group>"; };
 		B0A573F72075BB7A004C5FDA /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -196,11 +205,14 @@
 		8C0968A81ED8D24F00CC19F2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B09D57A72077F8D600CCF149 /* ArgumentType.swift */,
+				B09D57A42077F80500CCF149 /* Arguments.swift */,
 				B056CBC62077EB9E000CF005 /* Boolean+Extensions.swift */,
+				B09D57A12077F79100CCF149 /* UtilityFunctions.swift */,
 				B0105E202077C6D6004D5F79 /* Gen.swift */,
 				8C4520A71F08E159002F0E38 /* HypotheSwift.swift */,
 				B09BDF502073FD4C000F6922 /* PropertyTest.swift */,
-				B09BDF532073FE46000F6922 /* FunctionType.swift */,
+				B09BDF532073FE46000F6922 /* Function.swift */,
 				B065FB4B20753BF000572691 /* ArrayExtensions.swift */,
 				B0A573F72075BB7A004C5FDA /* Constraint.swift */,
 				B065FB4820753A6B00572691 /* Focus.swift */,
@@ -492,12 +504,15 @@
 				B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */,
 				B0105E212077C6D6004D5F79 /* Gen.swift in Sources */,
 				B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */,
-				B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */,
+				B09BDF542073FE46000F6922 /* Function.swift in Sources */,
 				B0265F662077233100B6BABE /* Operators.swift in Sources */,
+				B09D57A52077F80500CCF149 /* Arguments.swift in Sources */,
 				B0265F682077233100B6BABE /* LensOperators.swift in Sources */,
 				B0265F6C2077233100B6BABE /* Protocols.swift in Sources */,
+				B09D57A22077F79100CCF149 /* UtilityFunctions.swift in Sources */,
 				B0265F762077233100B6BABE /* Lens.swift in Sources */,
 				B065FB4920753A6B00572691 /* Focus.swift in Sources */,
+				B09D57A82077F8D600CCF149 /* ArgumentType.swift in Sources */,
 				B056CBC72077EB9E000CF005 /* Boolean+Extensions.swift in Sources */,
 				B0265F622077233100B6BABE /* Iso.swift in Sources */,
 				B0265F722077233100B6BABE /* IxCont.swift in Sources */,
@@ -519,12 +534,15 @@
 				B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */,
 				B0105E222077C9DB004D5F79 /* Gen.swift in Sources */,
 				B065FB4D20753BF000572691 /* ArrayExtensions.swift in Sources */,
-				B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */,
+				B09BDF552073FE46000F6922 /* Function.swift in Sources */,
 				B0265F672077233100B6BABE /* Operators.swift in Sources */,
+				B09D57A62077F80500CCF149 /* Arguments.swift in Sources */,
 				B0265F692077233100B6BABE /* LensOperators.swift in Sources */,
 				B0265F6D2077233100B6BABE /* Protocols.swift in Sources */,
+				B09D57A32077F79100CCF149 /* UtilityFunctions.swift in Sources */,
 				B0265F772077233100B6BABE /* Lens.swift in Sources */,
 				B065FB4A20753A6B00572691 /* Focus.swift in Sources */,
+				B09D57A92077F8D600CCF149 /* ArgumentType.swift in Sources */,
 				B056CBC82077EB9E000CF005 /* Boolean+Extensions.swift in Sources */,
 				B0265F632077233100B6BABE /* Iso.swift in Sources */,
 				B0265F732077233100B6BABE /* IxCont.swift in Sources */,
