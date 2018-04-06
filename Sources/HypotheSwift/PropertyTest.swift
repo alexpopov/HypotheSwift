@@ -7,7 +7,6 @@
 
 import Foundation
 import Prelude
-import Focus
 
 func testThat<T, R>(_ function: @escaping (T) -> R, will invariant: String)
   -> PropertyTest<UnaryFunction<T, R>>
@@ -28,27 +27,32 @@ struct PropertyTest<Test: Function> {
 
   let invariantDeclaration: String
   let test: Test
+  private(set) var constraints: [ArgumentConstraint<Test.Arguments>] = []
   
-  let constraintMaker = ConstraintMaker<Test.Arguments>()
+  static var constraintsLens: SimpleLens<PropertyTest<Test>, [ArgumentConstraint<Test.Arguments>]> {
+    return SimpleLens(keyPath: \PropertyTest.constraints)
+  }
+  
 
   init(test: Test, invariant: String) {
     self.test = test
     self.invariantDeclaration = invariant
   }
 
-  func createConstraints(_ constraintCreator: (ConstraintMaker<Test.Arguments>) -> ()) -> PropertyTest<Test> {
-    constraintCreator(constraintMaker)
-    return self
+  func createConstraints(_ constraintCreator: (ConstraintMaker<Test.Arguments>) -> ([ArgumentConstraint<Test.Arguments>]))
+    -> PropertyTest<Test> {
+      let constraints = ConstraintMaker<Test.Arguments>() |> constraintCreator
+      return PropertyTest.constraintsLens.set(self, constraints)
   }
   
   func proving(that predicate: @escaping (Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
-    return FinalizedPropertyTest<Test>(constraints: constraintMaker.constraints,
+    return FinalizedPropertyTest<Test>(constraints: constraints,
                                        invariant: .returnOnly(predicate),
                                        description: invariantDeclaration)
   }
   
   func proving(that predicate: @escaping (Test.Arguments.TupleRepresentation, Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
-    return FinalizedPropertyTest<Test>(constraints: constraintMaker.constraints,
+    return FinalizedPropertyTest<Test>(constraints: constraints,
                                        invariant: .all(predicate),
                                        description: invariantDeclaration)
   }
@@ -56,7 +60,7 @@ struct PropertyTest<Test: Function> {
 }
 
 struct FinalizedPropertyTest<Test: Function> {
-  fileprivate let constraints: [ConstraintProtocol]
+  fileprivate let constraints: [ArgumentConstraint<Test.Arguments>]
   fileprivate let invariant: ProvableInvariant
   fileprivate let invariantDescription: String
   
@@ -72,7 +76,7 @@ struct FinalizedPropertyTest<Test: Function> {
   }
   
 
-  init(constraints: [ConstraintProtocol],
+  init(constraints: [ArgumentConstraint<Test.Arguments>],
        invariant: ProvableInvariant,
        description: String) {
     self.constraints = constraints
@@ -89,7 +93,15 @@ struct FinalizedPropertyTest<Test: Function> {
   }
   
   func run() {
-    
+    // two orders of magnitude, until we get smarter generation capabilities
+    let maximumTests = numberOfTests * 100
+    for currentTest in (0..<maximumTests) {
+      // create args
+      let args = Test.Arguments.gen.getAnother()
+      // see if args pass constraints
+      
+      // `continue` if not; actually continue if they do
+    }
   }
   
   enum ProvableInvariant {
@@ -105,4 +117,10 @@ struct FinalizedPropertyTest<Test: Function> {
   
 }
 
-
+class ConstraintSolver<Test: Function> {
+  let arguments: Test.Arguments
+  
+  init(arguments: Test.Arguments, constraints: [ArgumentConstraint<Test.Arguments>]) {
+    fatalError()
+  }
+}

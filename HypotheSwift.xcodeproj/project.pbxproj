@@ -15,13 +15,38 @@
 		B0099B142075AD9C0080AB72 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
 		B0099B152075AD9C0080AB72 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
 		B0099B162075AD9C0080AB72 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
+		B0265F5E2077233100B6BABE /* IxMultiStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F512077233100B6BABE /* IxMultiStore.swift */; };
+		B0265F5F2077233100B6BABE /* IxMultiStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F512077233100B6BABE /* IxMultiStore.swift */; };
+		B0265F602077233100B6BABE /* IxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F522077233100B6BABE /* IxStore.swift */; };
+		B0265F612077233100B6BABE /* IxStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F522077233100B6BABE /* IxStore.swift */; };
+		B0265F622077233100B6BABE /* Iso.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F532077233100B6BABE /* Iso.swift */; };
+		B0265F632077233100B6BABE /* Iso.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F532077233100B6BABE /* Iso.swift */; };
+		B0265F642077233100B6BABE /* Setter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F542077233100B6BABE /* Setter.swift */; };
+		B0265F652077233100B6BABE /* Setter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F542077233100B6BABE /* Setter.swift */; };
+		B0265F662077233100B6BABE /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F552077233100B6BABE /* Operators.swift */; };
+		B0265F672077233100B6BABE /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F552077233100B6BABE /* Operators.swift */; };
+		B0265F682077233100B6BABE /* LensOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F562077233100B6BABE /* LensOperators.swift */; };
+		B0265F692077233100B6BABE /* LensOperators.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F562077233100B6BABE /* LensOperators.swift */; };
+		B0265F6A2077233100B6BABE /* IxState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F572077233100B6BABE /* IxState.swift */; };
+		B0265F6B2077233100B6BABE /* IxState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F572077233100B6BABE /* IxState.swift */; };
+		B0265F6C2077233100B6BABE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F582077233100B6BABE /* Protocols.swift */; };
+		B0265F6D2077233100B6BABE /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F582077233100B6BABE /* Protocols.swift */; };
+		B0265F6E2077233100B6BABE /* ArrayZipper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F592077233100B6BABE /* ArrayZipper.swift */; };
+		B0265F6F2077233100B6BABE /* ArrayZipper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F592077233100B6BABE /* ArrayZipper.swift */; };
+		B0265F702077233100B6BABE /* Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5A2077233100B6BABE /* Prism.swift */; };
+		B0265F712077233100B6BABE /* Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5A2077233100B6BABE /* Prism.swift */; };
+		B0265F722077233100B6BABE /* IxCont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5B2077233100B6BABE /* IxCont.swift */; };
+		B0265F732077233100B6BABE /* IxCont.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5B2077233100B6BABE /* IxCont.swift */; };
+		B0265F742077233100B6BABE /* Focus.h in Headers */ = {isa = PBXBuildFile; fileRef = B0265F5C2077233100B6BABE /* Focus.h */; };
+		B0265F752077233100B6BABE /* Focus.h in Headers */ = {isa = PBXBuildFile; fileRef = B0265F5C2077233100B6BABE /* Focus.h */; };
+		B0265F762077233100B6BABE /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5D2077233100B6BABE /* Lens.swift */; };
+		B0265F772077233100B6BABE /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5D2077233100B6BABE /* Lens.swift */; };
 		B065FB4920753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
 		B065FB4A20753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
 		B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4B20753BF000572691 /* ArrayExtensions.swift */; };
 		B065FB4D20753BF000572691 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4B20753BF000572691 /* ArrayExtensions.swift */; };
 		B094E4A320740B87005D559E /* HypotheSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094E4A220740B87005D559E /* HypotheSwiftTests.swift */; };
 		B094E4A520740B87005D559E /* HypotheSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0968A01ED8CE5500CC19F2 /* HypotheSwift.framework */; };
-		B09BDF3F2073F1D7000F6922 /* Focus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF3E2073F1D7000F6922 /* Focus.framework */; };
 		B09BDF412073F1D9000F6922 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
 		B09BDF432073F1DC000F6922 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
 		B09BDF452073F1E0000F6922 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
@@ -54,6 +79,19 @@
 		8C5A76751ED95A50004F87A2 /* HypotheSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HypotheSwift.h; sourceTree = "<group>"; };
 		8C5A76811ED963E1004F87A2 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		8C800AF41F3B56FF00880A95 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		B0265F512077233100B6BABE /* IxMultiStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IxMultiStore.swift; sourceTree = "<group>"; };
+		B0265F522077233100B6BABE /* IxStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IxStore.swift; sourceTree = "<group>"; };
+		B0265F532077233100B6BABE /* Iso.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Iso.swift; sourceTree = "<group>"; };
+		B0265F542077233100B6BABE /* Setter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setter.swift; sourceTree = "<group>"; };
+		B0265F552077233100B6BABE /* Operators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		B0265F562077233100B6BABE /* LensOperators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LensOperators.swift; sourceTree = "<group>"; };
+		B0265F572077233100B6BABE /* IxState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IxState.swift; sourceTree = "<group>"; };
+		B0265F582077233100B6BABE /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		B0265F592077233100B6BABE /* ArrayZipper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayZipper.swift; sourceTree = "<group>"; };
+		B0265F5A2077233100B6BABE /* Prism.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prism.swift; sourceTree = "<group>"; };
+		B0265F5B2077233100B6BABE /* IxCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IxCont.swift; sourceTree = "<group>"; };
+		B0265F5C2077233100B6BABE /* Focus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Focus.h; sourceTree = "<group>"; };
+		B0265F5D2077233100B6BABE /* Lens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
 		B065FB4820753A6B00572691 /* Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Focus.swift; sourceTree = "<group>"; };
 		B065FB4B20753BF000572691 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		B094E4A020740B87005D559E /* HypotheSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HypotheSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,7 +107,7 @@
 		B09BDF4B2073F7AA000F6922 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		B09BDF502073FD4C000F6922 /* PropertyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTest.swift; sourceTree = "<group>"; };
 		B09BDF532073FE46000F6922 /* FunctionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionType.swift; sourceTree = "<group>"; };
-		B0A573F72075BB7A004C5FDA /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constraint.swift; path = Sources/HypotheSwift/Constraint.swift; sourceTree = "<group>"; };
+		B0A573F72075BB7A004C5FDA /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +126,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B09BDF3F2073F1D7000F6922 /* Focus.framework in Frameworks */,
 				B09BDF412073F1D9000F6922 /* Prelude.framework in Frameworks */,
 				B09BDF432073F1DC000F6922 /* ReactiveSwift.framework in Frameworks */,
 				B09BDF452073F1E0000F6922 /* Result.framework in Frameworks */,
@@ -109,7 +146,6 @@
 		8C09686C1ED8C3A200CC19F2 = {
 			isa = PBXGroup;
 			children = (
-				B0A573F72075BB7A004C5FDA /* Constraint.swift */,
 				8C0968A81ED8D24F00CC19F2 /* Sources */,
 				B094E4A120740B87005D559E /* HypotheSwiftTests */,
 				8C0968791ED8C64500CC19F2 /* Products */,
@@ -134,8 +170,10 @@
 				B09BDF502073FD4C000F6922 /* PropertyTest.swift */,
 				B09BDF532073FE46000F6922 /* FunctionType.swift */,
 				B065FB4B20753BF000572691 /* ArrayExtensions.swift */,
+				B0A573F72075BB7A004C5FDA /* Constraint.swift */,
 				B065FB4820753A6B00572691 /* Focus.swift */,
 				8C5A76811ED963E1004F87A2 /* Package.swift */,
+				B0265F4F2077223600B6BABE /* Deps */,
 				8C0968A91ED8D80300CC19F2 /* Info-iOS.plist */,
 				8C0968AA1ED8D80300CC19F2 /* Info-macOS.plist */,
 				8C0968AB1ED8D80300CC19F2 /* Info-tvOS.plist */,
@@ -145,6 +183,34 @@
 			);
 			name = Sources;
 			path = Sources/HypotheSwift;
+			sourceTree = "<group>";
+		};
+		B0265F4F2077223600B6BABE /* Deps */ = {
+			isa = PBXGroup;
+			children = (
+				B0265F502077233100B6BABE /* Focus */,
+			);
+			path = Deps;
+			sourceTree = "<group>";
+		};
+		B0265F502077233100B6BABE /* Focus */ = {
+			isa = PBXGroup;
+			children = (
+				B0265F512077233100B6BABE /* IxMultiStore.swift */,
+				B0265F522077233100B6BABE /* IxStore.swift */,
+				B0265F532077233100B6BABE /* Iso.swift */,
+				B0265F542077233100B6BABE /* Setter.swift */,
+				B0265F552077233100B6BABE /* Operators.swift */,
+				B0265F562077233100B6BABE /* LensOperators.swift */,
+				B0265F572077233100B6BABE /* IxState.swift */,
+				B0265F582077233100B6BABE /* Protocols.swift */,
+				B0265F592077233100B6BABE /* ArrayZipper.swift */,
+				B0265F5A2077233100B6BABE /* Prism.swift */,
+				B0265F5B2077233100B6BABE /* IxCont.swift */,
+				B0265F5C2077233100B6BABE /* Focus.h */,
+				B0265F5D2077233100B6BABE /* Lens.swift */,
+			);
+			path = Focus;
 			sourceTree = "<group>";
 		};
 		B094E4A120740B87005D559E /* HypotheSwiftTests */ = {
@@ -179,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C5A76761ED95A50004F87A2 /* HypotheSwift.h in Headers */,
+				B0265F742077233100B6BABE /* Focus.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8C5A76791ED95B67004F87A2 /* HypotheSwift.h in Headers */,
+				B0265F752077233100B6BABE /* Focus.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +287,7 @@
 				8C09689C1ED8CE5500CC19F2 /* Frameworks */,
 				8C09689D1ED8CE5500CC19F2 /* Headers */,
 				8C09689E1ED8CE5500CC19F2 /* Resources */,
+				B0265F262077211900B6BABE /* Carthage Copy */,
 			);
 			buildRules = (
 			);
@@ -340,6 +409,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
+			shellScript = "#/usr/local/bin/carthage copy-frameworks";
+		};
+		B0265F262077211900B6BABE /* Carthage Copy */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/Result.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Prelude.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/ReactiveSwift.framework",
+			);
+			name = "Carthage Copy";
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Result.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Prelude.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/ReactiveSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -350,11 +439,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0A573F82075BB7A004C5FDA /* Constraint.swift in Sources */,
+				B0265F702077233100B6BABE /* Prism.swift in Sources */,
+				B0265F5E2077233100B6BABE /* IxMultiStore.swift in Sources */,
+				B0265F6A2077233100B6BABE /* IxState.swift in Sources */,
+				B0265F642077233100B6BABE /* Setter.swift in Sources */,
 				B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */,
 				B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */,
 				B09BDF542073FE46000F6922 /* FunctionType.swift in Sources */,
+				B0265F662077233100B6BABE /* Operators.swift in Sources */,
+				B0265F682077233100B6BABE /* LensOperators.swift in Sources */,
+				B0265F6C2077233100B6BABE /* Protocols.swift in Sources */,
+				B0265F762077233100B6BABE /* Lens.swift in Sources */,
 				B065FB4920753A6B00572691 /* Focus.swift in Sources */,
+				B0265F622077233100B6BABE /* Iso.swift in Sources */,
+				B0265F722077233100B6BABE /* IxCont.swift in Sources */,
+				B0265F602077233100B6BABE /* IxStore.swift in Sources */,
 				8C4520A81F08E159002F0E38 /* HypotheSwift.swift in Sources */,
+				B0265F6E2077233100B6BABE /* ArrayZipper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,11 +464,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0A573F92075BB7A004C5FDA /* Constraint.swift in Sources */,
+				B0265F712077233100B6BABE /* Prism.swift in Sources */,
+				B0265F5F2077233100B6BABE /* IxMultiStore.swift in Sources */,
+				B0265F6B2077233100B6BABE /* IxState.swift in Sources */,
+				B0265F652077233100B6BABE /* Setter.swift in Sources */,
 				B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */,
 				B065FB4D20753BF000572691 /* ArrayExtensions.swift in Sources */,
 				B09BDF552073FE46000F6922 /* FunctionType.swift in Sources */,
+				B0265F672077233100B6BABE /* Operators.swift in Sources */,
+				B0265F692077233100B6BABE /* LensOperators.swift in Sources */,
+				B0265F6D2077233100B6BABE /* Protocols.swift in Sources */,
+				B0265F772077233100B6BABE /* Lens.swift in Sources */,
 				B065FB4A20753A6B00572691 /* Focus.swift in Sources */,
+				B0265F632077233100B6BABE /* Iso.swift in Sources */,
+				B0265F732077233100B6BABE /* IxCont.swift in Sources */,
+				B0265F612077233100B6BABE /* IxStore.swift in Sources */,
 				8C4520AB1F08E159002F0E38 /* HypotheSwift.swift in Sources */,
+				B0265F6F2077233100B6BABE /* ArrayZipper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

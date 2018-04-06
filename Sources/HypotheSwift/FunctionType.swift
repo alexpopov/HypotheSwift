@@ -106,66 +106,92 @@ protocol AllCasesProviding {
 protocol ArgumentEnumerable: ArgumentType {
   associatedtype Position: AllCasesProviding
   associatedtype TupleRepresentation
+  init(tuple: TupleRepresentation)
 
   var asTuple: TupleRepresentation { get }
 }
 
 protocol SupportsOneArgument: ArgumentEnumerable {
   associatedtype FirstArgument: ArgumentType
+  var firstArgument: FirstArgument { get set }
+}
+
+extension SupportsOneArgument {
+  static var firstArgumentLens: SimpleLens<Self, FirstArgument> {
+    return SimpleLens(keyPath: \Self.firstArgument)
+  }
 }
 
 struct OneArgument<T>: SupportsOneArgument where T: ArgumentType {
+
   typealias FirstArgument = T
   typealias TupleRepresentation = (T)
 
-  enum Position: AllCasesProviding {
-    case first
-
-    static var allCases: [OneArgument<T>.Position] { return [.first] }
-  }
-  let firstArgument: T
+  var firstArgument: T
 
   var asTuple: (T) { return firstArgument }
+  
+  init(tuple: TupleRepresentation) {
+    self.firstArgument = tuple
+  }
 
   static var gen: Gen<OneArgument<T>> {
-    return T.gen.map(OneArgument<T>.init(firstArgument:))
+    return T.gen.map(OneArgument<T>.init(tuple:))
   }
   
   static func == (lhs: OneArgument<T>, rhs: OneArgument<T>) -> Bool {
     return lhs.firstArgument == rhs.firstArgument
   }
+  
+  enum Position: AllCasesProviding {
+    case first
+    
+    static var allCases: [OneArgument<T>.Position] { return [.first] }
+  }
+  
 }
 
 protocol SupportsTwoArguments: SupportsOneArgument {
   associatedtype SecondArgument: ArgumentType
+  var secondArgument: SecondArgument { get set }
 }
 
+extension SupportsTwoArguments {
+  static var secondArgumentLens: SimpleLens<Self, SecondArgument> {
+    return SimpleLens(keyPath: \Self.secondArgument)
+  }
+}
 struct TwoArgument<T, U>: SupportsTwoArguments where T: ArgumentType, U: ArgumentType {
+
   typealias FirstArgument = T
   typealias SecondArgument = U
   typealias TupleRepresentation = (T, U)
 
-  enum Position: AllCasesProviding {
-    case first
-    case second
-
-    static var allCases: [TwoArgument<T, U>.Position] { return [.first, .second] }
-  }
-
-  let firstArgument: T
-  let secondArgument: U
+  var firstArgument: T
+  var secondArgument: U
 
   var asTuple: (T, U) { return (firstArgument, secondArgument) }
+  
+  init(tuple: TupleRepresentation) {
+    self.firstArgument = tuple.0
+    self.secondArgument = tuple.1
+  }
 
   static var gen: Gen<TwoArgument<T, U>> {
-    return T.gen
-      .combine(U.gen)
-      .map(TwoArgument<T, U>.init(firstArgument:secondArgument:))
+    return T.gen.combine(U.gen).map(TwoArgument<T, U>.init(tuple:))
   }
   
   static func == (lhs: TwoArgument<T, U>, rhs: TwoArgument<T, U>) -> Bool {
     return lhs.asTuple == rhs.asTuple
   }
+  
+  enum Position: AllCasesProviding {
+    case first
+    case second
+    
+    static var allCases: [TwoArgument<T, U>.Position] { return [.first, .second] }
+  }
+  
 }
 
 struct UnaryFunction<T, R>: Function where T: ArgumentType {

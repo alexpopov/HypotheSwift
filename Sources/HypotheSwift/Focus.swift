@@ -7,7 +7,6 @@
 
 import Foundation
 import Prelude
-import Focus
 
 /// Protocol describing an object which provides lenses over its fields.
 ///

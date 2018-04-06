@@ -6,74 +6,93 @@
 //
 
 import Foundation
+import Prelude
 
-class SingleArgumentConstraint<T>: ConstraintProtocol {
+struct ConstraintMaker<Arguments: ArgumentEnumerable> {
+  private(set) var constraints: [ArgumentConstraint<Arguments>] = []
   
-  var constraint: SingleValueConstraint<T> = .incomplete
-  
-  func not(_ some: T) {
-    self.constraint = .not(some)
-  }
-  
-  func not(_ predicate: @escaping (T) -> Bool) {
-    self.constraint = .noneMatching(predicate)
+  static var constraintsLens: SimpleLens<ConstraintMaker<Arguments>, [ArgumentConstraint<Arguments>]> {
+    return SimpleLens(keyPath: \ConstraintMaker<Arguments>.constraints)
   }
 }
 
-class MultiArgumentConstraint<Arguments: ArgumentEnumerable>: ConstraintProtocol {
-  var constraint: MultiValueConstraint<Arguments> = .incomplete
+protocol ConstraintProtocol {
+  associatedtype ConstraintTarget
+  typealias Rejector = (ConstraintTarget) -> Bool
+  var rejector: Rejector { get }
+}
+
+struct ArgumentConstraint<Arguments>: ConstraintProtocol where Arguments: ArgumentEnumerable {
+  typealias ConstraintTarget = Arguments
+  let rejector: (Arguments) -> Bool
+  var label: String? = nil
   
-  func not(_ combination: Arguments.TupleRepresentation) {
-    self.constraint = .not(combination)
+  init(rejector: @escaping Rejector) {
+    self.rejector = rejector
   }
   
-  func not(_ predicate: @escaping (Arguments.TupleRepresentation) -> Bool) {
-    self.constraint = .noneMatching(predicate)
+  func labeled(_ string: String) -> ArgumentConstraint<Arguments> {
+    return ArgumentConstraint.labelLens.set(self, label)
+  }
+  
+  private static var labelLens: SimpleLens<ArgumentConstraint<Arguments>, String?> {
+    return SimpleLens(keyPath: \ArgumentConstraint.label)
+  }
+}
+
+struct SingleArgumentConstraint<Arguments, T>
+  where T: ArgumentType, Arguments: ArgumentEnumerable {
+  
+  typealias ConstraintTarget = T
+  
+  let promoter: (Arguments) -> T
+  
+  init(promoter: @escaping (Arguments) -> T) {
+    self.promoter = promoter
+  }
+  
+  func not(_ some: T) -> ArgumentConstraint<Arguments> {
+    return (promoter >>> { some == $0 })
+      |> ArgumentConstraint.init
+  }
+  
+  func not(_ predicate: @escaping (T) -> Bool) -> ArgumentConstraint<Arguments> {
+    return (promoter >>> predicate) |> ArgumentConstraint.init
   }
   
 }
 
-class ConstraintMaker<Arguments: ArgumentEnumerable> {
-  var constraints: [ConstraintProtocol] = []
+struct MultiArgumentConstraint<Arguments>
+  where Arguments: ArgumentEnumerable {
+
+  func not(_ combination: Arguments.TupleRepresentation) -> ArgumentConstraint<Arguments> {
+    return { $0 == Arguments(tuple: combination) }
+      |> ArgumentConstraint.init
+  }
+  
+  func not(_ predicate: @escaping (Arguments.TupleRepresentation) -> Bool) -> ArgumentConstraint<Arguments> {
+    return { $0.asTuple |> predicate }
+      |> ArgumentConstraint.init
+  }
+  
 }
 
 extension ConstraintMaker where Arguments: SupportsOneArgument {
-  var first: SingleArgumentConstraint<Arguments.FirstArgument> {
-    let constraint = SingleArgumentConstraint<Arguments.FirstArgument>()
-    constraints.append(constraint)
-    return constraint
+  var first: SingleArgumentConstraint<Arguments, Arguments.FirstArgument> {
+    return SingleArgumentConstraint(promoter: Arguments.firstArgumentLens.get)
   }
 }
 
 extension ConstraintMaker where Arguments: SupportsTwoArguments {
   
-  var second: SingleArgumentConstraint<Arguments.SecondArgument> {
-    let constraint = SingleArgumentConstraint<Arguments.SecondArgument>()
-    constraints.append(constraint)
-    return constraint
+  var second: SingleArgumentConstraint<Arguments, Arguments.SecondArgument> {
+    return SingleArgumentConstraint(promoter: Arguments.secondArgumentLens.get)
   }
   
   var all: MultiArgumentConstraint<Arguments> {
-    let constraint = MultiArgumentConstraint<Arguments>()
-    constraints.append(constraint)
-    return constraint
+    return MultiArgumentConstraint<Arguments>()
   }
   
 }
 
-protocol ConstraintProtocol {
-  
-}
 
-enum SingleValueConstraint<T>: ConstraintProtocol {
-  case incomplete
-  case not(T)
-  case noneMatching((T) -> Bool)
-}
-
-enum MultiValueConstraint<Arguments: ArgumentEnumerable>: ConstraintProtocol {
-  case incomplete
-  case not(Arguments.TupleRepresentation)
-  case noneMatching((Arguments.TupleRepresentation) -> Bool)
-  case enforce((Arguments.TupleRepresentation) -> Bool)
-}

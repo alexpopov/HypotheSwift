@@ -32,7 +32,9 @@ class HypotheSwiftTests: XCTestCase {
       always be positive for non-negative inputs
     """)
       .createConstraints {
-        $0.first.not { $0 < 0 }
+        [
+          $0.first.not { $0 < 0 }
+        ]
       }
       .proving(that: { $0 > 0 })
       .log()
@@ -45,13 +47,15 @@ class HypotheSwiftTests: XCTestCase {
         Make the result bigger than the original two arguments
       """)
       .createConstraints {
-        $0.first.not { $0 < 0 }
-        $0.second.not { $0 < 0 }
+        [
+          $0.first.not { $0 < 0 },
+          $0.second.not { $0 < 0 }
+        ]
       }
-      .proving { (arguments, result) -> Bool in
-        let firstArgSmaller = arguments.0 < result
-        let secondArgSmaller = Int(arguments.1) < result
-        return firstArgSmaller && secondArgSmaller
+      .proving { arguments, result in
+        let firstIsSmaller = arguments.0 < result
+        let secondIsSmaller = Int(arguments.1) < result
+        return firstIsSmaller && secondIsSmaller
       }
       .log()
       .run()
