@@ -32,11 +32,12 @@ class HypotheSwiftTests: XCTestCase {
       always be positive for non-negative inputs
     """)
       .createConstraints {
-        $0.first.not(-1)
+        $0.first.not { $0 < 0 }
       }
-      .shouldTest(count: 10)
-      .runTests()
-
+      .proving(that: { $0 > 0 })
+      .log()
+      .minimumNumberOfTests(count: 100)
+      .run()
   }
   
   func testBinaryFunctionReturns() {
@@ -47,8 +48,13 @@ class HypotheSwiftTests: XCTestCase {
         $0.first.not { $0 < 0 }
         $0.second.not { $0 < 0 }
       }
-      .shouldTest(count: 10)
-      .runTests()
+      .proving { (arguments, result) -> Bool in
+        let firstArgSmaller = arguments.0 < result
+        let secondArgSmaller = Int(arguments.1) < result
+        return firstArgSmaller && secondArgSmaller
+      }
+      .log()
+      .run()
   }
 
   func testPerformanceExample() {

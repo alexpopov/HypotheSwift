@@ -33,6 +33,10 @@ class MultiArgumentConstraint<Arguments: ArgumentEnumerable>: ConstraintProtocol
   
 }
 
+class ConstraintMaker<Arguments: ArgumentEnumerable> {
+  var constraints: [ConstraintProtocol] = []
+}
+
 extension ConstraintMaker where Arguments: SupportsOneArgument {
   var first: SingleArgumentConstraint<Arguments.FirstArgument> {
     let constraint = SingleArgumentConstraint<Arguments.FirstArgument>()
@@ -72,27 +76,4 @@ enum MultiValueConstraint<Arguments: ArgumentEnumerable>: ConstraintProtocol {
   case not(Arguments.TupleRepresentation)
   case noneMatching((Arguments.TupleRepresentation) -> Bool)
   case enforce((Arguments.TupleRepresentation) -> Bool)
-}
-
-protocol ConstraintExtendable {
-  associatedtype Value
-  
-  var value: Value { get }
-
-  func zip<C>(_ other: C) -> SingleConstraint<(Value, C.Value)>
-    where C: ConstraintExtendable
-}
-
-struct SingleConstraint<Value>: ConstraintExtendable {
-
-  let value: Value
-  
-  func zip<C>(_ other: C) -> SingleConstraint<(Value, C.Value)> where C : ConstraintExtendable {
-    return SingleConstraint<(Value, C.Value)>(value: (value, other.value))
-  }
-  
-  func map<T>(_ transform: (Value) -> T) -> SingleConstraint<T> {
-    return SingleConstraint<T>(value: transform(value))
-  }
-
 }

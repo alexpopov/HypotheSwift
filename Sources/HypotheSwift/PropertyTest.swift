@@ -29,40 +29,80 @@ struct PropertyTest<Test: Function> {
   let invariantDeclaration: String
   let test: Test
   
-  let constraints = ConstraintMaker<Test.Arguments>()
-
-  fileprivate var numberOfArguments = 0
+  let constraintMaker = ConstraintMaker<Test.Arguments>()
 
   init(test: Test, invariant: String) {
     self.test = test
     self.invariantDeclaration = invariant
   }
 
-  func shouldTest(count: Int) -> PropertyTest<Test> {
-    return PropertyTest<Test>.numberOfArgumentsLens.set(self, count)
-  }
-
-  private func generateArguments(count: Int) -> [Arguments] {
-    return Arguments.gen.generate(count: count)
-  }
-
-  static var numberOfArgumentsLens: SimpleLens<PropertyTest, Int> {
-    return SimpleLens(keyPath: \PropertyTest.numberOfArguments)
-  }
-
   func createConstraints(_ constraintCreator: (ConstraintMaker<Test.Arguments>) -> ()) -> PropertyTest<Test> {
-    constraintCreator(constraints)
+    constraintCreator(constraintMaker)
     return self
   }
-
-  func runTests() {
-
+  
+  func proving(that predicate: @escaping (Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
+    return FinalizedPropertyTest<Test>(constraints: constraintMaker.constraints,
+                                       invariant: .returnOnly(predicate),
+                                       description: invariantDeclaration)
+  }
+  
+  func proving(that predicate: @escaping (Test.Arguments.TupleRepresentation, Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
+    return FinalizedPropertyTest<Test>(constraints: constraintMaker.constraints,
+                                       invariant: .all(predicate),
+                                       description: invariantDeclaration)
   }
 
 }
 
-class ConstraintMaker<Arguments: ArgumentEnumerable> {
-  var constraints: [ConstraintProtocol] = []
+struct FinalizedPropertyTest<Test: Function> {
+  fileprivate let constraints: [ConstraintProtocol]
+  fileprivate let invariant: ProvableInvariant
+  fileprivate let invariantDescription: String
+  
+  fileprivate var numberOfTests: Int = 100
+  fileprivate var shouldLog = false
+  
+  static var shouldLogLens: SimpleLens<FinalizedPropertyTest<Test>, Bool> {
+    return SimpleLens(keyPath: \FinalizedPropertyTest.shouldLog)
+  }
+  
+  static var numberOfTests: SimpleLens<FinalizedPropertyTest<Test>, Int> {
+    return SimpleLens(keyPath: \FinalizedPropertyTest.numberOfTests)
+  }
+  
+
+  init(constraints: [ConstraintProtocol],
+       invariant: ProvableInvariant,
+       description: String) {
+    self.constraints = constraints
+    self.invariant = invariant
+    self.invariantDescription = description
+  }
+  
+  func log() -> FinalizedPropertyTest<Test> {
+    return FinalizedPropertyTest.shouldLogLens.set(self, true)
+  }
+  
+  func minimumNumberOfTests(count: Int) -> FinalizedPropertyTest<Test> {
+    return FinalizedPropertyTest.numberOfTests.set(self, count)
+  }
+  
+  func run() {
+    
+  }
+  
+  enum ProvableInvariant {
+    case returnOnly((Test.Return) -> Bool)
+    case all((Test.Arguments.TupleRepresentation, Test.Return) -> Bool)
+  }
+  
+  // TODO: use later
+  enum LoggingLevel {
+    case all
+    case failures
+  }
+  
 }
 
 
