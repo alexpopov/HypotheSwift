@@ -111,8 +111,6 @@ struct FinalizedPropertyTest<Test: Function> {
   private let invariant: ProvableInvariant
   private let invariantDescription: String
 
-  fileprivate var numberOfTests: Int = 100
-
   fileprivate var config = TestConfig<Test>()
 
   static var configLens: SimpleLens<FinalizedPropertyTest<Test>, TestConfig<Test>> {
@@ -143,7 +141,7 @@ struct FinalizedPropertyTest<Test: Function> {
   
   func run() {
     // two orders of magnitude, until we get smarter generation capabilities
-    let maximumTests = numberOfTests
+    let maximumTests = config.numberOfTests
     let generator = constrainingGenerator(Test.Arguments.gen, with: constraints)
     for currentTest in (0..<maximumTests) {
       let arguments = generator.getAnother()

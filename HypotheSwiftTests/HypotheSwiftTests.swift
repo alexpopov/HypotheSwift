@@ -42,23 +42,25 @@ class HypotheSwiftTests: XCTestCase {
   }
   
   func testBinaryFunctionReturns() {
-    testThat(helper.additionFunction, will: """
+    self.measure {
+      testThat(self.helper.additionFunction, will: """
         Make the result bigger than the original two arguments
       """)
-      .withConstraints {
-        [
-          $0.firstArgument.must(beIn: (0...100)),
-          $0.secondArgument.must(beIn: (0...100))
-        ]
-      }
-      .proving { arguments, result in
-        let firstIsSmaller = arguments.0 < result
-        let secondIsSmaller = arguments.1 < result
-        return firstIsSmaller && secondIsSmaller
-      }
-      .minimumNumberOfTests(count: 1000)
-      .log(level: .successes)
-      .run()
+        .withConstraints {
+          [
+            $0.firstArgument.must(beIn: (1...100)),
+            $0.secondArgument.must(beIn: (1...100))
+          ]
+        }
+        .proving { arguments, result in
+          let firstIsSmaller = arguments.0 < result
+          let secondIsSmaller = arguments.1 < result
+          return firstIsSmaller && secondIsSmaller
+        }
+        .minimumNumberOfTests(count: 1000)
+        .log(level: .failures)
+        .run()
+    }
   }
 
   func testPerformanceExample() {
