@@ -78,8 +78,3 @@ struct Gen<Value> {
   }
 
 }
-
-extension Gen where Value: RandomInClosedRange {
-
-
-}

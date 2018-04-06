@@ -9,28 +9,17 @@ import Foundation
 import Prelude
 import RandomKit
 
-struct ConstraintMaker<Arguments: ArgumentEnumerable> {
-  private(set) var constraints: [ArgumentConstraint<Arguments>] = []
-  
-  static var constraintsLens: SimpleLens<ConstraintMaker<Arguments>, [ArgumentConstraint<Arguments>]> {
-    return SimpleLens(keyPath: \ConstraintMaker<Arguments>.constraints)
-  }
-}
-
-protocol ConstraintProtocol {
-  associatedtype ConstraintTarget
-  typealias Rejector = (ConstraintTarget) -> Bool
-  var rejector: Rejector { get }
-}
-
-struct ArgumentConstraint<Arguments>: ConstraintProtocol where Arguments: ArgumentEnumerable {
+struct ArgumentConstraint<Arguments> where Arguments: ArgumentEnumerable {
   typealias ConstraintTarget = Arguments
-  let rejector: (Arguments) -> Bool
-  let generatorConstraint: (Arguments) -> Arguments
+  typealias Rejector = (Arguments) -> Bool
+  typealias GeneratorConstraint = (Arguments) -> Arguments
+
+  let rejector: Rejector
+  let generatorConstraint: GeneratorConstraint
 
   var label: String? = nil
 
-  init(rejector: @escaping Rejector, generatorConstraint: @escaping (Arguments) -> Arguments) {
+  init(rejector: @escaping Rejector, generatorConstraint: @escaping GeneratorConstraint) {
     self.rejector = rejector
     self.generatorConstraint = generatorConstraint
   }
@@ -114,6 +103,14 @@ struct MultiArgumentConstraint<Arguments>
   
 }
 
+struct ConstraintMaker<Arguments: ArgumentEnumerable> {
+  private(set) var constraints: [ArgumentConstraint<Arguments>] = []
+
+  static var constraintsLens: SimpleLens<ConstraintMaker<Arguments>, [ArgumentConstraint<Arguments>]> {
+    return SimpleLens(keyPath: \ConstraintMaker<Arguments>.constraints)
+  }
+}
+
 extension ConstraintMaker where Arguments: SupportsOneArgument {
   var firstArgument: SingleArgumentConstraint<Arguments, Arguments.FirstArgument> {
     return SingleArgumentConstraint(argumentLens: Arguments.firstArgumentLens)
@@ -132,4 +129,17 @@ extension ConstraintMaker where Arguments: SupportsTwoArguments {
   
 }
 
+extension ConstraintMaker where Arguments: SupportsThreeArguments {
 
+  var thirdArgument: SingleArgumentConstraint<Arguments, Arguments.ThirdArgument> {
+    return SingleArgumentConstraint(argumentLens: Arguments.thirdArgumentLens)
+  }
+
+}
+
+extension ConstraintMaker where Arguments: SupportsFourArguments {
+
+  var fourthArgument: SingleArgumentConstraint<Arguments, Arguments.FourthArgument> {
+    return SingleArgumentConstraint(argumentLens: Arguments.fourthArgumentLens)
+  }
+}

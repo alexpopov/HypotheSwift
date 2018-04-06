@@ -133,6 +133,7 @@ where T: ArgumentType, U: ArgumentType, V: ArgumentType, W: ArgumentType {
   typealias SecondArgument = U
   typealias ThirdArgument = V
   typealias FourthArgument = W
+  typealias TupleRepresentation = (T, U, V, W)
 
   var firstArgument: T
   var secondArgument: U
