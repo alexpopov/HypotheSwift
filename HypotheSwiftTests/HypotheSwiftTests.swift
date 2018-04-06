@@ -36,13 +36,13 @@ class HypotheSwiftTests: XCTestCase {
         $0.firstArgument.must(beIn: (0...Int.max))
       }
       .proving(that: { $0 > 0 })
-      .log()
+      .log(level: .failures)
       .minimumNumberOfTests(count: 10)
       .run()
   }
   
   func testBinaryFunctionReturns() {
-    testThat(helper.binaryFunctionAdd, will: """
+    testThat(helper.additionFunction, will: """
         Make the result bigger than the original two arguments
       """)
       .withConstraints {
@@ -53,11 +53,11 @@ class HypotheSwiftTests: XCTestCase {
       }
       .proving { arguments, result in
         let firstIsSmaller = arguments.0 < result
-        let secondIsSmaller = Int(arguments.1) < result
+        let secondIsSmaller = arguments.1 < result
         return firstIsSmaller && secondIsSmaller
       }
-      .minimumNumberOfTests(count: 10)
-      .log()
+      .minimumNumberOfTests(count: 1000)
+      .log(level: .successes)
       .run()
   }
 
@@ -75,7 +75,7 @@ class TestsHelper {
     return addTo + 1
   }
   
-  func binaryFunctionAdd(_ left: Int, right: Float) -> Int {
-    return left + Int(right)
+  func additionFunction(_ left: Int, right: Int) -> Int {
+    return left + right
   }
 }

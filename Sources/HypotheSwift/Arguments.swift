@@ -10,6 +10,7 @@ import Prelude
 
 protocol ArgumentEnumerable: ArgumentType {
   associatedtype TupleRepresentation
+
   init(tuple: TupleRepresentation)
 
   var asTuple: TupleRepresentation { get }

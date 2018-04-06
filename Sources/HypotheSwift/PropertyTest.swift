@@ -70,14 +70,38 @@ struct PropertyTest<Test: Function> {
 
 struct TestConfig<Test: Function> {
   var numberOfTests: Int = 100
-  var shouldLog: Bool
+  var loggingLevel: LoggingLevel = .failures
+
+  init() {
+
+  }
 
   static var numberOfTestsLens: SimpleLens<TestConfig<Test>, Int> {
     return SimpleLens(keyPath: \TestConfig.numberOfTests)
   }
 
-  static var shouldLogLens: SimpleLens<TestConfig<Test>, Bool> {
-    return SimpleLens(keyPath: \TestConfig.shouldLog)
+  static var loggingLevelLens: SimpleLens<TestConfig<Test>, LoggingLevel> {
+    return SimpleLens(keyPath: \TestConfig.loggingLevel)
+  }
+
+}
+
+enum LoggingLevel: Int, Comparable {
+  static func < (lhs: LoggingLevel, rhs: LoggingLevel) -> Bool {
+    return lhs.rawValue < rhs.rawValue
+  }
+
+  case none
+  case failures
+  case successes
+  case all
+
+  var shouldLog: Bool {
+    if case .none = self {
+      return false
+    } else {
+      return true
+    }
   }
 }
 
@@ -88,16 +112,16 @@ struct FinalizedPropertyTest<Test: Function> {
   private let invariantDescription: String
 
   fileprivate var numberOfTests: Int = 100
-  fileprivate var shouldLog = false
-  
-  static var shouldLogLens: SimpleLens<FinalizedPropertyTest<Test>, Bool> {
-    return SimpleLens(keyPath: \FinalizedPropertyTest.shouldLog)
+
+  fileprivate var config = TestConfig<Test>()
+
+  static var configLens: SimpleLens<FinalizedPropertyTest<Test>, TestConfig<Test>> {
+    return SimpleLens(keyPath: \FinalizedPropertyTest.config)
   }
-  
-  static var numberOfTests: SimpleLens<FinalizedPropertyTest<Test>, Int> {
-    return SimpleLens(keyPath: \FinalizedPropertyTest.numberOfTests)
+
+  var configLens: SimpleLens<FinalizedPropertyTest<Test>, TestConfig<Test>> {
+    return FinalizedPropertyTest.configLens
   }
-  
 
   init(test: Test,
        constraints: [ArgumentConstraint<Test.Arguments>],
@@ -109,12 +133,12 @@ struct FinalizedPropertyTest<Test: Function> {
     self.invariantDescription = description
   }
   
-  func log() -> FinalizedPropertyTest<Test> {
-    return FinalizedPropertyTest.shouldLogLens.set(self, true)
+  func log(level: LoggingLevel = .failures) -> FinalizedPropertyTest<Test> {
+    return FinalizedPropertyTest.configLens.looking(at: TestConfig.loggingLevelLens).set(self, level)
   }
   
   func minimumNumberOfTests(count: Int) -> FinalizedPropertyTest<Test> {
-    return FinalizedPropertyTest.numberOfTests.set(self, count)
+    return configLens.looking(at: TestConfig.numberOfTestsLens).set(self, count)
   }
   
   func run() {
@@ -132,22 +156,22 @@ struct FinalizedPropertyTest<Test: Function> {
                    with arguments: Test.Arguments,
                    and constraints: [ArgumentConstraint<Test.Arguments>],
                    proving provableInvariant: ProvableInvariant) {
-    log("Running test #\(number)")
-    log("Generated args: \(arguments)")
+    log("Running test #\(number)", for: .all)
+    log("Generated args: \(arguments)", for: .all)
     // see if args pass constraints
     guard argumentsAreRejected(arguments, by: constraints) == false else {
-      log("Arguments \(arguments) where rejected by a constraint")
+      log("Arguments \(arguments) where rejected by a constraint", for: .all)
       // `continue` iterating if not; actually continue if they do
       return
     }
     // pass arguments to function
     let result = test.call(with: arguments)
-    log("Which yielded: \(result)")
+    log("Which yielded: \(result)", for: .all)
     let passes = resultPasses(result, with: arguments, against: provableInvariant)
     if passes {
-      log("Test passed!")
+      log("Test #\(number) passed!", for: .successes)
     } else {
-      log("Test failed; did not pass invariant with: \(arguments)")
+      log("Test #\(number) failed; did not pass invariant with: \(arguments)", for: .failures)
     }
   }
 
@@ -175,8 +199,8 @@ struct FinalizedPropertyTest<Test: Function> {
   }
 
 
-  private func log(_ event: String) {
-    guard shouldLog else { return }
+  private func log(_ event: String, for loggingLevel: LoggingLevel) {
+    guard loggingLevel <= config.loggingLevel else { return }
     print(event)
   }
   
@@ -185,12 +209,7 @@ struct FinalizedPropertyTest<Test: Function> {
     case all((Test.Arguments.TupleRepresentation, Test.Return) -> Bool)
   }
   
-  // TODO: use later
-  enum LoggingLevel {
-    case all
-    case failures
-  }
-  
+
 }
 
 class ConstraintSolver<Test: Function> {
