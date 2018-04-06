@@ -53,24 +53,40 @@ struct PropertyTest<Test: Function> {
   }
   
   func proving(that predicate: @escaping (Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
-    return FinalizedPropertyTest<Test>(constraints: constraints,
+    return FinalizedPropertyTest<Test>(test: test,
+                                       constraints: constraints,
                                        invariant: .returnOnly(predicate),
                                        description: invariantDeclaration)
   }
   
   func proving(that predicate: @escaping (Test.Arguments.TupleRepresentation, Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
-    return FinalizedPropertyTest<Test>(constraints: constraints,
+    return FinalizedPropertyTest<Test>(test: test,
+                                       constraints: constraints,
                                        invariant: .all(predicate),
                                        description: invariantDeclaration)
   }
 
 }
 
+struct TestConfig<Test: Function> {
+  var numberOfTests: Int = 100
+  var shouldLog: Bool
+
+  static var numberOfTestsLens: SimpleLens<TestConfig<Test>, Int> {
+    return SimpleLens(keyPath: \TestConfig.numberOfTests)
+  }
+
+  static var shouldLogLens: SimpleLens<TestConfig<Test>, Bool> {
+    return SimpleLens(keyPath: \TestConfig.shouldLog)
+  }
+}
+
 struct FinalizedPropertyTest<Test: Function> {
-  fileprivate let constraints: [ArgumentConstraint<Test.Arguments>]
-  fileprivate let invariant: ProvableInvariant
-  fileprivate let invariantDescription: String
-  
+  private let test: Test
+  private let constraints: [ArgumentConstraint<Test.Arguments>]
+  private let invariant: ProvableInvariant
+  private let invariantDescription: String
+
   fileprivate var numberOfTests: Int = 100
   fileprivate var shouldLog = false
   
@@ -83,9 +99,11 @@ struct FinalizedPropertyTest<Test: Function> {
   }
   
 
-  init(constraints: [ArgumentConstraint<Test.Arguments>],
+  init(test: Test,
+       constraints: [ArgumentConstraint<Test.Arguments>],
        invariant: ProvableInvariant,
        description: String) {
+    self.test = test
     self.constraints = constraints
     self.invariant = invariant
     self.invariantDescription = description
@@ -104,13 +122,32 @@ struct FinalizedPropertyTest<Test: Function> {
     let maximumTests = numberOfTests
     let generator = constrainingGenerator(Test.Arguments.gen, with: constraints)
     for currentTest in (0..<maximumTests) {
-      log("Running test #\(currentTest)")
-      // create args
-      let args = generator.getAnother()
-      log("Generated args: \(args)")
-      // see if args pass constraints
-      
-      // `continue` if not; actually continue if they do
+      let arguments = generator.getAnother()
+      run(test: test, number: currentTest, with: arguments, and: constraints, proving: invariant)
+    }
+  }
+
+  private func run(test: Test,
+                   number: Int,
+                   with arguments: Test.Arguments,
+                   and constraints: [ArgumentConstraint<Test.Arguments>],
+                   proving provableInvariant: ProvableInvariant) {
+    log("Running test #\(number)")
+    log("Generated args: \(arguments)")
+    // see if args pass constraints
+    guard argumentsAreRejected(arguments, by: constraints) == false else {
+      log("Arguments \(arguments) where rejected by a constraint")
+      // `continue` iterating if not; actually continue if they do
+      return
+    }
+    // pass arguments to function
+    let result = test.call(with: arguments)
+    log("Which yielded: \(result)")
+    let passes = resultPasses(result, with: arguments, against: provableInvariant)
+    if passes {
+      log("Test passed!")
+    } else {
+      log("Test failed; did not pass invariant with: \(arguments)")
     }
   }
 
@@ -120,6 +157,23 @@ struct FinalizedPropertyTest<Test: Function> {
         .map { $0.generatorConstraint }
         .reduce(gen, { $1 |> $0.map })
   }
+
+  func argumentsAreRejected(_ arguments: Test.Arguments, by constraints: [ArgumentConstraint<Test.Arguments>]) -> Bool {
+    return constraints.map { $0.rejector }
+      .reduce(false) { $0 || $1(arguments) }
+  }
+
+  func resultPasses(_ result: Test.Return,
+                    with arguments: Test.Arguments,
+                    against provableInvariant: ProvableInvariant) -> Bool {
+    switch provableInvariant {
+    case .returnOnly(let pureInvariant):
+      return pureInvariant(result)
+    case .all(let relativeInvariant):
+      return relativeInvariant(arguments.asTuple, result)
+    }
+  }
+
 
   private func log(_ event: String) {
     guard shouldLog else { return }

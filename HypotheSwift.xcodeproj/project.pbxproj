@@ -53,6 +53,8 @@
 		B056CBC22077E8CE000CF005 /* ShiftOperations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E342077D3B7004D5F79 /* ShiftOperations.framework */; };
 		B056CBC32077E8CE000CF005 /* Threadly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E352077D3B7004D5F79 /* Threadly.framework */; };
 		B056CBC52077E8CE000CF005 /* HypotheSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B056CBC42077E8CE000CF005 /* HypotheSwift.framework */; };
+		B056CBC72077EB9E000CF005 /* Boolean+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B056CBC62077EB9E000CF005 /* Boolean+Extensions.swift */; };
+		B056CBC82077EB9E000CF005 /* Boolean+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B056CBC62077EB9E000CF005 /* Boolean+Extensions.swift */; };
 		B065FB4920753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
 		B065FB4A20753A6B00572691 /* Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4820753A6B00572691 /* Focus.swift */; };
 		B065FB4C20753BF000572691 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B065FB4B20753BF000572691 /* ArrayExtensions.swift */; };
@@ -109,6 +111,7 @@
 		B0265F5C2077233100B6BABE /* Focus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Focus.h; sourceTree = "<group>"; };
 		B0265F5D2077233100B6BABE /* Lens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
 		B056CBC42077E8CE000CF005 /* HypotheSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HypotheSwift.framework; path = Carthage/Build/Mac/HypotheSwift.framework; sourceTree = "<group>"; };
+		B056CBC62077EB9E000CF005 /* Boolean+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Boolean+Extensions.swift"; sourceTree = "<group>"; };
 		B065FB4820753A6B00572691 /* Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Focus.swift; sourceTree = "<group>"; };
 		B065FB4B20753BF000572691 /* ArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
 		B094E4A020740B87005D559E /* HypotheSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HypotheSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +196,7 @@
 		8C0968A81ED8D24F00CC19F2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B056CBC62077EB9E000CF005 /* Boolean+Extensions.swift */,
 				B0105E202077C6D6004D5F79 /* Gen.swift */,
 				8C4520A71F08E159002F0E38 /* HypotheSwift.swift */,
 				B09BDF502073FD4C000F6922 /* PropertyTest.swift */,
@@ -494,6 +498,7 @@
 				B0265F6C2077233100B6BABE /* Protocols.swift in Sources */,
 				B0265F762077233100B6BABE /* Lens.swift in Sources */,
 				B065FB4920753A6B00572691 /* Focus.swift in Sources */,
+				B056CBC72077EB9E000CF005 /* Boolean+Extensions.swift in Sources */,
 				B0265F622077233100B6BABE /* Iso.swift in Sources */,
 				B0265F722077233100B6BABE /* IxCont.swift in Sources */,
 				B0265F602077233100B6BABE /* IxStore.swift in Sources */,
@@ -520,6 +525,7 @@
 				B0265F6D2077233100B6BABE /* Protocols.swift in Sources */,
 				B0265F772077233100B6BABE /* Lens.swift in Sources */,
 				B065FB4A20753A6B00572691 /* Focus.swift in Sources */,
+				B056CBC82077EB9E000CF005 /* Boolean+Extensions.swift in Sources */,
 				B0265F632077233100B6BABE /* Iso.swift in Sources */,
 				B0265F732077233100B6BABE /* IxCont.swift in Sources */,
 				B0265F612077233100B6BABE /* IxStore.swift in Sources */,

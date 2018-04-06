@@ -33,7 +33,7 @@ class HypotheSwiftTests: XCTestCase {
       always be positive for non-negative inputs
     """)
       .withConstraint {
-        $0.first.must(beIn: (0...Int.max))
+        $0.firstArgument.must(beIn: (0...Int.max))
       }
       .proving(that: { $0 > 0 })
       .log()
@@ -47,8 +47,8 @@ class HypotheSwiftTests: XCTestCase {
       """)
       .withConstraints {
         [
-          $0.first.must(beIn: (0...100)),
-          $0.second.must(beIn: (0...100))
+          $0.firstArgument.must(beIn: (0...100)),
+          $0.secondArgument.must(beIn: (0...100))
         ]
       }
       .proving { arguments, result in

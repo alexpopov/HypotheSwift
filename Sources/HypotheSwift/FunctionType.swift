@@ -61,10 +61,8 @@ protocol Function {
 }
 
 extension Function {
-  func runTests() {
-    // here we run our logic to create a bunch of arguments
-    // and filter out the ones that don't meet the constraints
-
+  func call(with arguments: Arguments) -> Return {
+    return function(arguments.asTuple)
   }
 }
 

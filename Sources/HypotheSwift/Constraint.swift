@@ -115,18 +115,18 @@ struct MultiArgumentConstraint<Arguments>
 }
 
 extension ConstraintMaker where Arguments: SupportsOneArgument {
-  var first: SingleArgumentConstraint<Arguments, Arguments.FirstArgument> {
+  var firstArgument: SingleArgumentConstraint<Arguments, Arguments.FirstArgument> {
     return SingleArgumentConstraint(argumentLens: Arguments.firstArgumentLens)
   }
 }
 
 extension ConstraintMaker where Arguments: SupportsTwoArguments {
   
-  var second: SingleArgumentConstraint<Arguments, Arguments.SecondArgument> {
+  var secondArgument: SingleArgumentConstraint<Arguments, Arguments.SecondArgument> {
     return SingleArgumentConstraint(argumentLens: Arguments.secondArgumentLens)
   }
   
-  var all: MultiArgumentConstraint<Arguments> {
+  var allArguments: MultiArgumentConstraint<Arguments> {
     return MultiArgumentConstraint<Arguments>()
   }
   
