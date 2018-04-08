@@ -10,7 +10,7 @@ import Prelude
 import Darwin
 import RandomKit
 
-protocol Function {
+public protocol Function {
   associatedtype Arguments: ArgumentEnumerable
   associatedtype Return
   var function: (Arguments.TupleRepresentation) -> Return { get }
@@ -22,49 +22,49 @@ extension Function {
   }
 }
 
-struct UnaryFunction<T, R>: Function where T: ArgumentType {
+public struct UnaryFunction<T, R>: Function where T: ArgumentType {
 
-  typealias Arguments = OneArgument<T>
-  typealias Return = R
+  public typealias Arguments = OneArgument<T>
+  public typealias Return = R
 
-  let function: ((T)) -> R
+  public let function: ((T)) -> R
 
   init(_ function: @escaping (T) -> R) {
     self.function = function
   }
 }
 
-struct BinaryFunction<T, U, R>: Function where T: ArgumentType, U: ArgumentType {
-  typealias Arguments = TwoArguments<T, U>
-  typealias Return = R
+public struct BinaryFunction<T, U, R>: Function where T: ArgumentType, U: ArgumentType {
+  public typealias Arguments = TwoArguments<T, U>
+  public typealias Return = R
 
-  var function: ((T, U)) -> R
+  public var function: ((T, U)) -> R
 
   init(_ function: @escaping (T, U) -> R) {
     self.function = function
   }
 }
 
-struct TernaryFunction<T, U, V, R>: Function
-where T: ArgumentType, U: ArgumentType, V: ArgumentType {
-  typealias Arguments = ThreeArguments<T, U, V>
-  typealias Return = R
+public struct TernaryFunction<T, U, V, R>: Function
+  where T: ArgumentType, U: ArgumentType, V: ArgumentType {
+  public typealias Arguments = ThreeArguments<T, U, V>
+  public typealias Return = R
 
-  var function: ((T, U, V)) -> R
+  public var function: ((T, U, V)) -> R
 
   init(_ function: @escaping ((T, U, V)) -> R) {
     self.function = function
   }
 }
 
-struct QuaternaryFunction<T, U, V, W, R>: Function
+public struct QuaternaryFunction<T, U, V, W, R>: Function
 where T: ArgumentType, U: ArgumentType, V: ArgumentType, W: ArgumentType {
-  typealias Arguments = FourArguments<T, U, V, W>
-  typealias Return = R
+  public typealias Arguments = FourArguments<T, U, V, W>
+  public typealias Return = R
 
-  var function: ((T, U, V, W)) -> R
+  public var function: ((T, U, V, W)) -> R
 
-  init(_ function: @escaping (Arguments.TupleRepresentation) -> R) {
+  public init(_ function: @escaping (Arguments.TupleRepresentation) -> R) {
     self.function = function
   }
 }

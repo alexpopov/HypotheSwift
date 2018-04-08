@@ -29,45 +29,50 @@ class HypotheSwiftTests: XCTestCase {
   }
 
   func testUnaryFunctionReturningTwo() {
-    testThat(helper.unaryFunctionAddingOne, will: """
-      always be positive for non-negative inputs
-    """)
+    testThat(helper.unaryFunctionAddingOne, will: "always be positive for non-negative inputs")
       .withConstraint {
         $0.firstArgument.must(beIn: (0...Int.max))
       }
       .proving(that: { $0 > 0 })
-      .log(level: .failures)
       .minimumNumberOfTests(count: 10)
-      .run()
+      .run(onFailure: { XCTFail($0) })
   }
   
   func testBinaryFunctionReturns() {
-    self.measure {
-      testThat(self.helper.additionFunction, will: """
-        Make the result bigger than the original two arguments
-      """)
-        .withConstraints {
-          [
-            $0.firstArgument.must(beIn: (1...100)),
-            $0.secondArgument.must(beIn: (1...100))
-          ]
-        }
-        .proving { arguments, result in
-          let firstIsSmaller = arguments.0 < result
-          let secondIsSmaller = arguments.1 < result
-          return firstIsSmaller && secondIsSmaller
-        }
-        .minimumNumberOfTests(count: 1000)
-        .log(level: .failures)
-        .run()
-    }
+    testThat(self.helper.additionFunction, will: "make the result bigger than or equal to the original two arguments")
+      .withConstraints {
+        [
+          $0.firstArgument.must(beIn: (0...100)),
+          $0.secondArgument.must(beIn: (0...100))
+        ]
+      }
+      .proving { arguments, result in
+        let firstIsSmaller = arguments.0 <= result
+        let secondIsSmaller = arguments.1 <= result
+        return firstIsSmaller && secondIsSmaller
+      }
+      .minimumNumberOfTests(count: 1000)
+      .run(onFailure: { XCTFail($0) })
   }
-
-  func testPerformanceExample() {
-    // This is an example of a performance test case.
-    self.measure {
-      // Put the code you want to measure the time of here.
-    }
+  
+  func testArrayReverse() {
+    testThat(Array<Int>.reversed, will: "produce an identical array when reversed again")
+      .proving(that: { initialArray, reversedArray in reversedArray.reversed() == initialArray })
+      .minimumNumberOfTests(count: 1000)
+      .run(onFailure: { XCTFail($0) })
+  }
+  
+  func testStringReverse() {
+    testThat(String.reversed, will: "produce an identical string when reversed again")
+      .withConstraint(that: {
+        $0.firstArgument.randomized(by: { $0.random(from: "abc", using: &Xoroshiro.default) ?? "abc" })
+      })
+      .proving { (initialString, reversedString) -> Bool in
+        return String(reversedString.reversed()) == initialString
+      }
+      .minimumNumberOfTests(count: 100)
+      .log(level: .all)
+      .run(onFailure: { XCTFail($0) })
   }
 
 }

@@ -12,7 +12,7 @@ import RandomKit
 struct ArgumentConstraint<Arguments> where Arguments: ArgumentEnumerable {
   typealias ConstraintTarget = Arguments
   typealias Rejector = (Arguments) -> Bool
-  typealias GeneratorConstraint = (Arguments) -> Arguments
+  typealias GeneratorConstraint = (Gen<Arguments>) -> Gen<Arguments>
 
   let rejector: Rejector
   let generatorConstraint: GeneratorConstraint
@@ -37,6 +37,8 @@ struct SingleArgumentConstraint<Arguments, T>
   where T: ArgumentType, Arguments: ArgumentEnumerable {
   
   typealias ConstraintTarget = T
+  typealias Rejector = (Arguments) -> Bool
+  typealias GeneratorConstraint = (Gen<Arguments>) -> Gen<Arguments>
   
   let argumentLens: SimpleLens<Arguments, T>
 
@@ -59,7 +61,16 @@ struct SingleArgumentConstraint<Arguments, T>
   }
 
   func must(be value: T) -> ArgumentConstraint<Arguments> {
-    let generator: (Arguments) -> Arguments = { self.argumentLens.set($0, value) }
+    let generator: GeneratorConstraint = { $0.map { self.argumentLens.set($0, value) } }
+    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: generator)
+  }
+  
+  func produced(by generator: Gen<T>) -> ArgumentConstraint<Arguments> {
+    let generator: GeneratorConstraint = { $0.map { oldArgs in
+      let customT = generator.getAnother()
+      return self.argumentLens.set(oldArgs, customT)
+      }
+    }
     return ArgumentConstraint(rejector: noopRejector, generatorConstraint: generator)
   }
   
@@ -71,9 +82,18 @@ extension SingleArgumentConstraint where T: Strideable, T: RandomInClosedRange {
       let newTInRange = Gen<T>.from(range).getAnother()
       return self.argumentLens.set(oldArgs, newTInRange)
     }
-    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: generator)
+    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: { $0.map(generator) })
   }
+}
 
+extension SingleArgumentConstraint where T: Random {
+  func randomized(by randomGenerator: @escaping (T.Type) -> T) -> ArgumentConstraint<Arguments> {
+    let generator: (Arguments) -> Arguments = { oldArgs in
+      let randomT = randomGenerator(T.self)
+      return self.argumentLens.set(oldArgs, randomT)
+    }
+    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: { $0.map(generator) })
+  }
 }
 
 extension SingleArgumentConstraint where T: Strideable, T.Stride: SignedInteger, T: RandomInClosedRange {
@@ -83,9 +103,21 @@ extension SingleArgumentConstraint where T: Strideable, T.Stride: SignedInteger,
       let newTInRange = Gen<T>.from(range).getAnother()
       return self.argumentLens.set(oldArgs, newTInRange)
     }
-    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: generator)
+    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: { $0.map(generator) })
   }
 
+}
+
+extension SingleArgumentConstraint
+where T: Strideable, T: RandomInRange, T.Stride: SignedInteger {
+  func must(beIn range: CountableRange<T>) -> ArgumentConstraint<Arguments> {
+    let generator: GeneratorConstraint = { $0.map { oldArgs in
+        let newTInRange = Gen<T>.from(range).getAnother()
+      return self.argumentLens.set(oldArgs, newTInRange)
+      }
+    }
+    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: generator)
+  }
 }
 
 struct MultiArgumentConstraint<Arguments>

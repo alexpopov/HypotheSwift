@@ -76,6 +76,10 @@
 		B09D57A92077F8D600CCF149 /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D57A72077F8D600CCF149 /* ArgumentType.swift */; };
 		B0A573F82075BB7A004C5FDA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A573F72075BB7A004C5FDA /* Constraint.swift */; };
 		B0A573F92075BB7A004C5FDA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A573F72075BB7A004C5FDA /* Constraint.swift */; };
+		B0C42F87207AC984007707BB /* PropertyTestConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */; };
+		B0C42F88207AC984007707BB /* PropertyTestConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */; };
+		B0C42F8A207ACB8D007707BB /* FunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F89207ACB8D007707BB /* FunctionTests.swift */; };
+		B0C42F8C207ADA7D007707BB /* GenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F8B207ADA7D007707BB /* GenTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +141,9 @@
 		B09D57A42077F80500CCF149 /* Arguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arguments.swift; sourceTree = "<group>"; };
 		B09D57A72077F8D600CCF149 /* ArgumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentType.swift; sourceTree = "<group>"; };
 		B0A573F72075BB7A004C5FDA /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
+		B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTestConvenience.swift; sourceTree = "<group>"; };
+		B0C42F89207ACB8D007707BB /* FunctionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionTests.swift; sourceTree = "<group>"; };
+		B0C42F8B207ADA7D007707BB /* GenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +212,7 @@
 		8C0968A81ED8D24F00CC19F2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */,
 				B09D57A72077F8D600CCF149 /* ArgumentType.swift */,
 				B09D57A42077F80500CCF149 /* Arguments.swift */,
 				B056CBC62077EB9E000CF005 /* Boolean+Extensions.swift */,
@@ -260,6 +268,8 @@
 		B094E4A120740B87005D559E /* HypotheSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				B0C42F8B207ADA7D007707BB /* GenTests.swift */,
+				B0C42F89207ACB8D007707BB /* FunctionTests.swift */,
 				B094E4A220740B87005D559E /* HypotheSwiftTests.swift */,
 				B094E4A420740B87005D559E /* Info.plist */,
 			);
@@ -498,6 +508,7 @@
 			files = (
 				B0A573F82075BB7A004C5FDA /* Constraint.swift in Sources */,
 				B0265F702077233100B6BABE /* Prism.swift in Sources */,
+				B0C42F87207AC984007707BB /* PropertyTestConvenience.swift in Sources */,
 				B0265F5E2077233100B6BABE /* IxMultiStore.swift in Sources */,
 				B0265F6A2077233100B6BABE /* IxState.swift in Sources */,
 				B0265F642077233100B6BABE /* Setter.swift in Sources */,
@@ -528,6 +539,7 @@
 			files = (
 				B0A573F92075BB7A004C5FDA /* Constraint.swift in Sources */,
 				B0265F712077233100B6BABE /* Prism.swift in Sources */,
+				B0C42F88207AC984007707BB /* PropertyTestConvenience.swift in Sources */,
 				B0265F5F2077233100B6BABE /* IxMultiStore.swift in Sources */,
 				B0265F6B2077233100B6BABE /* IxState.swift in Sources */,
 				B0265F652077233100B6BABE /* Setter.swift in Sources */,
@@ -557,6 +569,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B094E4A320740B87005D559E /* HypotheSwiftTests.swift in Sources */,
+				B0C42F8A207ACB8D007707BB /* FunctionTests.swift in Sources */,
+				B0C42F8C207ADA7D007707BB /* GenTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

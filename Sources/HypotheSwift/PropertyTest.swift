@@ -7,26 +7,15 @@
 
 import Foundation
 import Prelude
+import Result
 
-func testThat<T, R>(_ function: @escaping (T) -> R, will invariant: String)
-  -> PropertyTest<UnaryFunction<T, R>>
-  where T: ArgumentType {
-    let unaryTest = UnaryFunction(function)
-    return PropertyTest(test: unaryTest, invariant: invariant)
-}
-
-func testThat<T, U, R>(_ function: @escaping (T, U) -> R, will invariant: String)
-  -> PropertyTest<BinaryFunction<T, U, R>> {
-    let binaryTest = BinaryFunction(function)
-    return PropertyTest(test: binaryTest, invariant: invariant)
-}
-
-struct PropertyTest<Test: Function> {
+public struct PropertyTest<Test: Function> {
 
   typealias Arguments = Test.Arguments
 
   let invariantDeclaration: String
   let test: Test
+  let testName: String
   private(set) var constraints: [ArgumentConstraint<Test.Arguments>] = []
   
   static var constraintsLens: SimpleLens<PropertyTest<Test>, [ArgumentConstraint<Test.Arguments>]> {
@@ -34,12 +23,13 @@ struct PropertyTest<Test: Function> {
   }
   
 
-  init(test: Test, invariant: String) {
+  init(test: Test, invariant: String, testName: String) {
     self.test = test
     self.invariantDeclaration = invariant
+    self.testName = testName
   }
 
-  func withConstraints(_ constraintMaker: (ConstraintMaker<Test.Arguments>) -> ([ArgumentConstraint<Test.Arguments>]))
+  func withConstraints(that constraintMaker: (ConstraintMaker<Test.Arguments>) -> ([ArgumentConstraint<Test.Arguments>]))
     -> PropertyTest<Test> {
       let constraints = ConstraintMaker<Test.Arguments>() |> constraintMaker
       return PropertyTest.constraintsLens.set(self, constraints)
@@ -54,6 +44,7 @@ struct PropertyTest<Test: Function> {
   
   func proving(that predicate: @escaping (Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
     return FinalizedPropertyTest<Test>(test: test,
+                                       testName: testName,
                                        constraints: constraints,
                                        invariant: .returnOnly(predicate),
                                        description: invariantDeclaration)
@@ -61,6 +52,7 @@ struct PropertyTest<Test: Function> {
   
   func proving(that predicate: @escaping (Test.Arguments.TupleRepresentation, Test.Return) -> Bool) -> FinalizedPropertyTest<Test> {
     return FinalizedPropertyTest<Test>(test: test,
+                                       testName: testName,
                                        constraints: constraints,
                                        invariant: .all(predicate),
                                        description: invariantDeclaration)
@@ -107,6 +99,7 @@ enum LoggingLevel: Int, Comparable {
 
 struct FinalizedPropertyTest<Test: Function> {
   private let test: Test
+  private let testName: String
   private let constraints: [ArgumentConstraint<Test.Arguments>]
   private let invariant: ProvableInvariant
   private let invariantDescription: String
@@ -122,10 +115,12 @@ struct FinalizedPropertyTest<Test: Function> {
   }
 
   init(test: Test,
+       testName: String,
        constraints: [ArgumentConstraint<Test.Arguments>],
        invariant: ProvableInvariant,
        description: String) {
     self.test = test
+    self.testName = testName
     self.constraints = constraints
     self.invariant = invariant
     self.invariantDescription = description
@@ -139,13 +134,18 @@ struct FinalizedPropertyTest<Test: Function> {
     return configLens.looking(at: TestConfig.numberOfTestsLens).set(self, count)
   }
   
-  func run() {
+  func run(onFailure failure: (String) -> ()) {
     // two orders of magnitude, until we get smarter generation capabilities
     let maximumTests = config.numberOfTests
     let generator = constrainingGenerator(Test.Arguments.gen, with: constraints)
     for currentTest in (0..<maximumTests) {
       let arguments = generator.getAnother()
-      run(test: test, number: currentTest, with: arguments, and: constraints, proving: invariant)
+      run(test: test,
+          number: currentTest,
+          with: arguments,
+          and: constraints,
+          proving: invariant,
+          failureReporter: failure)
     }
   }
 
@@ -153,36 +153,63 @@ struct FinalizedPropertyTest<Test: Function> {
                    number: Int,
                    with arguments: Test.Arguments,
                    and constraints: [ArgumentConstraint<Test.Arguments>],
-                   proving provableInvariant: ProvableInvariant) {
+                   proving provableInvariant: ProvableInvariant,
+                   failureReporter: (String) -> ()) {
     log("Running test #\(number)", for: .all)
     log("Generated args: \(arguments)", for: .all)
     // see if args pass constraints
-    guard argumentsAreRejected(arguments, by: constraints) == false else {
-      log("Arguments \(arguments) where rejected by a constraint", for: .all)
-      // `continue` iterating if not; actually continue if they do
+    let argumentConstraintsResult = argumentsAreRejected(arguments, by: constraints)
+    guard case .success(let validArguments) = argumentConstraintsResult else {
+      logError(argumentConstraintsResult.error)
       return
     }
-    // pass arguments to function
-    let result = test.call(with: arguments)
+        // pass arguments to function
+    let result = test.call(with: validArguments)
     log("Which yielded: \(result)", for: .all)
     let passes = resultPasses(result, with: arguments, against: provableInvariant)
     if passes {
-      log("Test #\(number) passed!", for: .successes)
+      log("Test \(testName) passed on \(validArguments.asTuple) -> \(result)!", for: .successes)
     } else {
-      log("Test #\(number) failed; did not pass invariant with: \(arguments)", for: .failures)
+      failureReporter("\n\nTest \(testName) failed; \(arguments.asTuple) -> \(result) did not \(invariantDescription)\n\n")
+    }
+  }
+  
+  func logError(_ error: TestRunError?) {
+    guard let error = error else { return }
+    switch error {
+    case .argumentRejectedByConstraint(let arguments, let constraint):
+      var statement = "\(arguments) rejected by constraint"
+      if let label = constraint.label {
+        statement += "labeled: \(label)"
+      }
+      log(statement, for: .all)
+    case .returnFailedInvariant(let result, let arguments, let invariantDescription):
+      log("Test \(testName) failed; \(arguments.asTuple) returned \(result) which did not \(invariantDescription)", for: .failures)
     }
   }
 
-  func constrainingGenerator(_ gen: Gen<Test.Arguments>, with constraints: [ArgumentConstraint<Test.Arguments>])
+  private func constrainingGenerator(_ gen: Gen<Test.Arguments>, with constraints: [ArgumentConstraint<Test.Arguments>])
     -> Gen<Test.Arguments> {
       return constraints
         .map { $0.generatorConstraint }
-        .reduce(gen, { $1 |> $0.map })
+        .reduce(gen, { $1 |> $0.selfMap })
   }
 
-  func argumentsAreRejected(_ arguments: Test.Arguments, by constraints: [ArgumentConstraint<Test.Arguments>]) -> Bool {
-    return constraints.map { $0.rejector }
-      .reduce(false) { $0 || $1(arguments) }
+  private func argumentsAreRejected(_ arguments: Test.Arguments, by constraints: [ArgumentConstraint<Test.Arguments>])
+    -> Result<Test.Arguments, TestRunError> {
+    for constraint in constraints {
+      let isRejected = constraint.rejector(arguments)
+      if isRejected {
+        return Result(error: .argumentRejectedByConstraint(arguments, constraint))
+      }
+      continue
+    }
+    return Result(value: arguments)
+  }
+  
+  enum TestRunError: Error {
+    case argumentRejectedByConstraint(Test.Arguments, ArgumentConstraint<Test.Arguments>)
+    case returnFailedInvariant(Test.Return, Test.Arguments, String)
   }
 
   func resultPasses(_ result: Test.Return,

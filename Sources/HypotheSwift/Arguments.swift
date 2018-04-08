@@ -8,7 +8,7 @@
 import Foundation
 import Prelude
 
-protocol ArgumentEnumerable: ArgumentType {
+public protocol ArgumentEnumerable: ArgumentType {
   associatedtype TupleRepresentation
 
   init(tuple: TupleRepresentation)
@@ -16,22 +16,22 @@ protocol ArgumentEnumerable: ArgumentType {
   var asTuple: TupleRepresentation { get }
 }
 
-protocol SupportsOneArgument: ArgumentEnumerable {
+public protocol SupportsOneArgument: ArgumentEnumerable {
   associatedtype FirstArgument: ArgumentType
   var firstArgument: FirstArgument { get set }
 }
 
-protocol SupportsTwoArguments: SupportsOneArgument {
+public protocol SupportsTwoArguments: SupportsOneArgument {
   associatedtype SecondArgument: ArgumentType
   var secondArgument: SecondArgument { get set }
 }
 
-protocol SupportsThreeArguments: SupportsTwoArguments {
+public protocol SupportsThreeArguments: SupportsTwoArguments {
   associatedtype ThirdArgument: ArgumentType
   var thirdArgument: ThirdArgument { get set }
 }
 
-protocol SupportsFourArguments: SupportsThreeArguments {
+public protocol SupportsFourArguments: SupportsThreeArguments {
   associatedtype FourthArgument: ArgumentType
   var fourthArgument: FourthArgument { get set }
 }
@@ -52,109 +52,117 @@ extension SupportsFourArguments {
   static var fourthArgumentLens: SimpleLens<Self, FourthArgument> { return SimpleLens(keyPath: \Self.fourthArgument) }
 }
 
-struct OneArgument<T>: SupportsOneArgument where T: ArgumentType {
+public struct OneArgument<T>: SupportsOneArgument where T: ArgumentType {
 
-  typealias FirstArgument = T
-  typealias TupleRepresentation = (T)
+  public typealias FirstArgument = T
+  public typealias TupleRepresentation = (T)
 
-  var firstArgument: T
+  public var firstArgument: T
 
-  var asTuple: (T) { return firstArgument }
+  public var asTuple: (T) { return firstArgument }
 
-  init(tuple: TupleRepresentation) {
+  public init(tuple: TupleRepresentation) {
     self.firstArgument = tuple
   }
 
-  static var gen: Gen<OneArgument<T>> {
+  public static var gen: Gen<OneArgument<T>> {
     return T.gen.map(OneArgument<T>.init(tuple:))
   }
 
-  static func == (lhs: OneArgument<T>, rhs: OneArgument<T>) -> Bool {
+  public static func == (lhs: OneArgument<T>, rhs: OneArgument<T>) -> Bool {
     return lhs.firstArgument == rhs.firstArgument
   }
 
 }
 
-struct TwoArguments<T, U>: SupportsTwoArguments where T: ArgumentType, U: ArgumentType {
+public struct TwoArguments<T, U>: SupportsTwoArguments where T: ArgumentType, U: ArgumentType {
 
-  typealias FirstArgument = T
-  typealias SecondArgument = U
-  typealias TupleRepresentation = (T, U)
+  public typealias FirstArgument = T
+  public typealias SecondArgument = U
+  public typealias TupleRepresentation = (T, U)
 
-  var firstArgument: T
-  var secondArgument: U
+  public var firstArgument: T
+  public var secondArgument: U
 
-  var asTuple: (T, U) { return (firstArgument, secondArgument) }
+  public var asTuple: (T, U) { return (firstArgument, secondArgument) }
 
-  init(tuple: TupleRepresentation) {
+  public init(tuple: TupleRepresentation) {
     self.firstArgument = tuple.0
     self.secondArgument = tuple.1
   }
 
-  static var gen: Gen<TwoArguments<T, U>> {
+  public static var gen: Gen<TwoArguments<T, U>> {
     return T.gen.combine(U.gen).map(TwoArguments<T, U>.init(tuple:))
   }
 
-  static func == (lhs: TwoArguments<T, U>, rhs: TwoArguments<T, U>) -> Bool {
+  public static func == (lhs: TwoArguments<T, U>, rhs: TwoArguments<T, U>) -> Bool {
     return lhs.asTuple == rhs.asTuple
   }
 
 }
 
-struct ThreeArguments<T, U, V>: SupportsThreeArguments
+public struct ThreeArguments<T, U, V>: SupportsThreeArguments
 where T: ArgumentType, U: ArgumentType, V: ArgumentType {
-  typealias FirstArgument = T
-  typealias SecondArgument = U
-  typealias ThirdArgument = V
-  typealias TupleRepresentation = (T, U, V)
+  public typealias FirstArgument = T
+  public typealias SecondArgument = U
+  public typealias ThirdArgument = V
+  public typealias TupleRepresentation = (T, U, V)
 
-  var firstArgument: T
-  var secondArgument: U
-  var thirdArgument: V
+  public var firstArgument: T
+  public var secondArgument: U
+  public var thirdArgument: V
 
-  var asTuple: (T, U, V) { return (firstArgument, secondArgument, thirdArgument) }
+  public var asTuple: (T, U, V) { return (firstArgument, secondArgument, thirdArgument) }
 
-  init(tuple: TupleRepresentation) {
+  public init(tuple: TupleRepresentation) {
     self.firstArgument = tuple.0
     self.secondArgument = tuple.1
     self.thirdArgument = tuple.2
   }
 
-  static var gen: Gen<ThreeArguments<T, U, V>> {
+  public static var gen: Gen<ThreeArguments<T, U, V>> {
     return T.gen
       .combine(U.gen)
       .combine(V.gen)
       .map(ThreeArguments<T, U, V>.init(tuple:))
   }
+  
+  public static func ==<T, U, V>(lhs: ThreeArguments<T, U, V>, rhs: ThreeArguments<T, U, V>) -> Bool {
+    return lhs.asTuple == rhs.asTuple
+  }
 }
 
-struct FourArguments<T, U, V, W>: SupportsFourArguments
+public struct FourArguments<T, U, V, W>: SupportsFourArguments
 where T: ArgumentType, U: ArgumentType, V: ArgumentType, W: ArgumentType {
-  typealias FirstArgument = T
-  typealias SecondArgument = U
-  typealias ThirdArgument = V
-  typealias FourthArgument = W
-  typealias TupleRepresentation = (T, U, V, W)
+  public typealias FirstArgument = T
+  public typealias SecondArgument = U
+  public typealias ThirdArgument = V
+  public typealias FourthArgument = W
+  public typealias TupleRepresentation = (T, U, V, W)
 
-  var firstArgument: T
-  var secondArgument: U
-  var thirdArgument: V
-  var fourthArgument: W
+  public var firstArgument: T
+  public var secondArgument: U
+  public var thirdArgument: V
+  public var fourthArgument: W
 
-  var asTuple: (T, U, V, W) { return (firstArgument, secondArgument, thirdArgument, fourthArgument) }
+  public var asTuple: (T, U, V, W) { return (firstArgument, secondArgument, thirdArgument, fourthArgument) }
 
-  init(tuple: TupleRepresentation) {
+  public init(tuple: TupleRepresentation) {
     self.firstArgument = tuple.0
     self.secondArgument = tuple.1
     self.thirdArgument = tuple.2
     self.fourthArgument = tuple.3
   }
 
-  static var gen: Gen<FourArguments<T, U, V, W>> {
+  public static var gen: Gen<FourArguments<T, U, V, W>> {
     return T.gen
       .combine(U.gen)
       .combine(V.gen)
       .combine(W.gen)
       .map(FourArguments.init)
+  }
+  
+  public static func ==<T, U, V, W>(lhs: FourArguments<T, U, V, W>, rhs: FourArguments<T, U, V, W>) -> Bool {
+    return lhs.asTuple == rhs.asTuple
   }
 }
