@@ -80,6 +80,8 @@
 		B0C42F88207AC984007707BB /* PropertyTestConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */; };
 		B0C42F8A207ACB8D007707BB /* FunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F89207ACB8D007707BB /* FunctionTests.swift */; };
 		B0C42F8C207ADA7D007707BB /* GenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F8B207ADA7D007707BB /* GenTests.swift */; };
+		B0C42F8E207AEB90007707BB /* Minimizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F8D207AEB90007707BB /* Minimizer.swift */; };
+		B0C42F8F207AEB90007707BB /* Minimizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F8D207AEB90007707BB /* Minimizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +146,7 @@
 		B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTestConvenience.swift; sourceTree = "<group>"; };
 		B0C42F89207ACB8D007707BB /* FunctionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionTests.swift; sourceTree = "<group>"; };
 		B0C42F8B207ADA7D007707BB /* GenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenTests.swift; sourceTree = "<group>"; };
+		B0C42F8D207AEB90007707BB /* Minimizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Minimizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,7 @@
 		8C0968A81ED8D24F00CC19F2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B0C42F8D207AEB90007707BB /* Minimizer.swift */,
 				B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */,
 				B09D57A72077F8D600CCF149 /* ArgumentType.swift */,
 				B09D57A42077F80500CCF149 /* Arguments.swift */,
@@ -523,6 +527,7 @@
 				B09D57A22077F79100CCF149 /* UtilityFunctions.swift in Sources */,
 				B0265F762077233100B6BABE /* Lens.swift in Sources */,
 				B065FB4920753A6B00572691 /* Focus.swift in Sources */,
+				B0C42F8E207AEB90007707BB /* Minimizer.swift in Sources */,
 				B09D57A82077F8D600CCF149 /* ArgumentType.swift in Sources */,
 				B056CBC72077EB9E000CF005 /* Boolean+Extensions.swift in Sources */,
 				B0265F622077233100B6BABE /* Iso.swift in Sources */,
@@ -554,6 +559,7 @@
 				B09D57A32077F79100CCF149 /* UtilityFunctions.swift in Sources */,
 				B0265F772077233100B6BABE /* Lens.swift in Sources */,
 				B065FB4A20753A6B00572691 /* Focus.swift in Sources */,
+				B0C42F8F207AEB90007707BB /* Minimizer.swift in Sources */,
 				B09D57A92077F8D600CCF149 /* ArgumentType.swift in Sources */,
 				B056CBC82077EB9E000CF005 /* Boolean+Extensions.swift in Sources */,
 				B0265F632077233100B6BABE /* Iso.swift in Sources */,

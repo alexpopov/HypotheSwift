@@ -87,5 +87,21 @@ class GenTests: XCTestCase {
       .proving(that: { isEven($0) == false })
       .run(onFailure: fail)
   }
+  
+  func testFailOnImpossibleConstraints() {
+    let isFalse: (Bool) -> Bool = { return $0 == false }
+    let isTrue = specialize(id, as: Bool.self)
+    testThat(specialize(id, as: Bool.self), will: "fail")
+      .withConstraints(that: {
+        [
+          $0.firstArgument.not(isFalse).labeled("cannot be false"),
+          $0.firstArgument.not(isTrue).labeled("cannot be true")
+        ]
+      })
+      .proving(that: { _ in return true })
+      .log(level: .all)
+      .run(onFailure: fail)
+    
+  }
 
 }

@@ -136,17 +136,60 @@ struct FinalizedPropertyTest<Test: Function> {
   
   func run(onFailure failure: (String) -> ()) {
     // two orders of magnitude, until we get smarter generation capabilities
-    let maximumTests = config.numberOfTests
+    let minimumTests = config.numberOfTests
+    let maximumTests = minimumTests * 100 // two orders of magnitude in case constraints are super specific
     let generator = constrainingGenerator(Test.Arguments.gen, with: constraints)
+    var testsRan = 0
     for currentTest in (0..<maximumTests) {
       let arguments = generator.getAnother()
-      run(test: test,
-          number: currentTest,
-          with: arguments,
-          and: constraints,
-          proving: invariant,
-          failureReporter: failure)
+      if let error = run(test: test,
+                         number: currentTest,
+                         with: arguments,
+                         and: constraints,
+                         proving: invariant,
+                         failureReporter: failure) {
+        logError(error)
+        switch error {
+        case .argumentRejectedByConstraint:
+          // we skip the `testsRan + 1` line
+          continue
+        case .returnFailedInvariant(let result, let arguments, let invariantDescription):
+          failure("\n\nTest \(testName) failed; \(arguments.asTuple) -> \(result) did not \(invariantDescription)\n\n")
+        }
+      }
+      testsRan += 1
+      guard testsRan < minimumTests else {
+        log("\n\nTest \(testName) completed successfully", for: .successes)
+        return
+      }
     }
+    let failedToGenerateArgumentsTitle = "\n\nTest \(testName) failed; "
+     + "could not generate enough arguments even after \(maximumTests) attempts."
+    let failedToGenerateArgumentsMessage = """
+    Please consider relaxing your constraints or defining them more specifically; use the `produced(by:)` method on
+    an argument to provide your own `Gen` with the existing constraints do not meet your needs.
+    """
+    failure([failedToGenerateArgumentsTitle, failedToGenerateArgumentsMessage].joined(separator: "\n"))
+  }
+  
+  func minimizeFailingTestCase(arguments: Test.Arguments) -> Test.Arguments {
+    // TODO: check me out
+    return minimizeRecursively(depth: 0, arguments: arguments).first ?? arguments
+  }
+  
+  func minimizeRecursively(depth: Int, arguments: Test.Arguments) -> [Test.Arguments] {
+    let minimizer = Minimizer(arguments: arguments, constraints: constraints)
+    let minimizedArguments = minimizer.minimize()
+    let stillFailingArguments = minimizedArguments
+      .filter { arguments in
+        let result = test.call(with: arguments)
+        return resultPasses(result, with: arguments, against: invariant) == false
+    }
+    guard stillFailingArguments.isEmpty == false else { return [arguments] }
+    let recursiveCalls = stillFailingArguments
+      .map { minimizeRecursively(depth: depth + 1, arguments: $0) }
+    // TODO: check me out
+    fatalError()
   }
 
   private func run(test: Test,
@@ -154,33 +197,35 @@ struct FinalizedPropertyTest<Test: Function> {
                    with arguments: Test.Arguments,
                    and constraints: [ArgumentConstraint<Test.Arguments>],
                    proving provableInvariant: ProvableInvariant,
-                   failureReporter: (String) -> ()) {
-    log("Running test #\(number)", for: .all)
-    log("Generated args: \(arguments)", for: .all)
+                   failureReporter: (String) -> ()) -> TestRunError? {
+    log("Running \(testName) #\(number)", for: .all)
+    log("Generated arguments: \(arguments.asTuple)", for: .all)
     // see if args pass constraints
     let argumentConstraintsResult = argumentsAreRejected(arguments, by: constraints)
     guard case .success(let validArguments) = argumentConstraintsResult else {
       logError(argumentConstraintsResult.error)
-      return
+      return argumentConstraintsResult.error!
     }
-        // pass arguments to function
+    // pass arguments to function
+    log("Calling function \(Test.Arguments.TupleRepresentation.self) -> \(Test.Return.self)", for: .all)
     let result = test.call(with: validArguments)
-    log("Which yielded: \(result)", for: .all)
+    log("Produced: \(result)", for: .all)
     let passes = resultPasses(result, with: arguments, against: provableInvariant)
     if passes {
       log("Test \(testName) passed on \(validArguments.asTuple) -> \(result)!", for: .successes)
     } else {
-      failureReporter("\n\nTest \(testName) failed; \(arguments.asTuple) -> \(result) did not \(invariantDescription)\n\n")
+      return TestRunError.returnFailedInvariant(result, arguments, invariantDescription)
     }
+    return nil
   }
-  
-  func logError(_ error: TestRunError?) {
+
+  private func logError(_ error: TestRunError?) {
     guard let error = error else { return }
     switch error {
     case .argumentRejectedByConstraint(let arguments, let constraint):
-      var statement = "\(arguments) rejected by constraint"
+      var statement = "\(arguments.asTuple) rejected by constraint"
       if let label = constraint.label {
-        statement += "labeled: \(label)"
+        statement += " labeled: `\(label)`"
       }
       log(statement, for: .all)
     case .returnFailedInvariant(let result, let arguments, let invariantDescription):
@@ -199,8 +244,7 @@ struct FinalizedPropertyTest<Test: Function> {
     -> Result<Test.Arguments, TestRunError> {
     for constraint in constraints {
       let isRejected = constraint.rejector(arguments)
-      if isRejected {
-        return Result(error: .argumentRejectedByConstraint(arguments, constraint))
+      if isRejected { return Result(error: .argumentRejectedByConstraint(arguments, constraint))
       }
       continue
     }
@@ -233,7 +277,6 @@ struct FinalizedPropertyTest<Test: Function> {
     case returnOnly((Test.Return) -> Bool)
     case all((Test.Arguments.TupleRepresentation, Test.Return) -> Bool)
   }
-  
 
 }
 
