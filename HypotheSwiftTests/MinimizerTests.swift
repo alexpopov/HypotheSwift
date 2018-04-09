@@ -17,8 +17,7 @@ class MinimizerTests: XCTestCase {
         $0.firstArgument.randomized(by: { $0.random(using: &Xoroshiro.default) + "f" })
       })
       .proving(that: { $0.firstArgument.count <= 3 })
-      .log(level: .successes)
-      .minimumNumberOfTests(count: 10000)
+      .minimumNumberOfTests(count: 1000)
       .run(onFailure: fail)
   }
 
@@ -30,7 +29,7 @@ class MinimizerTests: XCTestCase {
         })
       })
       .proving(that: { $0.firstArgument.minimizationSize <= 5 })
-      .minimumNumberOfTests(count: 1000)
+      .minimumNumberOfTests(count: 100)
       .run(onFailure: fail)
   }
 

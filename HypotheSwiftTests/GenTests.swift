@@ -99,7 +99,6 @@ class GenTests: XCTestCase {
         ]
       })
       .proving(that: { _ in return true })
-      .log(level: .all)
       .run(onFailure: fail)
     
   }
