@@ -20,7 +20,7 @@ struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
   
   fileprivate func minimize<T>(_ argument: T,
                    through lens: SimpleLens<Arguments, T>) -> [Arguments]
-    where T: MinimizableArgumentType {
+    where T: ArgumentType {
       let strategies = argument.minimizationStrategies()
       let possibleArguments = strategies
         .map { $0(argument) }
@@ -31,61 +31,23 @@ struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
       return possibleArguments
   }
 
-  func minimizeFirst<T>() -> [Arguments] where Arguments: SupportsOneArgument,
-    T == Arguments.FirstArgument, T: MinimizableArgumentType {
-    return minimize(arguments.firstArgument, through: Arguments.firstArgumentLens)
+  fileprivate func minimize(argument: Arguments) -> [Arguments] {
+    let strategies = argument.minimizationStrategies()
+    let possibleArguments = strategies
+      .map { $0(argument) }
+      .filter { ConstraintUtils.does($0, pass: constraints) }
+    // try to only leave those that are smaller
+    let evenSmallerArguments = possibleArguments
+      .filter { $0.minimizationSize < argument.minimizationSize }
+    if evenSmallerArguments.isEmpty == false {
+      return evenSmallerArguments
+    } else {
+      return possibleArguments
+    }
   }
 
-  func minimizeFirst() -> [Arguments] {
-    return []
-  }
-  
-  func minimizeSecond() -> [Arguments] {
-    return []
-  }
-  
-  func minimizeThird() -> [Arguments] {
-    return []
-  }
-  
-  func minimizeFourth() -> [Arguments] {
-    return []
-  }
-  
   func minimize() -> [Arguments] {
-    return minimizeFirst() + minimizeSecond() + minimizeThird() + minimizeFourth()
+    return minimize(argument: arguments)
   }
   
-}
-
-extension Minimizer where Arguments: SupportsOneArgument,
-Arguments.FirstArgument: MinimizableArgumentType {
-  static func minimizer(arguments: Arguments, constraints: [ArgumentConstraint<Arguments>]) -> Minimizer<Arguments> {
-    return Minimizer(arguments: arguments, constraints: constraints)
-  }
-
-  func minimizeFirst() -> [Arguments] {
-    return minimize(arguments.firstArgument, through: Arguments.firstArgumentLens)
-  }
-}
-
-extension Minimizer where Arguments: SupportsTwoArguments,
-Arguments.SecondArgument: MinimizableArgumentType {
-  func minimizeSecond() -> [Arguments] {
-    return minimize(arguments.secondArgument, through: Arguments.secondArgumentLens)
-  }
-}
-
-extension Minimizer where Arguments: SupportsThreeArguments,
-Arguments.ThirdArgument: MinimizableArgumentType {
-  func minimizeThird() -> [Arguments] {
-    return minimize(arguments.thirdArgument, through: Arguments.thirdArgumentLens)
-  }
-}
-
-extension Minimizer where Arguments: SupportsFourArguments,
-Arguments.FourthArgument: MinimizableArgumentType {
-  func minimizeFourth() -> [Arguments] {
-    return minimize(arguments.fourthArgument, through: Arguments.fourthArgumentLens)
-  }
 }

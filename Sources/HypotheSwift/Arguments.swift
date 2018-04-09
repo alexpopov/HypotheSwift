@@ -52,7 +52,7 @@ extension SupportsFourArguments {
   static var fourthArgumentLens: SimpleLens<Self, FourthArgument> { return SimpleLens(keyPath: \Self.fourthArgument) }
 }
 
-public struct OneArgument<T>: SupportsOneArgument, MinimizableArgumentType where T: ArgumentType  {
+public struct OneArgument<T>: SupportsOneArgument where T: ArgumentType  {
 
   public typealias FirstArgument = T
   public typealias TupleRepresentation = (T)
@@ -74,12 +74,13 @@ public struct OneArgument<T>: SupportsOneArgument, MinimizableArgumentType where
   }
 
   public var minimizationSize: Int {
-    return AnyMinimizableArgument(firstArgument).minimizationSize
+    return firstArgument.minimizationSize
   }
 
   public func minimizationStrategies() -> [(OneArgument<T>) -> OneArgument<T>] {
-    return AnyMinimizableArgument(firstArgument).minimizationStrategies()
-      .map { OneArgument.firstArgumentLens.setting($0(firstArgument)) }
+    return firstArgument.minimizationStrategies()
+      .map { $0(firstArgument) }
+      .map { OneArgument.firstArgumentLens.setting($0) }
   }
 
 }
@@ -106,6 +107,11 @@ public struct TwoArguments<T, U>: SupportsTwoArguments where T: ArgumentType, U:
 
   public static func == (lhs: TwoArguments<T, U>, rhs: TwoArguments<T, U>) -> Bool {
     return lhs.asTuple == rhs.asTuple
+  }
+
+  public var minimizationSize: Int { return 0 }
+  public func minimizationStrategies() -> [(TwoArguments<T, U>) -> TwoArguments<T, U>] {
+    return []
   }
 
 }
@@ -138,6 +144,11 @@ where T: ArgumentType, U: ArgumentType, V: ArgumentType {
   
   public static func ==<T, U, V>(lhs: ThreeArguments<T, U, V>, rhs: ThreeArguments<T, U, V>) -> Bool {
     return lhs.asTuple == rhs.asTuple
+  }
+
+  public var minimizationSize: Int { return 0 }
+  public func minimizationStrategies() -> [(ThreeArguments<T, U, V>) -> ThreeArguments<T, U, V>] {
+    return []
   }
 }
 
@@ -173,5 +184,10 @@ where T: ArgumentType, U: ArgumentType, V: ArgumentType, W: ArgumentType {
   
   public static func ==<T, U, V, W>(lhs: FourArguments<T, U, V, W>, rhs: FourArguments<T, U, V, W>) -> Bool {
     return lhs.asTuple == rhs.asTuple
+  }
+
+  public var minimizationSize: Int { return 0 }
+  public func minimizationStrategies() -> [(FourArguments<T, U, V, W>) -> FourArguments<T, U, V, W>] {
+    return []
   }
 }

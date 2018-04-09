@@ -153,9 +153,13 @@ struct FinalizedPropertyTest<Test: Function> {
         case .argumentRejectedByConstraint:
           // we skip the `testsRan + 1` line
           continue
-        case .returnFailedInvariant(let result, let arguments, let invariantDescription):
+        case .returnFailedInvariant(_, let arguments, let invariantDescription):
+          log("Minimizing test case...\n", for: .failures)
           let minimizedArguments = minimizeFailingTestCase(arguments: arguments)
-          failure("\n\nTest \(testName) failed; \(minimizedArguments.asTuple) -> \(result) did not \(invariantDescription)\n\n")
+          let resultForMinimizedArguments = test.call(with: minimizedArguments)
+          failure("\n\nTest \(testName) failed; \(minimizedArguments.asTuple) -> \(resultForMinimizedArguments)"
+            + " did not \(invariantDescription)\n\n")
+          return
         }
       }
       testsRan += 1
@@ -186,7 +190,7 @@ struct FinalizedPropertyTest<Test: Function> {
       .filter { arguments in
         let result = test.call(with: arguments)
         return resultPasses(result, with: arguments, against: invariant) == false
-    }
+      }
     guard stillFailingArguments.isEmpty == false else { return [arguments] }
     let recursiveCalls = stillFailingArguments
       .flatMap { minimizeRecursively(depth: depth + 1, arguments: $0) }

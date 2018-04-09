@@ -13,7 +13,6 @@ class MinimizerTests: XCTestCase {
   func testFailStringMinimizationWorks() {
     testThat(MinimizerTests.brokenStringReverser(input:), will: "always properly reverse the string")
       .proving(that: { arguments, result in return String(result.reversed()) == arguments })
-      .minimizeFirstArgumentIfPossible()
       .run(onFailure: fail)
   }
 
