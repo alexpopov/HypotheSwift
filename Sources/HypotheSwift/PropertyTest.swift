@@ -8,6 +8,7 @@
 import Foundation
 import Prelude
 import Result
+import RandomKit
 
 public struct PropertyTest<Test: Function> {
 
@@ -17,11 +18,10 @@ public struct PropertyTest<Test: Function> {
   let test: Test
   let testName: String
   private(set) var constraints: [ArgumentConstraint<Test.Arguments>] = []
-  
+
   static var constraintsLens: SimpleLens<PropertyTest<Test>, [ArgumentConstraint<Test.Arguments>]> {
     return SimpleLens(keyPath: \PropertyTest.constraints)
   }
-  
 
   init(test: Test, invariant: String, testName: String) {
     self.test = test
@@ -100,7 +100,7 @@ enum LoggingLevel: Int, Comparable {
 struct FinalizedPropertyTest<Test: Function> {
   private let test: Test
   private let testName: String
-  private let constraints: [ArgumentConstraint<Test.Arguments>]
+  fileprivate let constraints: [ArgumentConstraint<Test.Arguments>]
   private let invariant: ProvableInvariant
   private let invariantDescription: String
 
@@ -154,7 +154,8 @@ struct FinalizedPropertyTest<Test: Function> {
           // we skip the `testsRan + 1` line
           continue
         case .returnFailedInvariant(let result, let arguments, let invariantDescription):
-          failure("\n\nTest \(testName) failed; \(arguments.asTuple) -> \(result) did not \(invariantDescription)\n\n")
+          let minimizedArguments = minimizeFailingTestCase(arguments: arguments)
+          failure("\n\nTest \(testName) failed; \(minimizedArguments.asTuple) -> \(result) did not \(invariantDescription)\n\n")
         }
       }
       testsRan += 1
@@ -173,11 +174,12 @@ struct FinalizedPropertyTest<Test: Function> {
   }
   
   func minimizeFailingTestCase(arguments: Test.Arguments) -> Test.Arguments {
-    // TODO: check me out
-    return minimizeRecursively(depth: 0, arguments: arguments).first ?? arguments
+    return minimizeRecursively(depth: 0, arguments: arguments)
+      .random(using: &Xoroshiro.default) ?? arguments
   }
   
   func minimizeRecursively(depth: Int, arguments: Test.Arguments) -> [Test.Arguments] {
+    guard depth < 8 else { return [arguments] }
     let minimizer = Minimizer(arguments: arguments, constraints: constraints)
     let minimizedArguments = minimizer.minimize()
     let stillFailingArguments = minimizedArguments
@@ -187,9 +189,8 @@ struct FinalizedPropertyTest<Test: Function> {
     }
     guard stillFailingArguments.isEmpty == false else { return [arguments] }
     let recursiveCalls = stillFailingArguments
-      .map { minimizeRecursively(depth: depth + 1, arguments: $0) }
-    // TODO: check me out
-    fatalError()
+      .flatMap { minimizeRecursively(depth: depth + 1, arguments: $0) }
+    return recursiveCalls
   }
 
   private func run(test: Test,
@@ -267,7 +268,6 @@ struct FinalizedPropertyTest<Test: Function> {
     }
   }
 
-
   private func log(_ event: String, for loggingLevel: LoggingLevel) {
     guard loggingLevel <= config.loggingLevel else { return }
     print(event)
@@ -278,12 +278,4 @@ struct FinalizedPropertyTest<Test: Function> {
     case all((Test.Arguments.TupleRepresentation, Test.Return) -> Bool)
   }
 
-}
-
-class ConstraintSolver<Test: Function> {
-  let arguments: Test.Arguments
-  
-  init(arguments: Test.Arguments, constraints: [ArgumentConstraint<Test.Arguments>]) {
-    fatalError()
-  }
 }

@@ -21,4 +21,10 @@ extension Array {
     return copy
   }
 
+  func removing(at index: Int) -> Array<Element> {
+    var copy = self
+    copy.remove(at: index)
+    return copy
+  }
+
 }

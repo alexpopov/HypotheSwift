@@ -46,6 +46,9 @@
 		B0265F752077233100B6BABE /* Focus.h in Headers */ = {isa = PBXBuildFile; fileRef = B0265F5C2077233100B6BABE /* Focus.h */; };
 		B0265F762077233100B6BABE /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5D2077233100B6BABE /* Lens.swift */; };
 		B0265F772077233100B6BABE /* Lens.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F5D2077233100B6BABE /* Lens.swift */; };
+		B0523851207BB55200C7F336 /* MinimizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0523850207BB55200C7F336 /* MinimizerTests.swift */; };
+		B0523853207BB57800C7F336 /* MinimizableArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0523852207BB57800C7F336 /* MinimizableArgumentType.swift */; };
+		B0523854207BB67900C7F336 /* MinimizableArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0523852207BB57800C7F336 /* MinimizableArgumentType.swift */; };
 		B056CBBE2077E8CE000CF005 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
 		B056CBBF2077E8CE000CF005 /* RandomKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E362077D3B7004D5F79 /* RandomKit.framework */; };
 		B056CBC02077E8CE000CF005 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
@@ -76,6 +79,8 @@
 		B09D57A92077F8D600CCF149 /* ArgumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09D57A72077F8D600CCF149 /* ArgumentType.swift */; };
 		B0A573F82075BB7A004C5FDA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A573F72075BB7A004C5FDA /* Constraint.swift */; };
 		B0A573F92075BB7A004C5FDA /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A573F72075BB7A004C5FDA /* Constraint.swift */; };
+		B0B4A7A6207BB73900BE8381 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B4A7A5207BB73900BE8381 /* String+Utilities.swift */; };
+		B0B4A7A7207BB73900BE8381 /* String+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B4A7A5207BB73900BE8381 /* String+Utilities.swift */; };
 		B0C42F87207AC984007707BB /* PropertyTestConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */; };
 		B0C42F88207AC984007707BB /* PropertyTestConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */; };
 		B0C42F8A207ACB8D007707BB /* FunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F89207ACB8D007707BB /* FunctionTests.swift */; };
@@ -122,6 +127,8 @@
 		B0265F5B2077233100B6BABE /* IxCont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IxCont.swift; sourceTree = "<group>"; };
 		B0265F5C2077233100B6BABE /* Focus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Focus.h; sourceTree = "<group>"; };
 		B0265F5D2077233100B6BABE /* Lens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lens.swift; sourceTree = "<group>"; };
+		B0523850207BB55200C7F336 /* MinimizerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimizerTests.swift; sourceTree = "<group>"; };
+		B0523852207BB57800C7F336 /* MinimizableArgumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinimizableArgumentType.swift; sourceTree = "<group>"; };
 		B056CBC42077E8CE000CF005 /* HypotheSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HypotheSwift.framework; path = Carthage/Build/Mac/HypotheSwift.framework; sourceTree = "<group>"; };
 		B056CBC62077EB9E000CF005 /* Boolean+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Boolean+Extensions.swift"; sourceTree = "<group>"; };
 		B065FB4820753A6B00572691 /* Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Focus.swift; sourceTree = "<group>"; };
@@ -143,6 +150,7 @@
 		B09D57A42077F80500CCF149 /* Arguments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arguments.swift; sourceTree = "<group>"; };
 		B09D57A72077F8D600CCF149 /* ArgumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentType.swift; sourceTree = "<group>"; };
 		B0A573F72075BB7A004C5FDA /* Constraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
+		B0B4A7A5207BB73900BE8381 /* String+Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Utilities.swift"; sourceTree = "<group>"; };
 		B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyTestConvenience.swift; sourceTree = "<group>"; };
 		B0C42F89207ACB8D007707BB /* FunctionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionTests.swift; sourceTree = "<group>"; };
 		B0C42F8B207ADA7D007707BB /* GenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenTests.swift; sourceTree = "<group>"; };
@@ -215,12 +223,14 @@
 		8C0968A81ED8D24F00CC19F2 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				B0523852207BB57800C7F336 /* MinimizableArgumentType.swift */,
 				B0C42F8D207AEB90007707BB /* Minimizer.swift */,
 				B0C42F86207AC984007707BB /* PropertyTestConvenience.swift */,
 				B09D57A72077F8D600CCF149 /* ArgumentType.swift */,
 				B09D57A42077F80500CCF149 /* Arguments.swift */,
 				B056CBC62077EB9E000CF005 /* Boolean+Extensions.swift */,
 				B09D57A12077F79100CCF149 /* UtilityFunctions.swift */,
+				B0B4A7A5207BB73900BE8381 /* String+Utilities.swift */,
 				B0105E202077C6D6004D5F79 /* Gen.swift */,
 				8C4520A71F08E159002F0E38 /* HypotheSwift.swift */,
 				B09BDF502073FD4C000F6922 /* PropertyTest.swift */,
@@ -272,6 +282,7 @@
 		B094E4A120740B87005D559E /* HypotheSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				B0523850207BB55200C7F336 /* MinimizerTests.swift */,
 				B0C42F8B207ADA7D007707BB /* GenTests.swift */,
 				B0C42F89207ACB8D007707BB /* FunctionTests.swift */,
 				B094E4A220740B87005D559E /* HypotheSwiftTests.swift */,
@@ -526,10 +537,12 @@
 				B0265F6C2077233100B6BABE /* Protocols.swift in Sources */,
 				B09D57A22077F79100CCF149 /* UtilityFunctions.swift in Sources */,
 				B0265F762077233100B6BABE /* Lens.swift in Sources */,
+				B0B4A7A6207BB73900BE8381 /* String+Utilities.swift in Sources */,
 				B065FB4920753A6B00572691 /* Focus.swift in Sources */,
 				B0C42F8E207AEB90007707BB /* Minimizer.swift in Sources */,
 				B09D57A82077F8D600CCF149 /* ArgumentType.swift in Sources */,
 				B056CBC72077EB9E000CF005 /* Boolean+Extensions.swift in Sources */,
+				B0523853207BB57800C7F336 /* MinimizableArgumentType.swift in Sources */,
 				B0265F622077233100B6BABE /* Iso.swift in Sources */,
 				B0265F722077233100B6BABE /* IxCont.swift in Sources */,
 				B0265F602077233100B6BABE /* IxStore.swift in Sources */,
@@ -558,10 +571,12 @@
 				B0265F6D2077233100B6BABE /* Protocols.swift in Sources */,
 				B09D57A32077F79100CCF149 /* UtilityFunctions.swift in Sources */,
 				B0265F772077233100B6BABE /* Lens.swift in Sources */,
+				B0B4A7A7207BB73900BE8381 /* String+Utilities.swift in Sources */,
 				B065FB4A20753A6B00572691 /* Focus.swift in Sources */,
 				B0C42F8F207AEB90007707BB /* Minimizer.swift in Sources */,
 				B09D57A92077F8D600CCF149 /* ArgumentType.swift in Sources */,
 				B056CBC82077EB9E000CF005 /* Boolean+Extensions.swift in Sources */,
+				B0523854207BB67900C7F336 /* MinimizableArgumentType.swift in Sources */,
 				B0265F632077233100B6BABE /* Iso.swift in Sources */,
 				B0265F732077233100B6BABE /* IxCont.swift in Sources */,
 				B0265F612077233100B6BABE /* IxStore.swift in Sources */,
@@ -576,6 +591,7 @@
 			files = (
 				B094E4A320740B87005D559E /* HypotheSwiftTests.swift in Sources */,
 				B0C42F8A207ACB8D007707BB /* FunctionTests.swift in Sources */,
+				B0523851207BB55200C7F336 /* MinimizerTests.swift in Sources */,
 				B0C42F8C207ADA7D007707BB /* GenTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

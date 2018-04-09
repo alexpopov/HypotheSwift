@@ -52,7 +52,7 @@ extension SupportsFourArguments {
   static var fourthArgumentLens: SimpleLens<Self, FourthArgument> { return SimpleLens(keyPath: \Self.fourthArgument) }
 }
 
-public struct OneArgument<T>: SupportsOneArgument where T: ArgumentType {
+public struct OneArgument<T>: SupportsOneArgument, MinimizableArgumentType where T: ArgumentType  {
 
   public typealias FirstArgument = T
   public typealias TupleRepresentation = (T)
@@ -71,6 +71,15 @@ public struct OneArgument<T>: SupportsOneArgument where T: ArgumentType {
 
   public static func == (lhs: OneArgument<T>, rhs: OneArgument<T>) -> Bool {
     return lhs.firstArgument == rhs.firstArgument
+  }
+
+  public var minimizationSize: Int {
+    return AnyMinimizableArgument(firstArgument).minimizationSize
+  }
+
+  public func minimizationStrategies() -> [(OneArgument<T>) -> OneArgument<T>] {
+    return AnyMinimizableArgument(firstArgument).minimizationStrategies()
+      .map { OneArgument.firstArgumentLens.setting($0(firstArgument)) }
   }
 
 }

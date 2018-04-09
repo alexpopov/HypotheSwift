@@ -35,7 +35,7 @@ class HypotheSwiftTests: XCTestCase {
       }
       .proving(that: { $0 > 0 })
       .minimumNumberOfTests(count: 10)
-      .run(onFailure: { XCTFail($0) })
+      .run(onFailure: fail)
   }
   
   func testBinaryFunctionReturns() {
@@ -52,7 +52,7 @@ class HypotheSwiftTests: XCTestCase {
         return firstIsSmaller && secondIsSmaller
       }
       .minimumNumberOfTests(count: 1000)
-      .run(onFailure: { XCTFail($0) })
+      .run(onFailure: fail)
   }
   
   func testArrayReverse() {
