@@ -64,23 +64,16 @@ struct TestConfig {
   var numberOfTests: Int = 100
   var loggingLevel: LoggingLevel = .failures
   var maximumMinimizationLevel: Int = 3
+  var continueAfterFailure: Bool = false
+  var shouldMinimize: Bool = true
 
-  init() {
+  init() { }
 
-  }
-
-  static var numberOfTestsLens: SimpleLens<TestConfig, Int> {
-    return SimpleLens(keyPath: \TestConfig.numberOfTests)
-  }
-
-  static var loggingLevelLens: SimpleLens<TestConfig, LoggingLevel> {
-    return SimpleLens(keyPath: \TestConfig.loggingLevel)
-  }
-
-  static var maximumMinimizationLevelLens: SimpleLens<TestConfig, Int> {
-    return SimpleLens(keyPath: \TestConfig.maximumMinimizationLevel)
-  }
-
+  static let numberOfTestsLens = SimpleLens(keyPath: \TestConfig.numberOfTests)
+  static let loggingLevelLens = SimpleLens(keyPath: \TestConfig.loggingLevel)
+  static let maximumMinimizationLevelLens = SimpleLens(keyPath: \TestConfig.maximumMinimizationLevel)
+  static let continueAfterFailureLens = SimpleLens(keyPath: \TestConfig.continueAfterFailure)
+  static let shouldMinimizeLens = SimpleLens(keyPath: \TestConfig.shouldMinimize)
 }
 
 enum LoggingLevel: Int, Comparable {
@@ -142,8 +135,23 @@ struct FinalizedPropertyTest<Test: Function> {
   func maximumMinimalizationDepth(recurse times: Int) -> FinalizedPropertyTest<Test> {
     return configLens.looking(at: TestConfig.maximumMinimizationLevelLens).set(self, times)
   }
-  
-  func run(onFailure failure: (String) -> ()) {
+
+  func continueAfterFailure() -> FinalizedPropertyTest<Test> {
+    return configLens.looking(at: TestConfig.continueAfterFailureLens).set(self, true)
+  }
+
+  func minimizeFailingCases(_ shouldMinimize: Bool) -> FinalizedPropertyTest<Test> {
+    return configLens.looking(at: TestConfig.shouldMinimizeLens).set(self, shouldMinimize)
+  }
+
+  func run(onSuccess: (String) -> ()) {
+    if run(onFailure: { _ in }) {
+      onSuccess("\(testName) did not fail to \(invariantDescription)")
+    }
+  }
+
+  @discardableResult
+  func run(onFailure failure: (String) -> ()) -> Bool {
     // two orders of magnitude, until we get smarter generation capabilities
     let minimumTests = config.numberOfTests
     let maximumTests = minimumTests * 100 // two orders of magnitude in case constraints are super specific
@@ -160,21 +168,24 @@ struct FinalizedPropertyTest<Test: Function> {
         logError(error)
         switch error {
         case .argumentRejectedByConstraint:
-          // we skip the `testsRan + 1` line
+          // we skip the `testsRan + 1` line and go 
           continue
         case .returnFailedInvariant(_, let arguments, let invariantDescription):
-          log("Minimizing test case...\n", for: .failures)
-          let minimizedArguments = minimizeFailingTestCase(arguments: arguments)
-          let resultForMinimizedArguments = test.call(with: minimizedArguments)
-          failure("\n\nTest \(testName) failed; \(minimizedArguments.asTuple) -> \(resultForMinimizedArguments)"
-            + " did not \(invariantDescription)\n\n")
-          return
+          if config.shouldMinimize {
+            let minimizedArguments = minimizeFailingTestCase(arguments: arguments)
+            let resultForMinimizedArguments = test.call(with: minimizedArguments)
+            failure("\n\nTest \(testName) failed; \(minimizedArguments.asTuple) -> \(resultForMinimizedArguments)"
+              + " did not \(invariantDescription)\n\n")
+          }
+          if config.continueAfterFailure == false {
+            return false
+          }
         }
       }
       testsRan += 1
       guard testsRan < minimumTests else {
         log("\n\nTest \(testName) completed successfully", for: .successes)
-        return
+        return true
       }
     }
     let failedToGenerateArgumentsTitle = "\n\nTest \(testName) failed; "
@@ -184,9 +195,11 @@ struct FinalizedPropertyTest<Test: Function> {
     an argument to provide your own `Gen` with the existing constraints do not meet your needs.
     """
     failure([failedToGenerateArgumentsTitle, failedToGenerateArgumentsMessage].joined(separator: "\n"))
+    return false
   }
   
   func minimizeFailingTestCase(arguments: Test.Arguments) -> Test.Arguments {
+    log("Minimizing test case...\n", for: .failures)
     let test: (Test.Arguments) -> Bool = { generatedArguments in
       return self.resultPasses(self.test.call(with: generatedArguments),
                                with: generatedArguments,

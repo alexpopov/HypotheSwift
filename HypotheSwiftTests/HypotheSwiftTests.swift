@@ -71,7 +71,6 @@ class HypotheSwiftTests: XCTestCase {
         return String(reversedString.reversed()) == initialString
       }
       .minimumNumberOfTests(count: 100)
-      .log(level: .all)
       .run(onFailure: { XCTFail($0) })
   }
 

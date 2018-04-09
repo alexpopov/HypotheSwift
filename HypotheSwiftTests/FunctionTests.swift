@@ -13,6 +13,10 @@ extension XCTestCase {
   func fail(_ message: String) {
     XCTFail(message)
   }
+
+  func succeed(_ message: String) {
+    XCTAssertTrue(true, message)
+  }
 }
 
 class FunctionTests: XCTestCase {

@@ -99,7 +99,7 @@ class GenTests: XCTestCase {
         ]
       })
       .proving(that: { _ in return true })
-      .run(onFailure: fail)
+      .run(onSuccess: fail)
     
   }
 

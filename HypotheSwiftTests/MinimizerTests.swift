@@ -16,8 +16,8 @@ class MinimizerTests: XCTestCase {
       .withConstraint(that: {
         $0.firstArgument.randomized(by: { $0.random(using: &Xoroshiro.default) + "f" })
       })
-      .proving(that: { $0.firstArgument.count <= 3 })
-      .minimumNumberOfTests(count: 1000)
+      .proving(that: { $0.firstArgument.count <= 4 })
+      .minimumNumberOfTests(count: 100)
       .run(onFailure: fail)
   }
 
@@ -27,6 +27,7 @@ class MinimizerTests: XCTestCase {
         constraintMaker.firstArgument.randomized(by: { string in
           return string.random(ofLength: 100, using: &Xoroshiro.default) + "f"
         })
+          .labeled("Random 100-length strings with the letter appended 'f'")
       })
       .proving(that: { $0.firstArgument.minimizationSize <= 5 })
       .minimumNumberOfTests(count: 100)
