@@ -9,18 +9,36 @@ import Foundation
 import Prelude
 import RandomKit
 
+/// Metatype representing a single argument to some function.
+///
+/// The conforming type must be (at least) pseudo-randomly generatable
+///
+/// Conformers also have the option of providing `minimizationSize` and
+/// `minimizationStrategies` though those are optionally required for
+/// failing test case minimization. `0` and `[]` are adequate no-op values.
 public protocol ArgumentType: Equatable {
+  /// Generator for creating values of Self
   static var gen: Gen<Self> { get }
   typealias Minimization = (Self) -> Self
+  /// Size of self, on an absolute scale, relative to other Selfs
   var minimizationSize: Int { get }
+  /// Homomorphic mappings for reducing the `size` of self.
+  ///
+  /// Think of this as a way of simplying your value, e.g. removing
+  /// characters from a String or reducing an Integer, with the intent of
+  /// identifying the minimal test case which will fail the test.
   func minimizationStrategies() -> [Minimization]
 }
 
 extension Int: ArgumentType {
   public static var gen: Gen<Int> { return Gen<Int>.random() }
-  public var minimizationSize: Int { return Int(log2(Float(self))) }
+  public var minimizationSize: Int { return abs(self) }
   public func minimizationStrategies() -> [(Int) -> Int] {
-    return []
+    return [
+      { $0 / 2 },
+      { $0 - 1},
+      { $0 * -1 }
+    ]
   }
 }
 

@@ -9,15 +9,16 @@ import Foundation
 import Prelude
 import RandomKit
 
-struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
+internal struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
+  
   typealias Constraint = ArgumentConstraint<Arguments>
 
-  let test: (Arguments) -> Bool
-  let maxDepth: Int
-  let arguments: Arguments
-  let constraints: [Constraint]
+  private let test: (Arguments) -> Bool
+  private let maxDepth: Int
+  private let arguments: Arguments
+  private let constraints: [Constraint]
 
-  init(test: @escaping (Arguments) -> Bool,
+  internal init(test: @escaping (Arguments) -> Bool,
        arguments: Arguments,
        constraints: [ArgumentConstraint<Arguments>],
        maxDepth: Int) {
@@ -40,7 +41,7 @@ struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
     return possibleArguments
   }
 
-  func minimize() -> Arguments {
+  internal func minimize() -> Arguments {
     let allMinimizedArgs = minimizeRecursively(depth: 0, arguments: arguments)
     let smallestMinimizedArgs = allMinimizedArgs
       .keepOnlySmallest()
@@ -48,7 +49,7 @@ struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
       .random(using: &Xoroshiro.default) ?? arguments
   }
 
-  func minimizeRecursively(depth: Int, arguments: Arguments) -> [Arguments] {
+  private func minimizeRecursively(depth: Int, arguments: Arguments) -> [Arguments] {
     guard depth < maxDepth else {
       return [arguments]
     }
@@ -84,7 +85,7 @@ struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
   
 }
 
-extension Collection where Element: ArgumentType {
+fileprivate extension Collection where Element: ArgumentType {
   func keepOnlySmallest() -> [Element] {
     guard self.isEmpty == false else { return [] }
     let smallestSize = self
