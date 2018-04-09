@@ -60,20 +60,25 @@ public struct PropertyTest<Test: Function> {
 
 }
 
-struct TestConfig<Test: Function> {
+struct TestConfig {
   var numberOfTests: Int = 100
   var loggingLevel: LoggingLevel = .failures
+  var maximumMinimizationLevel: Int = 3
 
   init() {
 
   }
 
-  static var numberOfTestsLens: SimpleLens<TestConfig<Test>, Int> {
+  static var numberOfTestsLens: SimpleLens<TestConfig, Int> {
     return SimpleLens(keyPath: \TestConfig.numberOfTests)
   }
 
-  static var loggingLevelLens: SimpleLens<TestConfig<Test>, LoggingLevel> {
+  static var loggingLevelLens: SimpleLens<TestConfig, LoggingLevel> {
     return SimpleLens(keyPath: \TestConfig.loggingLevel)
+  }
+
+  static var maximumMinimizationLevelLens: SimpleLens<TestConfig, Int> {
+    return SimpleLens(keyPath: \TestConfig.maximumMinimizationLevel)
   }
 
 }
@@ -104,13 +109,13 @@ struct FinalizedPropertyTest<Test: Function> {
   private let invariant: ProvableInvariant
   private let invariantDescription: String
 
-  fileprivate var config = TestConfig<Test>()
+  fileprivate var config = TestConfig()
 
-  static var configLens: SimpleLens<FinalizedPropertyTest<Test>, TestConfig<Test>> {
+  static var configLens: SimpleLens<FinalizedPropertyTest<Test>, TestConfig> {
     return SimpleLens(keyPath: \FinalizedPropertyTest.config)
   }
 
-  var configLens: SimpleLens<FinalizedPropertyTest<Test>, TestConfig<Test>> {
+  var configLens: SimpleLens<FinalizedPropertyTest<Test>, TestConfig> {
     return FinalizedPropertyTest.configLens
   }
 
@@ -132,6 +137,10 @@ struct FinalizedPropertyTest<Test: Function> {
   
   func minimumNumberOfTests(count: Int) -> FinalizedPropertyTest<Test> {
     return configLens.looking(at: TestConfig.numberOfTestsLens).set(self, count)
+  }
+
+  func maximumMinimalizationDepth(recurse times: Int) -> FinalizedPropertyTest<Test> {
+    return configLens.looking(at: TestConfig.maximumMinimizationLevelLens).set(self, times)
   }
   
   func run(onFailure failure: (String) -> ()) {
@@ -178,23 +187,16 @@ struct FinalizedPropertyTest<Test: Function> {
   }
   
   func minimizeFailingTestCase(arguments: Test.Arguments) -> Test.Arguments {
-    return minimizeRecursively(depth: 0, arguments: arguments)
-      .random(using: &Xoroshiro.default) ?? arguments
-  }
-  
-  func minimizeRecursively(depth: Int, arguments: Test.Arguments) -> [Test.Arguments] {
-    guard depth < 8 else { return [arguments] }
-    let minimizer = Minimizer(arguments: arguments, constraints: constraints)
-    let minimizedArguments = minimizer.minimize()
-    let stillFailingArguments = minimizedArguments
-      .filter { arguments in
-        let result = test.call(with: arguments)
-        return resultPasses(result, with: arguments, against: invariant) == false
-      }
-    guard stillFailingArguments.isEmpty == false else { return [arguments] }
-    let recursiveCalls = stillFailingArguments
-      .flatMap { minimizeRecursively(depth: depth + 1, arguments: $0) }
-    return recursiveCalls
+    let test: (Test.Arguments) -> Bool = { generatedArguments in
+      return self.resultPasses(self.test.call(with: generatedArguments),
+                               with: generatedArguments,
+                               against: self.invariant)
+    }
+    return Minimizer(test: test,
+                     arguments: arguments,
+                     constraints: constraints,
+                     maxDepth: config.maximumMinimizationLevel)
+      .minimize()
   }
 
   private func run(test: Test,

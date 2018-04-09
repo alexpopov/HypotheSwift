@@ -67,12 +67,12 @@ extension String: ArgumentType {
   public static var gen: Gen<String> {
     return Gen<String>.random()
   }
-  
+
   public var minimizationSize: Int { return count }
 
   public func minimizationStrategies() -> [Minimization] {
     guard self.isEmpty == false else { return [] }
-    let maximumIndicesToRemove = indices.count < 20 ? indices.count : indices.count / 2
+    let maximumIndicesToRemove = Int(log2(Float(indices.count)))
     let randomIndices = Array(indices).randomSlice(count: maximumIndicesToRemove, using: &Xoroshiro.default)
     let removeRandomCharacters: [Minimization] = randomIndices.map { index in { $0.removing(at: index) } }
     return removeRandomCharacters
