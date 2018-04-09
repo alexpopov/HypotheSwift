@@ -21,9 +21,15 @@ class MinimizerTests: XCTestCase {
     }
     testThat(minimizer, will: "find a minimized case with 3 characters or less")
       .withConstraint(that: {
-        $0.firstArgument.randomized(by: { $0.random(using: &Xoroshiro.default) + "f" })
+        $0.firstArgument.randomized(by: {
+          let string = $0.random(using: &Xoroshiro.default) + "f"
+          if string.contains("f") == false { fatalError() }
+          return string
+        })
       })
       .proving(that: { $0.firstArgument.count <= 3 })
+      .log(level: .successes)
+      .minimumNumberOfTests(count: 10000)
       .run(onFailure: fail)
   }
 
@@ -31,10 +37,11 @@ class MinimizerTests: XCTestCase {
     testThat(MinimizerTests.minimizerCreator, will: "generate a sufficiently small minimized case")
       .withConstraint(that: { constraintMaker in
         constraintMaker.firstArgument.randomized(by: { string in
-          return string.random(ofLength: 100, using: &Xoroshiro.default)
+          return string.random(ofLength: 100, using: &Xoroshiro.default) + "f"
         })
       })
       .proving(that: { $0.firstArgument.minimizationSize <= 5 })
+      .minimumNumberOfTests(count: 1000)
       .run(onFailure: fail)
   }
 
