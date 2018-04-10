@@ -39,7 +39,7 @@ class HypotheSwiftTests: XCTestCase {
   }
   
   func testBinaryFunctionReturns() {
-    testThat(self.helper.additionFunction, will: "make the result bigger than or equal to the original two arguments")
+    testThat(self.helper.additionFunction, will: "make the result bigger than, or equal to, the original two arguments")
       .withConstraints {
         [
           $0.firstArgument.must(beIn: (0...100)),

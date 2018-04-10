@@ -75,8 +75,6 @@ internal class Minimizer<Arguments> where Arguments: ArgumentEnumerable {
       at: depth, as: .all)
     // if we have no smaller arguments recurse, increasing recursion depth
     //
-    // if we only have one smaller failing argument, just return that one, since it might even be the smallest
-    //
     // but if we DO have smaller arguments, just keep rolling with those without increasing depth
     // since we know we're moving in the right direction
     if smallestFailingArguments.isEmpty {
@@ -89,9 +87,6 @@ internal class Minimizer<Arguments> where Arguments: ArgumentEnumerable {
           .randomSlice(count: depth + 1, using: &Xoroshiro.default)
           .flatMap { minimizeRecursively(depth: depth + 1, arguments: $0) }
       }
-    } else if smallestFailingArguments.count == 1 {
-      log("We've got good arguments: \(smallestFailingArguments[0])", at: depth, as: .all)
-      return minimizeRecursively(depth: depth + 1, arguments: smallestFailingArguments[0])
     } else {
       // don't recurse out of control; there's no point if we have smaller arguments
       // randomly choose some reasonable `n` out of the smallest test cases

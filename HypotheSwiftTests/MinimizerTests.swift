@@ -16,7 +16,7 @@ class MinimizerTests: XCTestCase {
       .withConstraint(that: {
         $0.firstArgument.randomized(by: { $0.random(using: &Xoroshiro.default) + "f" })
       })
-      .proving(that: { $0.firstArgument.count <= 4 })
+      .proving(that: { $0.firstArgument.count <= 3 })
       .minimumNumberOfTests(count: 100)
       .run(onFailure: fail)
   }
@@ -64,9 +64,10 @@ class MinimizerTests: XCTestCase {
     let test: (OneArgument<String>) -> Bool = {
       brokenStringReverser(input: $0.firstArgument) == String($0.firstArgument.reversed())
     }
+    let constraint = ConstraintMaker<OneArgument<String>>().firstArgument.must(meet: { $0.contains("f") })
     let minimizer = Minimizer<OneArgument<String>>(test: test,
                                                    arguments: OneArgument(tuple: argument),
-                                                   constraints: [],
+                                                   constraints: [constraint],
                                                    maxDepth: 4)
     return minimizer.minimize()
   }
