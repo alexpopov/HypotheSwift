@@ -16,7 +16,7 @@ import RandomKit
 /// Conformers also have the option of providing `minimizationSize` and
 /// `minimizationStrategies` though those are optionally required for
 /// failing test case minimization. `0` and `[]` are adequate no-op values.
-public protocol ArgumentType: Equatable {
+public protocol ArgumentType: Hashable {
   /// Generator for creating values of Self
   static var gen: Gen<Self> { get }
   typealias Minimization = (Self) -> Self
@@ -36,8 +36,7 @@ extension Int: ArgumentType {
   public func minimizationStrategies() -> [(Int) -> Int] {
     return [
       { $0 / 2 },
-      { $0 - 1},
-      { $0 * -1 }
+      { $0 - 1}
     ]
   }
 }
@@ -64,6 +63,10 @@ extension Bool: ArgumentType {
   public func minimizationStrategies() -> [(Bool) -> Bool] {
     return []
   }
+}
+
+extension Array: Hashable where Element: Hashable {
+  public var hashValue: Int { return reduce(1_006_879) { $0 ^ $1.hashValue } }
 }
 
 extension Array: ArgumentType where Element: ArgumentType {

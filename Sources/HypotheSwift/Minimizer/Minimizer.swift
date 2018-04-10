@@ -9,7 +9,7 @@ import Foundation
 import Prelude
 import RandomKit
 
-internal struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
+internal class Minimizer<Arguments> where Arguments: ArgumentEnumerable {
   
   typealias Constraint = ArgumentConstraint<Arguments>
 
@@ -18,6 +18,8 @@ internal struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
   private let arguments: Arguments
   private let constraints: [Constraint]
   private let logLevel: LoggingLevel
+  
+  var previouslyTested = Set<Arguments>()
 
   internal init(test: @escaping (Arguments) -> Bool,
                 arguments: Arguments,
@@ -59,14 +61,15 @@ internal struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
       return [arguments]
     }
     let minimizedArguments = minimize(argument: arguments)
+      .filter(Bool.negate(previouslyTested.contains))
+    minimizedArguments.forEach { _ = previouslyTested.insert($0) }
     let stillFailingArguments = minimizedArguments
-      .lazy
-      .filter( { self.test($0) == false })
-//      .filter { $0.minimizationSize < arguments.minimizationSize }
+      .filter { self.test($0) == false }
+      .filter { $0.minimizationSize < arguments.minimizationSize }
+      .unique()
     log("Minimized arguments: \(minimizedArguments.map { $0.asTuple })",
       at: depth, as: .all)
     let smallestFailingArguments = stillFailingArguments
-      .filter { $0.minimizationSize < arguments.minimizationSize }
       .keepOnlySmallest()
     log("Removed large arguments: \(smallestFailingArguments.map { $0.asTuple })",
       at: depth, as: .all)
@@ -82,7 +85,9 @@ internal struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
         return minimizeRecursively(depth: depth + 1, arguments: arguments)
       } else {
         log("We will recurse deeper.", at: depth, as: .all)
-        return stillFailingArguments.flatMap { minimizeRecursively(depth: depth + 1, arguments: $0) }
+        return Array(stillFailingArguments)
+          .randomSlice(count: depth + 1, using: &Xoroshiro.default)
+          .flatMap { minimizeRecursively(depth: depth + 1, arguments: $0) }
       }
     } else if smallestFailingArguments.count == 1 {
       log("We've got good arguments: \(smallestFailingArguments[0])", at: depth, as: .all)
@@ -97,10 +102,10 @@ internal struct Minimizer<Arguments> where Arguments: ArgumentEnumerable {
     }
   }
   
-  private func log(_ message: String, at depth: Int, as level: LoggingLevel) {
+  private func log(_ message: @autoclosure () -> String, at depth: Int, as level: LoggingLevel) {
     guard level <= logLevel else { return }
     let indent = Array(repeating: "  ", count: depth).joined()
-    print(indent + message)
+    print(indent + message())
   }
   
 }
@@ -112,5 +117,17 @@ fileprivate extension Collection where Element: ArgumentType {
       .sorted(by: { $0.minimizationSize < $1.minimizationSize })
       .first!.minimizationSize
     return self.filter { $0.minimizationSize <= smallestSize }
+  }
+  
+  func unique() -> [Element] {
+    var buffer = [Element]()
+    var added = Set<Element>()
+    for elem in self {
+      if !added.contains(elem) {
+        buffer.append(elem)
+        added.insert(elem)
+      }
+    }
+    return buffer
   }
 }

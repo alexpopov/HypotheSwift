@@ -21,5 +21,9 @@ extension Bool {
     }
     return false
   }
+  
+  static func negate<T>(_ bool: @escaping (T) -> Bool) -> (T) -> Bool {
+    return { !bool($0) }
+  }
 
 }

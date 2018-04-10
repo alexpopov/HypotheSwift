@@ -39,8 +39,6 @@ class MinimizerTests: XCTestCase {
     testThat(MinimizerTests.integerMinimizerCreator(left:right:), will: "keep its minimized arguments between 33 and 1000")
       .withConstraints {
         [
-          // these ranges are bigger on purpose so that we can flag down
-          // if the minimizer spits out something smaller than 33
           $0.firstArgument.must(beIn: range),
           $0.secondArgument.must(beIn: range)
         ]
@@ -50,7 +48,7 @@ class MinimizerTests: XCTestCase {
         let secondInRange = range.contains($0.secondArgument)
         return firstInRange && secondInRange
       })
-      .minimumNumberOfTests(count: 10)
+      .minimumNumberOfTests(count: 100)
       .run(onFailure: fail)
   }
 
