@@ -16,22 +16,89 @@ class MinimizerTests: XCTestCase {
       .withConstraint(that: {
         $0.firstArgument.randomized(by: { $0.random(using: &Xoroshiro.default) + "f" })
       })
-      .proving(that: { $0.firstArgument.count <= 3 })
+      .proving(that: { $0.firstArgument.count <= 2 })
       .minimumNumberOfTests(count: 100)
       .run(onFailure: fail)
   }
+  
+  func testMeaseStringMinimization10() {
+    self.measure {
+      testThat(MinimizerTests.stringMinimizerCreator, will: "find a minimized case with 3 characters or less")
+        .withConstraint(that: {
+          $0.firstArgument.randomized(by: { $0.random(using: &Xoroshiro.default) + "f" })
+        })
+        .proving(that: { $0.firstArgument.count <= 2 })
+        .minimumNumberOfTests(count: 1)
+        .run(onFailure: fail)
+    }
+  }
+  
+  func testMeaseStringMinimization100() {
+    self.measure {
+      testThat(MinimizerTests.stringMinimizerCreator, will: "find a minimized case with 3 characters or less")
+        .withConstraint(that: {
+          $0.firstArgument.randomized(by: { $0.random(ofLength: 100, using: &Xoroshiro.default) + "f" })
+        })
+        .proving(that: { $0.firstArgument.count <= 4 })
+        .minimumNumberOfTests(count: 1)
+        .run(onFailure: fail)
+    }
+  }
 
+  func testMeaseStringMinimization1000() {
+    self.measure {
+      testThat(MinimizerTests.stringMinimizerCreator, will: "find a minimized case with 3 characters or less")
+        .withConstraint(that: {
+          $0.firstArgument.randomized(by: { $0.random(ofLength: 1000, using: &Xoroshiro.default) + "f" })
+        })
+        .proving(that: { $0.firstArgument.count <= 4 })
+        .minimumNumberOfTests(count: 1)
+        .run(onFailure: fail)
+    }
+  }
+  
   func testStringMinimizationWorksOnLargeStrings() {
     testThat(MinimizerTests.stringMinimizerCreator, will: "generate a sufficiently small minimized case")
       .withConstraint(that: { constraintMaker in
         constraintMaker.firstArgument.randomized(by: { string in
-          return string.random(ofLength: 100, using: &Xoroshiro.default) + "f"
+          return string.random(using: &Xoroshiro.default) + "f"
         })
           .labeled("Random 100-length strings with the letter appended 'f'")
       })
       .proving(that: { $0.firstArgument.minimizationSize <= 5 })
       .minimumNumberOfTests(count: 100)
       .run(onFailure: fail)
+  }
+  
+  func testStringMinimizationPercentages() {
+    var in2 = 0
+    var in3 = 0
+    var in4 = 0
+    testThat(MinimizerTests.stringMinimizerCreator, will: "generate a sufficiently small minimized case")
+      .withConstraint(that: { constraintMaker in
+        constraintMaker.firstArgument.randomized(by: { string in
+          return string.random(ofLength: 49, using: &Xoroshiro.default) + "f"
+        })
+          .labeled("Random 100-length strings with the letter appended 'f'")
+      })
+      .proving(that: {
+        if $0.firstArgument.count <= 2 {
+          in2 += 1
+        }
+        if $0.firstArgument.count <= 3 {
+          in3 += 1
+        }
+        if $0.firstArgument.count <= 4 {
+          in4 += 1
+        }
+        return $0.firstArgument.count <= 2
+      })
+      .minimumNumberOfTests(count: 5000)
+      .log(level: .none)
+      .minimizeFailingCases(false)
+      .continueAfterFailure()
+      .run(onFailure: fail)
+    NSLog("In 2: \(in2), In3: \(in3), In4: \(in4)")
   }
   
   func testGeneratorConstraintsRespected() {

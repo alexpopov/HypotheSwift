@@ -93,6 +93,7 @@
 		B0C42F9D207C1AFB007707BB /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F9C207C1AFB007707BB /* ConstraintMaker.swift */; };
 		B0C42F9E207C1AFB007707BB /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F9C207C1AFB007707BB /* ConstraintMaker.swift */; };
 		B0C42FAB207C2780007707BB /* ShiftOperations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E342077D3B7004D5F79 /* ShiftOperations.framework */; };
+		B0FE9145207C85AF00C8A5C0 /* RandomKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FE9144207C85AF00C8A5C0 /* RandomKitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,7 @@
 		B0C42F96207C1A60007707BB /* SingleArgumentConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleArgumentConstraint.swift; sourceTree = "<group>"; };
 		B0C42F99207C1AA5007707BB /* MultiArgumentConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiArgumentConstraint.swift; sourceTree = "<group>"; };
 		B0C42F9C207C1AFB007707BB /* ConstraintMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintMaker.swift; sourceTree = "<group>"; };
+		B0FE9144207C85AF00C8A5C0 /* RandomKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomKitTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,6 +278,7 @@
 		B094E4A120740B87005D559E /* HypotheSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				B0FE9144207C85AF00C8A5C0 /* RandomKitTests.swift */,
 				B0523850207BB55200C7F336 /* MinimizerTests.swift */,
 				B0C42F8B207ADA7D007707BB /* GenTests.swift */,
 				B0C42F89207ACB8D007707BB /* FunctionTests.swift */,
@@ -686,6 +689,7 @@
 				B094E4A320740B87005D559E /* HypotheSwiftTests.swift in Sources */,
 				B0C42F8A207ACB8D007707BB /* FunctionTests.swift in Sources */,
 				B0523851207BB55200C7F336 /* MinimizerTests.swift in Sources */,
+				B0FE9145207C85AF00C8A5C0 /* RandomKitTests.swift in Sources */,
 				B0C42F8C207ADA7D007707BB /* GenTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1108,6 +1112,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = HypotheSwiftTests/Info.plist;

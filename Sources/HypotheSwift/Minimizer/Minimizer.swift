@@ -39,8 +39,7 @@ internal class Minimizer<Arguments> where Arguments: ArgumentEnumerable {
       .lazy
       .map { $0(argument) }
       .filter { ConstraintUtils.does($0, pass: self.constraints) }
-      // removing duplicates
-      .reduce([Arguments](), { $0.contains($1) ? $0 : $0.appending($1) })
+      .unique()
       .filter { $0.minimizationSize < argument.minimizationSize }
       // try to only leave those that are smaller
     return possibleArguments

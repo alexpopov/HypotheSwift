@@ -92,11 +92,14 @@ public struct RunnablePropertyTest<Test: Function> {
         case .argumentRejectedByConstraint:
           // we skip the `testsRan + 1` line and go
           continue
-        case .returnFailedInvariant(_, let arguments, let invariantDescription):
+        case .returnFailedInvariant(let result, let arguments, let invariantDescription):
           if config.shouldMinimize {
             let minimizedArguments = minimizeFailingTestCase(arguments: arguments)
             let resultForMinimizedArguments = test.call(with: minimizedArguments)
             failure("\n\nTest \(testName) failed; \(minimizedArguments.asTuple) -> \(resultForMinimizedArguments)"
+              + " did not \(invariantDescription)\n\n")
+          } else {
+            failure("\n\nTest \(testName) failed; \(arguments.asTuple) -> \(result)"
               + " did not \(invariantDescription)\n\n")
           }
           if config.continueAfterFailure == false {

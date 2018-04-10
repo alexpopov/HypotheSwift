@@ -38,6 +38,94 @@ class HypotheSwiftTests: XCTestCase {
       .run(onFailure: fail)
   }
   
+  func testMeasureUnaryAdditionWithoutHypotheSwift() {
+    self.measure {
+      for count in (0..<1000) {
+        helper.unaryFunctionAddingOne(count)
+      }
+    }
+  }
+  
+  func testMeasureUnaryAdditionWithHypotheSwift() {
+    self.measure {
+      testThat(helper.unaryFunctionAddingOne, will: "always be positive for non-negative inputs")
+        .withConstraint {
+          $0.firstArgument.must(beIn: (0...1000))
+        }
+        .proving(that: { $0 > 0 })
+        .minimumNumberOfTests(count: 1000)
+        .run(onFailure: fail)
+    }
+  }
+  
+  func testMeasureUnaryAdditionWithoutHypotheSwiftOnce() {
+    self.measure {
+      for count in (0..<1) {
+        _ = helper.unaryFunctionAddingOne(count)
+      }
+    }
+  }
+  
+  func testMeasureSortingFunctionWithoutHypotheSwift() {
+    self.measure {
+      for count in (0..<100) {
+        let array = [Int](randomCount: 100, in: (0..<1000), using: &Xoroshiro.default)
+        let sortedArray = array.sorted()
+        XCTAssertEqual(sortedArray, sortedArray.sorted())
+      }
+    }
+  }
+  
+  func testMeasureSortingFunctionWithHypotheSwift() {
+    self.measure {
+      testThat(Array<Int>.sorted, will: "produce an identical array if sorted again")
+        .withConstraint(that: {
+          $0.firstArgument.produced(by: Gen(generator: {
+            return [Int](randomCount: 100, in: (0..<1000), using: &Xoroshiro.default)
+          }))
+        })
+        .proving { $0.sorted() == $0 }
+        .minimumNumberOfTests(count: 100)
+        .run(onFailure: fail)
+    }
+  }
+  
+  func testMeasureSortingFunctionWithoutHypotheSwiftThousand() {
+    self.measure {
+      for count in (0..<1000) {
+        let array = [Int](randomCount: 100, in: (0..<1000), using: &Xoroshiro.default)
+        let sortedArray = array.sorted()
+        XCTAssertEqual(sortedArray, sortedArray.sorted())
+      }
+    }
+  }
+  
+  func testMeasureSortingFunctionWithHypotheSwiftThousand() {
+    self.measure {
+      testThat(Array<Int>.sorted, will: "produce an identical array if sorted again")
+        .withConstraint(that: {
+          $0.firstArgument.produced(by: Gen(generator: {
+            return [Int](randomCount: 100, in: (0..<1000), using: &Xoroshiro.default)
+          }))
+        })
+        .proving { $0.sorted() == $0 }
+        .minimumNumberOfTests(count: 1000)
+        .run(onFailure: fail)
+    }
+  }
+
+  
+  func testMeasureUnaryAdditionWithHypotheSwiftOnce() {
+    self.measure {
+      testThat(helper.unaryFunctionAddingOne, will: "always be positive for non-negative inputs")
+        .withConstraint {
+          $0.firstArgument.must(beIn: (0...1000))
+        }
+        .proving(that: { $0 > 0 })
+        .minimumNumberOfTests(count: 1)
+        .run(onFailure: fail)
+    }
+  }
   func testBinaryFunctionReturns() {
     testThat(self.helper.additionFunction, will: "make the result bigger than, or equal to, the original two arguments")
       .withConstraints {
