@@ -44,7 +44,7 @@ extension Int: ArgumentType {
 
 extension Float: ArgumentType {
   public static var gen: Gen<Float> { return Gen<Float>.random() }
-  public var minimizationSize: Int { return Int(log2(self)) }
+  public var minimizationSize: Int { return Int(self) }
   public func minimizationStrategies() -> [(Float) -> Float] {
     return []
   }
@@ -52,7 +52,7 @@ extension Float: ArgumentType {
 
 extension Double: ArgumentType {
   public static var gen: Gen<Double> { return Gen<Double>.random() }
-  public var minimizationSize: Int { return Int(log2(self)) }
+  public var minimizationSize: Int { return Int(self) }
   public func minimizationStrategies() -> [(Double) -> Double] {
     return []
   }
@@ -77,7 +77,10 @@ extension Array: ArgumentType where Element: ArgumentType {
   }
   public var minimizationSize: Int { return count }
   public func minimizationStrategies() -> [(Array<Element>) -> Array<Element>] {
-    return []
+    let maximumIndicesToRemove = Int(log2(Float(indices.count)))
+    let randomIndices = (0...maximumIndicesToRemove).map { _ in Int.random(in: indices, using: &Xoroshiro.default) ?? 0 }
+    let removeRandomElements: [Minimization] = randomIndices.map { index in { $0.removing(at: index) } }
+    return removeRandomElements
   }
 }
 

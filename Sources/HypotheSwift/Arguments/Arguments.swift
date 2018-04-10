@@ -109,9 +109,15 @@ public struct TwoArguments<T, U>: SupportsTwoArguments where T: ArgumentType, U:
     return lhs.asTuple == rhs.asTuple
   }
 
-  public var minimizationSize: Int { return 0 }
+  public var minimizationSize: Int { return firstArgument.minimizationSize + secondArgument.minimizationSize }
   public func minimizationStrategies() -> [(TwoArguments<T, U>) -> TwoArguments<T, U>] {
-    return []
+    let firstArgumentMinimization = firstArgument.minimizationStrategies()
+      .map { $0(firstArgument) }
+      .map(TwoArguments.firstArgumentLens.setting)
+    let secondArgumentMinimization = secondArgument.minimizationStrategies()
+      .map { $0(secondArgument) }
+      .map(TwoArguments.secondArgumentLens.setting)
+    return firstArgumentMinimization + secondArgumentMinimization
   }
 
 }

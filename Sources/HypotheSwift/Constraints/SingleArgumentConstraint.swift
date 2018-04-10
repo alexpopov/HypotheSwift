@@ -14,8 +14,8 @@ where T: ArgumentType, Arguments: ArgumentEnumerable {
   
   typealias ConstraintTarget = T
   typealias Rejector = (Arguments) -> Bool
-  typealias GeneratorConstraint = (Gen<Arguments>) -> Gen<Arguments>
-  
+  typealias GeneratorConstraint = ArgumentConstraint<Arguments>.GeneratorConstraint
+
   fileprivate let argumentLens: SimpleLens<Arguments, T>
   
   fileprivate var noopRejector: (Arguments) -> Bool {
@@ -37,8 +37,11 @@ where T: ArgumentType, Arguments: ArgumentEnumerable {
   }
   
   public func must(be value: T) -> ArgumentConstraint<Arguments> {
+    let generatorType = GeneratorConstraintType<Arguments>.mustBe({ self.argumentLens.get($0) != value })
     let generator: GeneratorConstraint = { $0.map { self.argumentLens.set($0, value) } }
-    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: generator)
+    return ArgumentConstraint(rejector: noopRejector,
+                              generatorConstraint: generator,
+                              generatorType: generatorType)
   }
   
   public func must(meet predicate: @escaping (T) -> Bool) -> ArgumentConstraint<Arguments> {
@@ -64,7 +67,10 @@ extension SingleArgumentConstraint where T: Strideable, T: RandomInClosedRange {
       let newTInRange = Gen<T>.from(range).getAnother()
       return self.argumentLens.set(oldArgs, newTInRange)
     }
-    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: { $0.map(generator) })
+    let generatorType = GeneratorConstraintType.inRange({ range.contains(self.argumentLens.get($0)) })
+    return ArgumentConstraint(rejector: noopRejector,
+                              generatorConstraint: { $0.map(generator) },
+                              generatorType: generatorType)
   }
 }
 
@@ -75,7 +81,8 @@ extension SingleArgumentConstraint where T: Random {
       let randomT = randomGenerator(T.self)
       return self.argumentLens.set(oldArgs, randomT)
     }
-    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: { $0.map(generator) })
+    return ArgumentConstraint(rejector: noopRejector,
+                              generatorConstraint: { $0.map(generator) })
   }
 }
 
@@ -86,7 +93,10 @@ extension SingleArgumentConstraint where T: Strideable, T.Stride: SignedInteger,
       let newTInRange = Gen<T>.from(range).getAnother()
       return self.argumentLens.set(oldArgs, newTInRange)
     }
-    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: { $0.map(generator) })
+    let generatorType = GeneratorConstraintType.inRange({ range.contains(self.argumentLens.get($0)) })
+    return ArgumentConstraint(rejector: noopRejector,
+                              generatorConstraint: { $0.map(generator) },
+                              generatorType: generatorType)
   }
   
 }
@@ -100,6 +110,9 @@ where T: Strideable, T: RandomInRange, T.Stride: SignedInteger {
       return self.argumentLens.set(oldArgs, newTInRange)
       }
     }
-    return ArgumentConstraint(rejector: noopRejector, generatorConstraint: generator)
+    let generatorType = GeneratorConstraintType.inRange({ range.contains(self.argumentLens.get($0)) })
+    return ArgumentConstraint(rejector: noopRejector,
+                              generatorConstraint: generator,
+                              generatorType: generatorType)
   }
 }

@@ -17,7 +17,6 @@
 		B0099B162075AD9C0080AB72 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
 		B0105E212077C6D6004D5F79 /* Gen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0105E202077C6D6004D5F79 /* Gen.swift */; };
 		B0105E222077C9DB004D5F79 /* Gen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0105E202077C6D6004D5F79 /* Gen.swift */; };
-		B0105E372077D3B7004D5F79 /* ShiftOperations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E342077D3B7004D5F79 /* ShiftOperations.framework */; };
 		B0105E382077D3B7004D5F79 /* Threadly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E352077D3B7004D5F79 /* Threadly.framework */; };
 		B0105E392077D3B7004D5F79 /* RandomKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E362077D3B7004D5F79 /* RandomKit.framework */; };
 		B0265F5E2077233100B6BABE /* IxMultiStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0265F512077233100B6BABE /* IxMultiStore.swift */; };
@@ -49,7 +48,6 @@
 		B0523851207BB55200C7F336 /* MinimizerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0523850207BB55200C7F336 /* MinimizerTests.swift */; };
 		B056CBBE2077E8CE000CF005 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
 		B056CBBF2077E8CE000CF005 /* RandomKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E362077D3B7004D5F79 /* RandomKit.framework */; };
-		B056CBC02077E8CE000CF005 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
 		B056CBC12077E8CE000CF005 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
 		B056CBC22077E8CE000CF005 /* ShiftOperations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E342077D3B7004D5F79 /* ShiftOperations.framework */; };
 		B056CBC32077E8CE000CF005 /* Threadly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E352077D3B7004D5F79 /* Threadly.framework */; };
@@ -63,7 +61,6 @@
 		B094E4A320740B87005D559E /* HypotheSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094E4A220740B87005D559E /* HypotheSwiftTests.swift */; };
 		B094E4A520740B87005D559E /* HypotheSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0968A01ED8CE5500CC19F2 /* HypotheSwift.framework */; };
 		B09BDF412073F1D9000F6922 /* Prelude.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF402073F1D9000F6922 /* Prelude.framework */; };
-		B09BDF432073F1DC000F6922 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF422073F1DC000F6922 /* ReactiveSwift.framework */; };
 		B09BDF452073F1E0000F6922 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09BDF442073F1E0000F6922 /* Result.framework */; };
 		B09BDF512073FD4C000F6922 /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* PropertyTest.swift */; };
 		B09BDF522073FD4C000F6922 /* PropertyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B09BDF502073FD4C000F6922 /* PropertyTest.swift */; };
@@ -95,8 +92,7 @@
 		B0C42F9B207C1AA5007707BB /* MultiArgumentConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F99207C1AA5007707BB /* MultiArgumentConstraint.swift */; };
 		B0C42F9D207C1AFB007707BB /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F9C207C1AFB007707BB /* ConstraintMaker.swift */; };
 		B0C42F9E207C1AFB007707BB /* ConstraintMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C42F9C207C1AFB007707BB /* ConstraintMaker.swift */; };
-		B0C42FA8207C1D80007707BB /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5A76811ED963E1004F87A2 /* Package.swift */; };
-		B0C42FA9207C1D80007707BB /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C5A76811ED963E1004F87A2 /* Package.swift */; };
+		B0C42FAB207C2780007707BB /* ShiftOperations.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0105E342077D3B7004D5F79 /* ShiftOperations.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,8 +114,7 @@
 		8C0968AC1ED8D80300CC19F2 /* Info-watchOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-watchOS.plist"; sourceTree = "<group>"; };
 		8C4520A71F08E159002F0E38 /* HypotheSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HypotheSwift.swift; sourceTree = "<group>"; };
 		8C5A76751ED95A50004F87A2 /* HypotheSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HypotheSwift.h; sourceTree = "<group>"; };
-		8C5A76811ED963E1004F87A2 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		8C800AF41F3B56FF00880A95 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "Sources/HypotheSwift/New Group/README.md"; sourceTree = SOURCE_ROOT; };
+		8C800AF41F3B56FF00880A95 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = "Sources/HypotheSwift/Additional Files/README.md"; sourceTree = SOURCE_ROOT; };
 		B0105E202077C6D6004D5F79 /* Gen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gen.swift; sourceTree = "<group>"; };
 		B0105E342077D3B7004D5F79 /* ShiftOperations.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ShiftOperations.framework; path = Carthage/Build/Mac/ShiftOperations.framework; sourceTree = "<group>"; };
 		B0105E352077D3B7004D5F79 /* Threadly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Threadly.framework; path = Carthage/Build/Mac/Threadly.framework; sourceTree = "<group>"; };
@@ -188,9 +183,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B09BDF412073F1D9000F6922 /* Prelude.framework in Frameworks */,
-				B09BDF432073F1DC000F6922 /* ReactiveSwift.framework in Frameworks */,
-				B0105E372077D3B7004D5F79 /* ShiftOperations.framework in Frameworks */,
 				B0105E382077D3B7004D5F79 /* Threadly.framework in Frameworks */,
+				B0C42FAB207C2780007707BB /* ShiftOperations.framework in Frameworks */,
 				B0105E392077D3B7004D5F79 /* RandomKit.framework in Frameworks */,
 				B09BDF452073F1E0000F6922 /* Result.framework in Frameworks */,
 			);
@@ -204,7 +198,6 @@
 				B056CBC52077E8CE000CF005 /* HypotheSwift.framework in Frameworks */,
 				B056CBBE2077E8CE000CF005 /* Prelude.framework in Frameworks */,
 				B056CBBF2077E8CE000CF005 /* RandomKit.framework in Frameworks */,
-				B056CBC02077E8CE000CF005 /* ReactiveSwift.framework in Frameworks */,
 				B056CBC12077E8CE000CF005 /* Result.framework in Frameworks */,
 				B056CBC22077E8CE000CF005 /* ShiftOperations.framework in Frameworks */,
 				B056CBC32077E8CE000CF005 /* Threadly.framework in Frameworks */,
@@ -398,7 +391,6 @@
 			isa = PBXGroup;
 			children = (
 				8C0968A91ED8D80300CC19F2 /* Info-iOS.plist */,
-				8C5A76811ED963E1004F87A2 /* Package.swift */,
 				8C0968AA1ED8D80300CC19F2 /* Info-macOS.plist */,
 				8C0968AB1ED8D80300CC19F2 /* Info-tvOS.plist */,
 				8C0968AC1ED8D80300CC19F2 /* Info-watchOS.plist */,
@@ -635,7 +627,6 @@
 				B0265F6C2077233100B6BABE /* Protocols.swift in Sources */,
 				B09D57A22077F79100CCF149 /* UtilityFunctions.swift in Sources */,
 				B0265F762077233100B6BABE /* Lens.swift in Sources */,
-				B0C42FA9207C1D80007707BB /* Package.swift in Sources */,
 				B0B4A7A6207BB73900BE8381 /* String+Utilities.swift in Sources */,
 				B0C42F91207C15EC007707BB /* RunnablePropertyTest.swift in Sources */,
 				B065FB4920753A6B00572691 /* Focus.swift in Sources */,
@@ -674,7 +665,6 @@
 				B0265F6D2077233100B6BABE /* Protocols.swift in Sources */,
 				B09D57A32077F79100CCF149 /* UtilityFunctions.swift in Sources */,
 				B0265F772077233100B6BABE /* Lens.swift in Sources */,
-				B0C42FA8207C1D80007707BB /* Package.swift in Sources */,
 				B0B4A7A7207BB73900BE8381 /* String+Utilities.swift in Sources */,
 				B0C42F92207C15F1007707BB /* RunnablePropertyTest.swift in Sources */,
 				B065FB4A20753A6B00572691 /* Focus.swift in Sources */,
@@ -831,7 +821,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Sources/info-iOS.plist";
+				INFOPLIST_FILE = "Sources/Additional Files/info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -895,7 +885,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "Sources/info-iOS.plist";
+				INFOPLIST_FILE = "Sources/Additional Files/info-iOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -965,7 +955,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/HypotheSwift/Info-macOS.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/HypotheSwift/Additional Files/Info-macOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
@@ -1029,7 +1019,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/HypotheSwift/Info-macOS.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Sources/HypotheSwift/Additional Files/Info-macOS.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;

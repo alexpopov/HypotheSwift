@@ -159,7 +159,8 @@ public struct RunnablePropertyTest<Test: Function> {
     return Minimizer(test: test,
                      arguments: arguments,
                      constraints: constraints,
-                     maxDepth: config.maximumMinimizationLevel)
+                     maxDepth: config.maximumMinimizationLevel,
+                     logLevel: config.loggingLevel)
       .minimize()
   }
   
